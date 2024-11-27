@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@drawable/border_round_greystroke_whitebody"
+        android:padding="@dimen/_16sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor16"
+            android:id="@+id/strengthChartHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.sisindia.ai.android.commons.graph.RoundedBarChart
+            android:id="@+id/strengthBarChart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_140sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/strengthChartHeader" />
+
+        <!--<TextView
+            android:id="@+id/legendActual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:drawableStart="@drawable/ic_circle_orange"
+            android:drawablePadding="@dimen/_3sdp"
+            android:gravity="end"
+            android:text="@string/string_actual"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@id/legendAuthorized"
+            app:layout_constraintTop_toBottomOf="@id/strengthBarChart" />
+
+        <TextView
+            android:id="@+id/legendAuthorized"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:drawableStart="@drawable/ic_circle_grey"
+            android:drawablePadding="@dimen/_3sdp"
+            android:gravity="center_vertical"
+            android:text="@string/string_authorized"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/strengthBarChart" />
+
+        <TextView
+            android:id="@+id/legendDeficiency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:drawableStart="@drawable/ic_circle_blue"
+            android:drawablePadding="@dimen/_3sdp"
+            android:gravity="start"
+            android:text="@string/string_deficiency"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintStart_toEndOf="@id/legendAuthorized"
+            app:layout_constraintTop_toBottomOf="@id/strengthBarChart" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

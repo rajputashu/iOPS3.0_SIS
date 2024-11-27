@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.nudges.NudgesDynamicViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbDynamicTasks"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhiteLight"
+            app:elevation="@dimen/_5sdp"
+            app:titleTextColor="@color/textColorBlackBold">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ToolBarTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.obsDynamicTaskName}" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_42ssp"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_below="@id/tbDynamicTasks"
+            android:visibility="@{vm.noData ? View.GONE : View.VISIBLE}"
+            app:dynamicNudgesAdapter="@{vm.dynamicTaskAdapter}"
+            app:taskListener="@{vm.taskListener}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40ssp"
+            android:gravity="center"
+            android:onClick="@{vm::onTaskValidation}"
+            android:visibility="@{vm.noData ? View.GONE : View.VISIBLE}"
+            android:text="@{@string/dynamic_tasks_name(vm.obsDynamicTaskName)}"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:text="@string/json_not_found"
+            android:drawableTop="@drawable/ic_cross"
+            android:visibility="@{vm.noData ? View.VISIBLE : View.GONE}" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+</layout>

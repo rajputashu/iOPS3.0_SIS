@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.photoevaluation.GuardPhotoEvaluationResultViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinuePhotoEvaluation"
+            style="@style/BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:onClick="@{vm::onContinuePhotoEvaluationBtnClick}"
+            android:text="@string/string_continue_photo_evaluation" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btnContinuePhotoEvaluation"
+            android:fillViewport="true">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:id="@+id/llTopLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:gravity="center">
+
+                        <com.droidcommons.views.roundedimageview.RoundedImageView
+                            android:id="@+id/ivGuardPhotoEveluationResult"
+                            android:layout_width="@dimen/_240sdp"
+                            android:layout_height="@dimen/_290sdp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:paddingLeft="@dimen/_20sdp"
+                            android:paddingRight="@dimen/_20sdp"
+                            app:riv_corner_radius="@dimen/_4sdp"
+                            app:setImagePreview="@{vm.attachment.localFilePath}" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/ivGuardPhotoEveluationResult"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="@dimen/_5sdp"
+                                    app:setTotalTurnOut="@{vm.checkedGuard.totalTurnOut}"
+                                    app:setTurnOutScore="@{vm.checkedGuard.turnOutScore}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/string_turnout_score" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_round_circle_8dp"
+                                    android:drawablePadding="@dimen/_5sdp"
+                                    android:text="@{(vm.checkedGuard.totalTurnOut-vm.checkedGuard.turnOutScore)+@string/string_space}"
+                                    app:drawableTint="@color/colorTransferRed" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/string_negative" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_round_circle_8dp"
+                                    android:drawablePadding="@dimen/_5sdp"
+                                    android:text="@{(vm.checkedGuard.turnOutScore)+@string/string_space}"
+                                    android:textSize="@dimen/_16ssp"
+                                    app:drawableTint="@color/colorStatusDone" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/string_positive" />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <!--<LinearLayout
+                    android:id="@+id/llTurnOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/llTopLayout"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?actionBarSize"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:text="@string/string_turnout"
+                            android:textColor="@color/titleTextColor_40"
+                            app:textAllCaps="true" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:onClick="@{vm::onGuardTurnOutEditClick}"
+                            android:padding="@dimen/_8sdp"
+                            android:tint="@color/colorLightRed"
+                            app:srcCompat="@drawable/ic_edit_white" />
+
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:background="@color/colorWhite"
+                        app:turnOutAdapter="@{vm.recyclerAdapter}" />
+
+                </LinearLayout>-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/llTopLayout"
+                    android:layout_marginTop="@dimen/_8sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/turnOutLabel"
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:text="@string/string_turnout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textColor="@color/titleTextColor_40"
+                        app:textAllCaps="true" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:paddingStart="@dimen/_18ssp"
+                        android:paddingEnd="@dimen/_10ssp"
+                        android:onClick="@{vm::onGuardTurnOutEditClick}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:tint="@color/colorLightRed"
+                        app:srcCompat="@drawable/ic_edit_white" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12ssp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:background="@color/colorWhite"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/turnOutLabel"
+                        app:turnOutAdapter="@{vm.recyclerAdapter}" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+
+</layout>

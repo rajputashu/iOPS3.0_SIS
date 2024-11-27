@@ -1,0 +1,103 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        /*sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8*/
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    flavorDimensions 'dimensions'
+
+    productFlavors {
+
+        UAT {
+            multiDexEnabled true
+            proguardFile("proguard-rules.pro")
+        }
+
+        sisProd {
+            multiDexEnabled true
+            proguardFile("proguard-rules.pro")
+        }
+
+        uniqUat {
+            multiDexEnabled true
+            proguardFile("proguard-rules.pro")
+        }
+
+        uniqProd {
+            multiDexEnabled true
+            proguardFile("proguard-rules.pro")
+        }
+
+        slvProd {
+            multiDexEnabled true
+            proguardFile("proguard-rules.pro")
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.core:core-ktx:1.8.0'
+
+    implementation "androidx.annotation:annotation:1.4.0"               //androidXAnnotations
+    implementation "com.google.android.material:material:1.6.1"         //androidMaterial
+    implementation "androidx.recyclerview:recyclerview:1.2.1"           //androidXRecyclerview
+    implementation "androidx.appcompat:appcompat:1.4.1"                 //androidXRAppcompat
+    implementation "androidx.legacy:legacy-support-v13:1.0.0"           //androidXSupportV13
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"            //androidXSupportV4
+    implementation "androidx.multidex:multidex:2.0.1"                   //androidXMultidex
+
+    implementation 'com.google.dagger:dagger-android-support:2.28.3'      //daggerSupport
+    kapt 'com.google.dagger:dagger-android-processor:2.28.3'              //daggerProcessor
+    kapt 'com.google.dagger:dagger-compiler:2.35'                       //daggerCompiler
+    implementation 'com.google.dagger:dagger:2.35'                      //dagger
+
+    /*implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.4.0"*/
+
+
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.4.1"
+
+    implementation "androidx.work:work-runtime:2.7.1"
+    implementation "androidx.work:work-rxjava2:2.7.1"
+    implementation "androidx.work:work-gcm:2.7.1"
+}

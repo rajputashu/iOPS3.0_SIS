@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.clienthandshake.ClientHandshakeViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorLightGrey">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbClientHandshake"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhite"
+            app:elevation="@dimen/_5sdp"
+            app:layout_scrollFlags="snap"
+            app:titleTextColor="@color/textColorBlackBold" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ToolBarTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/string_client_handshake" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <include
+            android:id="@+id/includeTimeSpent"
+            layout="@layout/include_layout_time_spent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_26sdp"
+            android:layout_below="@id/tbClientHandshake" />
+
+        <FrameLayout
+            android:id="@+id/flClientHandshake"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/includeTimeSpent" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

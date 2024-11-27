@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="poaMO"
+            type="com.sisindia.ai.android.uimodels.uarpoa.POADetailsMO" />
+
+        <variable
+            name="ipPoaMO"
+            type="com.sisindia.ai.android.uimodels.uarpoa.IPPoaPendingCompletedMO" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_round_white"
+        android:minWidth="@dimen/_270sdp"
+        android:orientation="vertical"
+        android:padding="@dimen/_12sdp">
+
+        <ImageView
+            android:id="@+id/dialogCloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_close_grey_bg"
+            tools:ignore="ContentDescription" />
+        <!--        app:closedPOAListener="@{listener}"-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_horizontal"
+            android:text="@string/string_poa_closed"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_14ssp"
+            app:drawableTopCompat="@drawable/ic_green_tick_ripple" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@{poaMO==null ? ipPoaMO.siteName : poaMO.unitName}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/string_unit"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@{poaMO==null ? ipPoaMO.category :poaMO.name}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/string_poa"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="@{poaMO==null ? `0` : poaMO.pendingPoaCount}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/string_poa_pending"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@{@string/dynamic_complete_poa_msg(poaMO==null ? `0`: poaMO.totalPoaCount)}"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="@{poaMO==null ?View.GONE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/dialogViewAllButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border_round_red_body"
+            android:gravity="center"
+            android:text="@string/string_view_all_poa"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp" />
+
+    </LinearLayout>
+
+</layout>

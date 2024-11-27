@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.improvementplans.CloseIPPoaViewModel" />
+
+        <variable
+            name="poaMO"
+            type="com.sisindia.ai.android.uimodels.uarpoa.IPPoaPendingCompletedMO" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbPOAUnitsName"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhite"
+            app:elevation="@dimen/_5sdp"
+            app:titleTextColor="@color/textColorBlackBold">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ToolBarTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{poaMO.siteName}" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/poaTileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tbPOAUnitsName"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:cardElevation="@dimen/_3sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/uarUnitName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:gravity="center_vertical"
+                    android:text="@{poaMO.category}"
+                    android:textColor="@color/textColorBlackBold"
+                    android:textSize="@dimen/_12ssp"
+                    app:drawableEndCompat="@drawable/ic_pending" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:background="@color/colorWhiteLight"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_12sdp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_10ssp"
+                        app:drawableStartCompat="@drawable/ic_person_icon"
+                        app:htmlText="@{@string/dynamic_string_assigned_to(poaMO.assignedToEmployeeName)}" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_10ssp"
+                        app:drawableStartCompat="@drawable/ic_person_icon"
+                        app:htmlText="@{@string/dynamic_string_category(poaMO.category)}" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/poaTileLayout"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_24sdp"
+            android:paddingEnd="@dimen/_16sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_description" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackSubTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{poaMO.description}" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{TimeUtils.TASK_DATE_FORMAT(vm.closeDate)}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{vm::onDatePickerClick}"
+                        android:src="@drawable/ic_calender"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:text="@string/string_add_close_date"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_14ssp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_14sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_12sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/hint_add_remarks"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="@={vm.addRemarks}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="Autofill,TextFields" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:text="@string/string_add_remarks"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_14ssp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/border_round_red_body"
+                android:gravity="center"
+                android:onClick="@{vm::onConfirmByPhotoClick}"
+                android:padding="@dimen/_5sdp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/string_confirm_by_photo"
+                    android:textColor="@color/colorWhite"
+                    app:drawableStartCompat="@drawable/ic_camera" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCompleteBillSubmissionTask"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onClosePOABtnClick}"
+            android:text="@string/string_close_poa"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp" />
+
+    </RelativeLayout>
+
+</layout>

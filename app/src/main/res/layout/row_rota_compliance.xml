@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.rota.RotaComplianceResultMO" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardElevation="@dimen/_3sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/complianceTaskName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.taskType+` : `+model.taskCompliance+`%`}"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/taskTargetCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:htmlText="@{@string/dynamic_rota_target(model.target)}"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/complianceTaskName" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/taskActualCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:htmlText="@{@string/dynamic_rota_actual(model.actual)}"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toEndOf="@id/taskTargetCount"
+                app:layout_constraintTop_toBottomOf="@id/complianceTaskName" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/taskScoreCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:htmlText="@{@string/dynamic_rota_score(model.achievedScore,model.totalScore)}"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintTop_toBottomOf="@id/complianceTaskName"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

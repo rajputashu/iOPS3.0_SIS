@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="dueDate"
+            type="String" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+    </data>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_round_grey_body"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingEnd="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:text="@{@string/dynamic_due_date(TimeUtils.formatToDDMMYYYY(dueDate))}"
+        android:textColor="@color/textColorBlackBold"
+        android:textSize="@dimen/_10ssp" />
+
+</layout>

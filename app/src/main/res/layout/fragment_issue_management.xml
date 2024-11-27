@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.issues.IssueManagementViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:background="@color/colorWhite">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivRotaDrawer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{vm::ivRotaDrawerClick}"
+                    android:padding="@dimen/_10sdp"
+                    app:srcCompat="@drawable/ic_drawer_menu" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/string_issue" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAddRota"
+                    style="@style/BlackTitleTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{vm::tvAddIssueClick}"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/string_add_rota"
+                    android:visibility="invisible"
+                    android:textColor="@color/colorLightRed" />
+
+            </RelativeLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlIssues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparentRed"
+                app:tabGravity="center"
+                app:tabIndicatorColor="@color/colorLightRed"
+                app:tabMinWidth="@dimen/_90sdp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/textColorBlackBold"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="@color/colorTextGrey" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpIssues"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+    </RelativeLayout>
+</layout>

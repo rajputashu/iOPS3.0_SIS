@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.conveyance.ConveyanceViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/monthsRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:radioCheckedListener="@{vm.onRadioCheckedListener}">
+
+            <RadioButton
+                android:id="@+id/rbCurrentMonthConveyance"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Month"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_12ssp" />
+
+            <RadioButton
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20ssp"
+                android:text="Last Month"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_12ssp" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/conveyanceHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/monthsRadioGroup"
+            android:background="@color/colorGreyDark"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/string_date" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/string_tasks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/string_km_travelled" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/string_deduction" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/string_km_approved" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/conveyanceHeader"
+            android:layout_marginBottom="@dimen/_25sdp"
+            android:visibility="@{vm.isConveyanceDataAvailable?View.VISIBLE:View.GONE}"
+            app:conveyanceAdapter="@{vm.conveyanceAdapter}"
+            app:conveyanceListener="@{vm.conveyanceListener}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/noDataTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@{vm.loadingMessage}"
+            android:textSize="@dimen/_16ssp"
+            android:visibility="@{vm.isConveyanceDataAvailable?View.GONE:View.VISIBLE}" />
+
+        <LinearLayout
+            android:id="@+id/conveyanceFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorGreyDark"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:visibility="@{vm.isConveyanceDataAvailable?View.VISIBLE:View.GONE}">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                app:formatDoubleOrInt="@{vm.obsTotalTasks}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                app:formatDoubleOrInt="@{vm.obsTotalKmTravelled}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                app:formatDoubleOrInt="@{vm.obsTotalDeduction}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                app:formatDoubleOrInt="@{vm.obsTotalKmApproved}" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/noDataTV"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:indeterminate="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+</layout>

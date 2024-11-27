@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.practo.PractoTaskViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbPractoTask"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhite"
+            app:elevation="@dimen/_5sdp"
+            app:titleTextColor="@color/textColorBlackBold">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ToolBarTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/string_practo_task" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <include
+            android:id="@+id/includeTimeSpent"
+            layout="@layout/include_layout_time_spent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_below="@id/tbPractoTask" />
+
+        <LinearLayout
+            android:id="@+id/llSiteDetails"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_93sdp"
+            android:layout_below="@id/includeTimeSpent"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:padding="@dimen/_16sdp"
+            android:weightSum="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvUserLayout"
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_weight=".2"
+                app:cardBackgroundColor="@color/colorLightGrey"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp"
+                app:cardPreventCornerOverlap="false">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_12sdp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/colorBlue" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TitleExtraBig"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_weight="1.8"
+                android:ellipsize="end"
+                android:ems="20"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="@{vm.obsSiteName}" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/guardScannerLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llSiteDetails"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/openScannerGuardCheck"
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/_9sdp"
+                android:drawableTop="@drawable/ic_check_guard"
+                android:drawablePadding="@dimen/_3sdp"
+                android:onClick="@{vm::onViewClicks}"
+                android:text="@string/post_check_guard_check_text" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/noOfGuardCheckedTV"
+            style="@style/SubTitleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/guardScannerLL"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:text="@{@string/string_guard_check +'('+vm.obsNoOfGuards+')'}"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorBlackBold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/noOfGuardCheckedTV"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:taskAdapter="@{vm.adapter}"
+            app:taskListener="@{vm.listener}" />
+
+        <!--<androidx.fragment.app.FragmentContainerView
+            android:id="@+id/practoFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/includeTimeSpent" />-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/completeTaskButton"
+            style="@style/BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:onClick="@{vm::onViewClicks}"
+            android:text="@{@string/dynamic_complete_with_task(`Task`)}" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.billcollection.BillCollectionViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbBillCollection"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorWhite"
+                app:elevation="@dimen/_5sdp"
+                app:titleTextColor="@color/textColorBlackBold">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/ToolBarTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_add_task_bill_collection" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <include
+                android:id="@+id/includeTimeSpent"
+                layout="@layout/include_layout_time_spent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_48sdp"
+                android:fillViewport="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- UNIT NAME LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/unitNameLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_unit_name"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/unitNameValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:text="@{vm.unitName}"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/unitNameLabel" />
+
+                    <View
+                        android:id="@+id/divider_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:background="@color/colorWindowBackGround"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/unitNameValue" />
+
+                    <!-- DATE OF COLLECTION : LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/dateOfCollectionLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_date_of_collection"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintEnd_toStartOf="@id/dateOfCollectionValue"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/dateOfCollectionValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:gravity="end"
+                        android:text="@{vm.dateOfCollection}"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/dateOfCollectionLabel"
+                        app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+                    <View
+                        android:id="@+id/divider_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:background="@color/colorWindowBackGround"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/dateOfCollectionValue" />
+
+                    <!-- COLLECTION DETAILS (LABEL AND RECYCLERVIEW): LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/collectionDetailsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_collection_details"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_2" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/collectionDetailsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        app:collectionDetailAdapter="@{vm.billCollectionAdapter}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/collectionDetailsLabel" />
+
+                    <!-- TOTAL BILL AMOUNT : LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/totalBillAmountLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_tot_bill_amount"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintEnd_toStartOf="@id/totalBillAmountValue"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/collectionDetailsRecyclerView" />
+
+                    <TextView
+                        android:id="@+id/totalBillAmountValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:gravity="end"
+                        android:text="@{vm.totalBillAmount}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/totalBillAmountLabel"
+                        app:layout_constraintTop_toBottomOf="@id/collectionDetailsRecyclerView" />
+
+                    <View
+                        android:id="@+id/divider_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:background="@color/colorWindowBackGround"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/totalBillAmountLabel" />
+
+                    <!-- COLLECTION AMOUNT : LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/collectionAmountLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:text="@string/string_collection_amount"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintBottom_toBottomOf="@id/divider_4"
+                        app:layout_constraintEnd_toStartOf="@id/collectionAmountValue"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/divider_3" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/collectionAmountValue"
+                        android:layout_width="@dimen/_96sdp"
+                        android:layout_height="@dimen/_36sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:background="@drawable/border"
+                        android:gravity="end"
+                        android:hint="@string/hint_enter_amount"
+                        android:inputType="number"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@={vm.obsActualCollectionAmount}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/collectionAmountLabel"
+                        app:layout_constraintTop_toBottomOf="@id/divider_3" />
+
+                    <View
+                        android:id="@+id/divider_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:background="@color/colorWindowBackGround"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/collectionAmountValue" />
+
+                    <!--MODE (Cheque-RTGS/NEFT) LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/modeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_mode"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_4" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:checkedButton="@id/radioButtonCheque"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/modeLabel"
+                        app:radioSelectedListener="@{vm.onRadioCheckedListener}">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radioButtonCheque"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_cheque"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toStartOf="@id/radioButtonRTGS"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintTop_toBottomOf="@id/modeLabel" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radioButtonRTGS"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:text="@string/string_rtgs_neft"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@id/radioButtonCheque"
+                            app:layout_constraintTop_toBottomOf="@id/divider_4" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radioButtonNEFT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:text="@string/string_neft"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toStartOf="@id/radioButtonRTGS"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@id/modeLabel"
+                            app:layout_constraintTop_toBottomOf="@id/divider_4" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radioButtonUPI"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:text="@string/string_upi"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@id/radioButtonCheque"
+                            app:layout_constraintTop_toBottomOf="@id/divider_4" />
+
+                    </RadioGroup>
+
+                    <!--<androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioButtonCheque"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="@string/string_cheque"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toStartOf="@id/radioButtonRTGS"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/modeLabel"
+                        app:layout_constraintTop_toBottomOf="@id/divider_4" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioButtonRTGS"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:text="@string/string_rtgs_neft"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/radioButtonCheque"
+                        app:layout_constraintTop_toBottomOf="@id/divider_4" />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_18sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_18sdp"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/radioGroupMode">
+
+                        <!-- COLLECTION AMOUNT : LAYOUT-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColorBlackBold"
+                            android:textSize="@dimen/_14ssp"
+                            app:collectionModeTypeLabel="@{vm.obsCollectionMode}" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/bsChequeNumberET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:background="@drawable/border"
+                            android:hint="@{vm.isModeSelectedCheque?@string/hint_cheque_number:@string/hint_transaction_id}"
+                            android:inputType="text"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@={vm.obsTransactionId}"
+                            android:textColor="@color/textColorBlackBold"
+                            android:textSize="@dimen/_13ssp" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/commentsET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:background="@drawable/border"
+                            android:hint="@string/hint_type_your_remarks"
+                            android:inputType="text"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@={vm.obsComments}"
+                            android:textColor="@color/textColorBlackBold"
+                            android:textSize="@dimen/_13ssp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:drawableBottom="@drawable/ic_camera"
+                            android:drawablePadding="@dimen/_12sdp"
+                            android:onClick="@{vm::onPhotoOfCheque}"
+                            android:text="@string/string_photo_cheque_payment"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp"
+                            android:visibility="@{vm.isModeSelectedCheque?View.VISIBLE:View.GONE}" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCompleteBillSubmissionTask"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onTaskCompleteBtnClick}"
+            android:text="@string/string_complete_bc"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp" />
+
+    </RelativeLayout>
+
+</layout>

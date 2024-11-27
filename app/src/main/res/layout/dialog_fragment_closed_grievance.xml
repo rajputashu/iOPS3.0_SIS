@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.addgrievances.AddedGrievanceViewModel" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_rounded_bg">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/ic_round_circle"
+            android:backgroundTint="@color/colorLightGreyWhite"
+            android:onClick="@{vm::onAddedGrievanceContinue}"
+            android:padding="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_clear"
+            app:tint="@color/colorCloseIcon" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddedGrievanceContinue"
+            style="@style/ButtonStyleForDialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_below="@id/llAddedGrievanceTopLayout"
+            android:layout_margin="@dimen/_16sdp"
+            android:onClick="@{vm::onAddedGrievanceContinue}"
+            android:text="@{@string/view_all+vm.closedGrievance.totalGrievances+@string/string_grievances}" />
+
+        <LinearLayout
+            android:id="@+id/llAddedGrievanceTopLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_20sdp"
+                app:srcCompat="@drawable/ic_status_completed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/grievance_closed"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_16ssp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardElevation="@dimen/_0sdp"
+                app:contentPadding="@dimen/_4sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{vm.closedGrievance.siteName}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:maxLines="1"
+                        android:text="@string/string_unit" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{vm.closedGrievance.categoryName}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:maxLines="1"
+                        android:text="@string/string_grievance" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{vm.closedGrievance.pendingGrievances+@string/string_space}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:maxLines="1"
+                        android:text="@string/grievance_pending" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_35sdp"
+                        android:gravity="center"
+                        android:text="@{@string/you_have_total+vm.closedGrievance.totalGrievances+@string/grievance_now_complete_all_grievance_and_improve_your_performance}" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

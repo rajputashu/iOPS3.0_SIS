@@ -1,0 +1,40 @@
+{
+  "Login": [
+    {
+      "moduleName": "Login",
+      "header": "Now handle manpower posting, rostering, transfer & leave approval from your phone",
+      "message": "iOPS 2.0 is integrated with MySIS. Now you can track attendance of all your sites and handle administrative task from your phone - on real time basis.",
+      "imageName": "intro_01"
+    },
+    {
+      "moduleName": "",
+      "header": "Improved Rota engine for daily workload balance",
+      "message": "iOPS 2.0 ensures that you have 6-8 hours work per day. It adjusts load, to factor night checks",
+      "imageName": "intro_02"
+    },
+    {
+      "moduleName": "",
+      "header": "No more rushing from one site to another",
+      "message": "iOPS 2.0 is designed to allocate time per unit based on size and importance of unit. Upto 1-2 hours time for larger and more important units.",
+      "imageName": "intro_03"
+    },
+    {
+      "moduleName": "",
+      "header": "No more disputes over Conveyance calculations",
+      "message": "Now iOPS 2.0 is designed to show you Conveyance data - on realtime basis with end of day km count",
+      "imageName": "intro_04"
+    },
+    {
+      "moduleName": "",
+      "header": "Incentive calculations on your fingertips",
+      "message": "iOPS 2.0 shows you incentive related data transparently. It will help you improve performance and earn more.",
+      "imageName": "intro_05"
+    },
+    {
+      "moduleName": "",
+      "header": "Day check and customer handshake - simplified screens",
+      "message": "iOPS 2.0 is designed to allow you to switch between tasks easily. Simpler screens will help you do your tasks - easier and quicker.",
+      "imageName": "intro_06"
+    }
+  ]
+}

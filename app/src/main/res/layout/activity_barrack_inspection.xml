@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.barracks.inspection.BarrackInspectionViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbBarrackInspection"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhite"
+            app:elevation="@dimen/_5sdp"
+            app:titleTextColor="@color/textColorBlackBold" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ToolBarTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/string_add_task_barrack_inspection" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <include
+            android:id="@+id/includeTimeSpent"
+            layout="@layout/include_layout_time_spent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_below="@id/tbBarrackInspection" />
+
+        <FrameLayout
+            android:id="@+id/flBarrackInspection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/includeTimeSpent" />
+
+       <!-- <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@{vm.isBarrackInspectionCompleted? @color/colorLightRed:@color/colorRed_30opct}"
+            android:enabled="@{vm.isBarrackInspectionCompleted? true:false}"
+            android:onClick="@{vm::onTaskCompleteBtnClick}"
+            android:text="@string/string_complete_bi"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="@{vm.barrackButtonVisibility}" />-->
+
+    </RelativeLayout>
+
+</layout>

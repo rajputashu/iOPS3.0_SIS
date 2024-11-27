@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="adapterItem"
+            type="com.sisindia.ai.android.uimodels.TimeLineModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tvDutyOnDateTime"
+            style="@style/BlackSubTitleTextColor10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:backgroundTint="@color/colorGreyDark"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_10ssp"
+            app:chipIconEnabled="false" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCompletedTasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDutyOnDateTime"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tvDutyOffDateTime"
+            style="@style/BlackSubTitleTextColor10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rvCompletedTasks"
+            android:backgroundTint="@color/colorGreyDark"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_10ssp"
+            app:chipIconEnabled="false" />
+
+    </RelativeLayout>
+</layout>

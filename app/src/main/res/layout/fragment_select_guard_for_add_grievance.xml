@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.addgrievances.AddGrievanceSelectGuardViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparent"
+            android:keepScreenOn="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilGuardSuggestion"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:hint="@string/guard_name_or_id"
+                    android:textColorHint="@color/textColorBlackBold"
+                    app:boxStrokeColor="@color/outlineBorderTrans"
+                    app:hintTextColor="@color/textColorBlackBold">
+
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:completionThreshold="1"
+                        android:paddingStart="@dimen/_8sdp"
+                        app:allGuards="@{vm.allGuards}"
+                        app:setAllGuardViewListener="@{vm.guardSuggestionViewListeners}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvOr"
+                    style="@style/SubTitleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tilGuardSuggestion"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:text="@string/string_or"
+                    android:textAlignment="center"
+                    app:textAllCaps="true" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:background="@drawable/background_white_grey_border"
+                    android:onClick="@{vm::onScanGuardQrClick}"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@id/tvScanPost"
+                        android:padding="@dimen/_10sdp"
+                        android:tint="@color/colorLightRed"
+                        app:srcCompat="@drawable/ic_scan" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvScanPost"
+                        style="@style/TitleBig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/string_scan_guard"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorLightRed"
+                        app:textAllCaps="true" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </RelativeLayout>
+</layout>

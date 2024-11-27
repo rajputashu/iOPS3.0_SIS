@@ -1,0 +1,68 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.performance.frags.SiteTaskSummaryViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@id/acsSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:dropDownWidth="@dimen/_140sdp"
+            android:popupBackground="@color/colorLightGrey"
+            app:monthYearListener="@{vm.monthYearListener}"
+            app:filterList="@{vm.sortItems}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/acsSort"
+            android:visibility="@{vm.obsIsIncentiveDataAvailable?View.VISIBLE:View.GONE}"
+            app:incentiveAdapter="@{vm.incentiveAdapter}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dataNAMsg"
+            style="@style/OnlyFontFamily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/dataNA"
+            android:textColor="@color/colorLightRed"
+            android:textSize="@dimen/_16ssp"
+            android:visibility="@{vm.obsIsIncentiveDataAvailable?View.GONE:View.VISIBLE}"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dataNAMsg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:text="@string/checkAfterNextMonth"
+            android:visibility="@{vm.obsIsIncentiveDataAvailable?View.GONE:View.VISIBLE}"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+</layout>

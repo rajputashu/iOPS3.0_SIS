@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.features.dynamictask.models.DynamicDateTimePickerMO" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.label}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dynamicDateTimePicker"
+            style="@style/BlackTitleTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:drawableEnd="@drawable/ic_calender"
+            android:drawablePadding="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:hint="@string/hint_select_date_time"
+            android:text="@{model.selectedDateTime}" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

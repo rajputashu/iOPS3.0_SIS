@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="adapterItem"
+            type="com.sisindia.ai.android.room.entities.CheckedRegisterEntity" />
+
+        <import type="android.view.View" />
+
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_160sdp"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/_8sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRegisterTitle"
+                    style="@style/TitleNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@{adapterItem.registerType}" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_group" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="@{adapterItem.isMissing ? View.VISIBLE:View.GONE}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_64sdp"
+                        android:layout_height="@dimen/_64sdp"
+                        android:background="@drawable/ic_round_circle_big"
+                        android:backgroundTint="@color/colorTransparentRed"
+                        android:padding="@dimen/_16sdp"
+                        android:tint="@color/colorLightRed"
+                        app:srcCompat="@drawable/ic_grievance" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TitleNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_missing"
+                        android:textColor="@color/colorStatusPending" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="@{adapterItem.isMissing ? View.GONE:View.VISIBLE}">
+
+                    <com.droidcommons.views.roundedimageview.RoundedImageView
+                        android:id="@+id/ivLeftDocument"
+                        android:layout_width="@dimen/_64sdp"
+                        android:layout_height="@dimen/_64sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        app:riv_corner_radius="@dimen/_8sdp"
+                        app:srcCompat="@drawable/ic_place_holder" />
+
+                    <com.droidcommons.views.roundedimageview.RoundedImageView
+                        android:id="@+id/ivRightDocument"
+                        android:layout_width="@dimen/_64sdp"
+                        android:layout_height="@dimen/_64sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:scaleType="fitXY"
+                        app:riv_corner_radius="@dimen/_8sdp"
+                        app:srcCompat="@drawable/ic_place_holder" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -1,0 +1,373 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sisindia.ai.android">
+
+    <queries>
+        <package android:name="com.sisindia.mysis.ao" />
+    </queries>
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />-->
+
+    <!-- Required for foreground services on P+. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:name=".IopsApplication"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:fullBackupOnly="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="false"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup"
+        tools:targetApi="q">
+
+        <activity
+            android:name=".features.onboard.OnBoardActivity"
+            android:alwaysRetainTaskState="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/OnBoardTheme"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".features.dashboard.DashBoardActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.dashboard.GenericDashboardActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.taskcheck.postcheck.summary.GuardSummaryActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.reviewinformation.ReviewInformationActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.taskcheck.DayNightCheckActivity"
+            android:theme="@style/AppTheme" />
+
+
+        <activity
+            android:name=".features.addgrievances.AddGrievancesActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.taskcheck.postcheck.PostCheckActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.taskcheck.postcheck.guardcheck.ScanGuardActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.taskcheck.postcheck.postguardscan.PostGuardScanActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.livecamera.ImageCaptureActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.addtask.AddTaskActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".features.rotacompliance.RotaComplianceGraphActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.register.RegisterCheckActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.loadfactor.LoadFactorActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.othertasks.OtherTaskActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.billsubmit.BillSubmissionActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.billcollection.BillCollectionActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.clientcoordination.ClientCoordinationActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.taskcheck.strengthcheck.StrengthCheckActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.units.details.UnitDetailActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.units.addedit.AddEditPostActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.location.UserLocationActivity"
+            android:theme="@style/TransParentTheme" />
+
+        <activity
+            android:name=".features.uar.poa.POAActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.uar.closepoa.ClosePOAActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.securityrisk.AddSecurityRiskActivity"
+            android:theme="@style/TransParentTheme" />
+
+        <activity
+            android:name=".features.taskcheck.clienthandshake.ClientHandshakeActivity"
+            android:theme="@style/OnBoardTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".mlcore.ScanQRActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.addkitrequest.AddKitRequestActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.akr.details.AKRDetailsActivity"
+            android:theme="@style/OnBoardTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".features.barracks.inspection.BarrackInspectionActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.barracks.listing.BarrackTaggingActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.register.DocumentCaptureActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.issues.grievance.CreateGrievanceIssueActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.issues.grievance.IssueGrievanceDetailActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.issues.complaints.CreateComplaintIssueActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.issues.complaints.IssueComplaintDetailActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.imagecapture.CaptureImageActivityV2"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+
+        <activity
+            android:name=".features.billcollection.BillCollectionDetailsOnSites"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.rotacompliance.RotaComplianceActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.billsubmit.BillSubmissionCardsActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.moninput.MonInputCardsActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.units.registermap.MapRegistersActivity"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".features.onboard.IntroActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.selfie.DutyOnOffSelfie"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.improvementplans.ImprovementPoaListActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.improvementplans.CloseImprovePlansActivity"
+            android:theme="@style/ActivityTheme" />
+        <activity
+            android:name=".features.conveyance.ConveyanceActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.dynamictask.DynamicTaskActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.notification.CustomWebPage"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.practo.PractoTaskActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.nudges.NudgesDynamicActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <service
+            android:name=".services.LocationService"
+            android:enabled="true"
+            android:foregroundServiceType="location" />
+        <!--        android:exported="true"-->
+
+        <service
+            android:name=".services.GeoLocationService"
+            android:foregroundServiceType="location" />
+
+        <service
+            android:name=".services.LocalDBInitService"
+            android:exported="false" />
+
+        <!--        ADDING THIS INTENT SERVICE FOR ACTIVITY DETECTION-->
+        <service android:name=".services.DetectedActivitiesIntentService" />
+
+        <receiver
+            android:name=".receivers.OtpSmsReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receivers.MySISReceiver"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.sisindia.ai.android.dev.mysisrota" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAUBAQyRR7NLipQMI5852Y61c3JXRBcvMs" />
+        <!--            android:value="AIzaSyAUBAQyRR7NLipQMI5852Y61c3JXRBcvMs" /> {Current latest}-->
+        <!--            android:value="AIzaSyAfY7mI0Cg9iDNArtIUjhIeDz0CpxZG3oE" /> {Previous : Jafar}-->
+
+        <receiver
+            android:name=".receivers.ActivityTransitionReceiver"
+            android:exported="false"
+            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION">
+            <!--<intent-filter>
+                <action android:name="com.sisindia.ai.android.ACTION_PROCESS_ACTIVITY_TRANSITIONS" />
+            </intent-filter>-->
+        </receiver>
+
+        <!--<meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_app_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />-->
+
+        <service
+            android:name=".firebase.IopsMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/authorityPackage"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

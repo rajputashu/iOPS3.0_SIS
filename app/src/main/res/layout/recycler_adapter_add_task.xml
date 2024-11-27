@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.sisindia.ai.android.uimodels.TaskTypeModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:background="@drawable/white_square_ripple">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TitleNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_toStartOf="@id/ivIconTaskList"
+            android:text="@{item.name}"
+            android:textColor="@color/textColorBlackBold" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivIconTaskList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorGreyLight"
+            android:tint="@color/colorGreyLight"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_" />
+
+    </RelativeLayout>
+
+
+</layout>

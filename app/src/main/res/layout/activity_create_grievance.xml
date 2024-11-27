@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.issues.grievance.CreateGrievanceIssueViewModel" />
+
+        <import type="com.sisindia.ai.android.models.AudioRecordState" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tbAddNewGrievance"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:layout_scrollFlags="snap">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/ToolBarTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_new_grievance" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/llBottomLayout">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorWindowBackGround"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/llGuardDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:background="@color/textColorWhite_100"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:text="@string/guard_details_status_text"
+                                android:textColor="@color/titleTextColor_40"
+                                app:textAllCaps="true" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_48sdp"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:layout_marginEnd="@dimen/_16sdp"
+                                android:layout_marginBottom="@dimen/_16sdp"
+                                android:background="@drawable/ripple_red_border_bg_white"
+                                android:onClick="@{vm::onScanGuardQrClick}"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_toStartOf="@id/tvScanPost"
+                                    android:padding="@dimen/_10sdp"
+                                    android:tint="@color/colorLightRed"
+                                    app:srcCompat="@drawable/ic_scan" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvScanPost"
+                                    style="@style/TitleBig"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@string/string_scan_guard"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorLightRed"
+                                    app:textAllCaps="true" />
+
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackSubTitleTextColor12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="@string/string_or"
+                                android:textColor="@color/colorDarkerGrey"
+                                app:textAllCaps="true" />
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_11sdp"
+                                android:layout_marginTop="@dimen/_30sdp"
+                                android:layout_marginEnd="@dimen/_11sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_48sdp"
+                                    android:layout_margin="@dimen/_5sdp"
+                                    android:background="@drawable/border"
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
+
+                                    <androidx.appcompat.widget.AppCompatSpinner
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:pointerIcon="arrow"
+                                        android:popupBackground="@color/colorWhite"
+                                        app:siteListListener="@{vm.siteListListener}"
+                                        app:sitesList="@{vm.sites}" />
+
+                                </LinearLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_16sdp"
+                                    android:layout_marginTop="@dimen/_minus3sdp"
+                                    android:background="@color/colorWhite"
+                                    android:paddingLeft="@dimen/_3sdp"
+                                    android:paddingRight="@dimen/_3sdp"
+                                    android:text="@string/string_unit_name" />
+
+                            </RelativeLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilGuardSuggestion"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_48sdp"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:hint="@string/guard_name_or_id"
+                                app:boxStrokeColor="@color/boxOutLineColor"
+                                app:hintTextColor="@color/subTitleTextColor_100">
+
+                                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:completionThreshold="1"
+                                    android:maxLength="40"
+                                    android:maxLines="1"
+                                    android:paddingStart="@dimen/_16sdp"
+                                    android:textColorHint="@color/subTitleTextColor_100"
+                                    app:allGuards="@{vm.allGuards}"
+                                    app:setAllGuardViewListener="@{vm.viewListeners}"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/llGrievanceDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:background="@color/textColorWhite_100"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:text="@string/grievances_details_status_text"
+                                android:textColor="@color/titleTextColor_40"
+                                app:textAllCaps="true" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:text="@string/string_category" />
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:animationCache="true"
+                                android:backgroundTint="@color/textColorBlackBold"
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                app:chipSpacingHorizontal="@dimen/_10sdp"
+                                app:setGrievanceCategoryChips="@{vm.categoryObs}"
+                                app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onCheckedChange(compoundButton, checked)}"
+                                app:singleSelection="true" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_48sdp"
+                                android:layout_marginLeft="@dimen/_16sdp"
+                                android:layout_marginRight="@dimen/_16sdp"
+                                android:hint="@string/string_description"
+                                app:boxStrokeColor="@color/boxOutLineColor"
+                                app:hintTextColor="@color/subTitleTextColor_100">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:maxLength="40"
+                                    android:maxLines="1"
+                                    android:paddingStart="@dimen/_16sdp"
+                                    android:text="@={vm.description}"
+                                    android:textColorHint="@color/subTitleTextColor_100"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <!--commented after discussion-->
+                            <!--<RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_11sdp"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:layout_marginEnd="@dimen/_11sdp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_48sdp"
+                                    android:layout_margin="@dimen/_5sdp"
+                                    android:background="@drawable/border"
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
+
+                                    <androidx.appcompat.widget.AppCompatSpinner
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:pointerIcon="arrow"
+                                        android:popupBackground="@color/colorWhite"
+                                        app:actionPlanListener="@{vm.actionPlanListener}"
+                                        app:setActionPlans="@{vm.actionPlanObs}" />
+
+                                </LinearLayout>
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_16sdp"
+                                    android:layout_marginTop="@dimen/_minus3sdp"
+                                    android:background="@color/colorWhite"
+                                    android:paddingLeft="@dimen/_3sdp"
+                                    android:paddingRight="@dimen/_3sdp"
+                                    android:text="@string/add_action_plan" />
+
+                            </RelativeLayout>-->
+
+                            <!--<com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_48sdp"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:hint="@string/target_date"
+                                app:boxStrokeColor="@color/boxOutLineColor"
+                                app:hintTextColor="@color/subTitleTextColor_100">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:drawableEnd="@drawable/ic_calender"
+                                    android:focusable="false"
+                                    android:onClick="@{vm::onSetTargetDateClick}"
+                                    android:paddingStart="@dimen/_16sdp"
+                                    app:setTargetDateTime="@{vm.targetDate}"
+                                    android:textColorHint="@color/subTitleTextColor_100"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </com.google.android.material.textfield.TextInputLayout>-->
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+                <LinearLayout
+                    android:id="@+id/llBottomLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="@dimen/_14sdp"
+                            android:layout_marginBottom="@dimen/_minus8sdp"
+                            android:onClick="@{vm::onAddAudioClick}"
+                            android:visibility="@{vm.isRecordedObs == AudioRecordState.NOT_RECORDED?View.VISIBLE:View.GONE}"
+                            app:cardCornerRadius="@dimen/_6sdp"
+                            app:cardElevation="@dimen/_4sdp"
+                            app:cardForegroundColor="@color/colorWhite">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rectangle_red_corner8">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_toStartOf="@id/tvAudioClip"
+                                    android:backgroundTint="@color/colorLightRed"
+                                    android:padding="@dimen/_10sdp"
+                                    android:tint="@color/colorLightRed"
+                                    app:srcCompat="@drawable/ic_mic" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvAudioClip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@string/string_audio_clip"
+                                    android:textAlignment="center"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/colorLightRed"
+                                    android:textSize="@dimen/_14ssp" />
+
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/ivPlayMedia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="@dimen/_14sdp"
+                            android:onClick="@{vm::onPlayMedia}"
+                            android:visibility="@{vm.isRecordedObs == AudioRecordState.NOT_RECORDED?View.GONE:View.VISIBLE}"
+                            app:backgroundTint="@color/colorLightRed"
+                            app:fabSize="mini"
+                            app:setRecordedAudioPlayState="@{vm.btnPlayState}"
+                            app:srcCompat="@drawable/ic_play_media"
+                            app:tint="@color/colorWhite" />
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        style="@style/BottomButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_46sdp"
+                        android:onClick="@{vm::onAddGrievanceClick}"
+                        android:text="@string/string_add_grievance" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{vm.isLoading}" />
+
+
+    </FrameLayout>
+
+</layout>

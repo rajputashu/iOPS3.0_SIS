@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="message"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_round_white"
+        android:gravity="center_horizontal"
+        android:minWidth="@dimen/_240sdp"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/_26sdp"
+        android:paddingTop="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_26sdp">
+
+        <TextView
+            android:id="@+id/dialogMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawablePadding="@dimen/_6sdp"
+            android:gravity="center_horizontal"
+            android:text="@{message}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dialogNoButton"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border_round_red_body"
+            android:gravity="center"
+            android:text="@string/string_no"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@id/dialogYesButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogMessage" />
+
+        <TextView
+            android:id="@+id/dialogYesButton"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/dialogMessage"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border_round_red_body"
+            android:gravity="center"
+            android:text="@string/string_yes"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dialogNoButton"
+            app:layout_constraintTop_toBottomOf="@id/dialogMessage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

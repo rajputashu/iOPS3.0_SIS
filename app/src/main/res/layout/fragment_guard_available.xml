@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.guardcheck.available.GuardAvailableViewModel" />
+
+        <import type="com.sisindia.ai.android.features.taskcheck.postcheck.guardcheck.available.GuardAvailableViewModel.GuardAvailableStatus" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorTransparent"
+        android:keepScreenOn="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/guardCodeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilGuardSuggestion"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_weight="1"
+                    android:hint="@string/guard_name_or_id"
+                    app:boxStrokeColor="@color/boxOutLineColor"
+                    app:hintTextColor="@color/subTitleTextColor_100">
+
+                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:completionThreshold="1"
+                        android:inputType="textVisiblePassword|textNoSuggestions"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_8sdp"
+                        android:paddingEnd="@dimen/_8sdp"
+                        android:text="@={vm.enteredGuardNo}"
+                        android:textColorHint="@color/subTitleTextColor_100"
+                        app:allGuards="@{vm.allGuards}"
+                        app:setAllGuardViewListener="@{vm.guardSuggestionViewListeners}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/guardDetailsFromButton"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_toEndOf="@id/tilGuardSuggestion"
+                    android:background="@drawable/ic_circle_orange"
+                    android:onClick="@{vm::onViewClicks}"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@drawable/ic_send_chat"
+                    android:visibility="@{vm.companyId == 3 ? View.VISIBLE : View.GONE}" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOr"
+                style="@style/SubTitleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/guardCodeLayout"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="@string/string_or"
+                android:textAlignment="center"
+                app:textAllCaps="true" />
+
+            <!--Here QR -->
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tvOr"
+                android:keepScreenOn="true">
+
+                <com.sisindia.ai.android.mlcore.camera.QRCameraSourcePreview
+                    android:id="@+id/cameraPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.sisindia.ai.android.mlcore.camera.QRGraphicOverlay
+                        android:id="@+id/cameraPreviewGraphicOverlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <FrameLayout
+                        android:id="@+id/staticOverlayContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/_24sdp"
+                            android:padding="@dimen/_8sdp">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/scan_guard_id_card"
+                                android:textColor="@color/textColorWhite_100" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/bottomPromptChip"
+                                style="@style/Widget.MaterialComponents.Chip.Entry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="bottom|center_horizontal"
+                                android:layout_marginBottom="@dimen/_30sdp"
+                                android:checkable="false"
+                                android:clickable="false"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/_14ssp"
+                                android:visibility="visible"
+                                app:chipCornerRadius="@dimen/_8sdp"
+                                app:chipSurfaceColor="@color/textColorBlackBold"
+                                app:closeIconVisible="false" />
+
+
+                        </RelativeLayout>
+
+                    </FrameLayout>
+
+                </com.sisindia.ai.android.mlcore.camera.QRCameraSourcePreview>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/top_action_bar_scrim">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivFlash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:tint="@color/colorWhite"
+                        app:srcCompat="@drawable/ic_flash_off" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRetake"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivFlash"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:tint="@color/colorWhite"
+                        app:srcCompat="@drawable/ic_retake" />
+
+                </RelativeLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <!--End Here-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="@{vm.guardStatus==GuardAvailableStatus.GUARD_AVAILABLE?View.VISIBLE:View.GONE}"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/guardNotAvailableId"
+                    style="@style/RoundedTransBgRedTextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:onClick="@{vm::onViewClicks}"
+                    android:text="@string/guard_not_available" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/guardSleepingId"
+                    style="@style/RoundedTransBgRedTextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:onClick="@{vm::onViewClicks}"
+                    android:text="@string/guard_sleeping" />
+
+
+            </LinearLayout>
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="@{vm.isLoading}" />
+
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

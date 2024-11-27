@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.akr.details.KitReplaceViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@color/colorWhite">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_44sdp"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:textColor="@color/textColorBlackBold"
+                    app:drawableStartCompat="@drawable/ic_person_icon"
+                    app:htmlText="@{vm.spannedGuardName}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/colorLightGrey" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:textColor="@color/textColorBlackBold"
+                    app:drawableStartCompat="@drawable/ic_person_icon"
+                    app:htmlText="@{vm.spannedUnitName}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_32sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/colorLightGrey" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:onCheckedChanged="@{(compoundButton, checked) -> vm.onUpPaidSwitch(compoundButton, checked)}"
+                    android:text="@string/string_not_distributed"
+                    app:switchPadding="@dimen/_10sdp" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_red_stroke_white_body"
+                    android:visibility="@{vm.obsIsUnPaid?View.VISIBLE : View.GONE}"
+                    app:spinnerListener="@{vm.spinnersListener}"
+                    app:unPaidReasonList="@{vm.unPaidReasonsList}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.obsIsUnPaid? View.GONE : View.VISIBLE}">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/items_to_replace" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:kitItemsAdapter="@{vm.kitItemsAdapter}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_22sdp"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:text="@string/msg_no_items_found"
+                        android:visibility="@{vm.obsIsDataAvailable?View.GONE : View.VISIBLE}" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:visibility="@{vm.obsIsDataAvailable?View.VISIBLE : View.GONE}">
+
+                        <RelativeLayout
+                            android:id="@+id/takeGuardPhotoLayout"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:background="@drawable/border_round_greystroke_whitebody"
+                            android:onClick="@{vm::onClickViews}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                app:setImagePreview="@{vm.photoAttachmentObs.localFilePath}" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_32sdp"
+                                android:layout_height="@dimen/_32sdp"
+                                android:layout_centerInParent="true"
+                                app:srcCompat="@drawable/ic_add_photo" />
+
+                        </RelativeLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/takeGuardPhotoLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="@string/string_guard_photo"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_11ssp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/takeGuardPhotoLayout" />
+
+                        <RelativeLayout
+                            android:id="@+id/takeGuardSignatureLayout"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:background="@drawable/border_round_greystroke_whitebody"
+                            android:onClick="@{vm::onClickViews}"
+                            app:layout_constraintStart_toEndOf="@id/takeGuardPhotoLayout"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                app:setImagePreview="@{vm.signAttachmentObs.localFilePath}" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_32sdp"
+                                android:layout_height="@dimen/_32sdp"
+                                android:layout_centerInParent="true"
+                                app:srcCompat="@drawable/ic_add_sign" />
+
+                        </RelativeLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_22sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="@string/signature_status_text"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_11ssp"
+                            app:layout_constraintStart_toEndOf="@id/takeGuardPhotoLabel"
+                            app:layout_constraintTop_toBottomOf="@id/takeGuardSignatureLayout" />
+
+                        <RelativeLayout
+                            android:id="@+id/takeVoucherPhotoLayout"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:background="@drawable/border_round_greystroke_whitebody"
+                            android:onClick="@{vm::onClickViews}"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            app:layout_constraintStart_toEndOf="@id/takeGuardSignatureLayout"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                app:setImagePreview="@{vm.voucherPhotoAttachmentObs.localFilePath}" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_32sdp"
+                                android:layout_height="@dimen/_32sdp"
+                                android:layout_centerInParent="true"
+                                app:srcCompat="@drawable/ic_add_photo" />
+
+                        </RelativeLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/takeVoucherPhotoLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="@string/string_voucher_photo"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_11ssp"
+                            android:layout_marginStart="@dimen/_28sdp"
+                            app:layout_constraintStart_toEndOf="@id/takeGuardSignatureLayout"
+                            app:layout_constraintTop_toBottomOf="@id/takeVoucherPhotoLayout" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/onKitDistributionDone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onClickViews}"
+            android:text="@string/string_done"
+            android:visibility="@{vm.obsIsDataAvailable?View.VISIBLE : View.GONE}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

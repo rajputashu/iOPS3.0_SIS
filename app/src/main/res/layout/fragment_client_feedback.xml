@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.clienthandshake.frags.ClientFeedbackViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlue"
+        android:orientation="vertical"
+        android:padding="@dimen/_12sdp">
+
+        <!--<TextView
+            android:id="@+id/labelClientMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_client_mode"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp" />-->
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:background="@drawable/border_round_white_body"
+            android:fillViewport="true">
+            <!--            android:layout_below="@id/labelClientMode"-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:textColor="@color/textColorBlackBold"
+                    app:drawableStartCompat="@drawable/ic_person_icon"
+                    app:htmlText="@{vm.spannedUnitName}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/colorLightGrey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:textColor="@color/textColorBlackBold"
+                    app:drawableStartCompat="@drawable/ic_person_icon"
+                    app:htmlText="@{vm.spannedClientName}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/colorLightGrey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:textColor="@color/textColorBlackBold"
+                    app:drawableStartCompat="@drawable/ic_person_icon"
+                    app:htmlText="@{vm.spannedClientNumber}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/colorLightGrey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/string_your_feedback"
+                    android:textColor="@color/textColorBlackBold"
+                    android:textSize="@dimen/_14ssp" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_26sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:theme="@style/Theme.Rating"
+                    app:ratingAdapter="@{vm.ratingListener}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_very_bad"
+                        android:textColor="@color/colorLightGrey_2"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_98sdp"
+                        android:text="@string/string_excellent"
+                        android:textColor="@color/colorLightGrey_2"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.isRatingGiven}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="@{vm.isFocusable}"
+                        android:focusableInTouchMode="@{vm.isFocusable}"
+                        android:text="@{vm.feedbackSummaryLabel}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_why_not_great_experience"
+                        android:textColor="@color/colorCircularBlue"
+                        android:textSize="@dimen/_11ssp"
+                        android:visibility="@{vm.obsNotGreatExpMsgVisibility}" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_16sdp"
+                        app:feedbackQuesAdapter="@{vm.adapter}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:background="@drawable/border_red_stroke_white_body"
+                        android:onClick="@{vm::onAddComplaint}"
+                        android:padding="@dimen/_12sdp"
+                        android:text="@{vm.isComplaintAddedSuccessfully?@string/string_complain_added:@string/string_add_complaint}"
+                        android:textColor="@color/colorLightRed" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/border_round_red_body"
+            android:onClick="@{vm::onValidatingOTP}"
+            android:text="@string/string_validate_by_otp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            android:visibility="@{vm.isRatingGiven}"
+            app:clientListener="@{vm.clientListener}" />
+
+    </RelativeLayout>
+
+</layout>

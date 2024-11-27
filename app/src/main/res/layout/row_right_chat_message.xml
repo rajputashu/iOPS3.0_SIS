@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.chat.QuestionsChildMO" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingVertical="10dp"
+        android:paddingStart="@dimen/_40sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        tools:targetApi="o">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rightMessageBodyTV"
+            style="@style/BlackTitleTextColor11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/chat_right_message_bg"
+            android:elevation="2dp"
+            android:padding="@dimen/_10sdp"
+            android:text="@{model.responseLabel}"
+            tools:ignore="SelectableText" />
+
+    </RelativeLayout>
+
+</layout>

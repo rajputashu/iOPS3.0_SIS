@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/currentWeek"
+        android:title="@string/string_current_week" />
+    <item
+        android:id="@+id/lastWeek"
+        android:title="@string/string_last_week" />
+</menu>

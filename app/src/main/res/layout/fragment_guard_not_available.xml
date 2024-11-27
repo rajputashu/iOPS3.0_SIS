@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.guardcheck.notavailable.GuardNotAvailableViewModel" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BottomButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:onClick="@{vm::onGuardNotAvailableClick}"
+                android:text="@string/done_text" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etQuery"
+                style="@style/TitleNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvGuardNotAvailable"
+                android:layout_margin="@dimen/_8sdp"
+                android:hint="@string/please_enter_remarks"
+                android:text="@={vm.query}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvGuardNotAvailable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilGuardSuggestion"
+                android:layout_margin="@dimen/_8sdp"
+                app:setGuardNotAvailableAdapter="@{vm.guardNotAvailableRecyclerAdapter}"
+                app:setViewListeners="@{vm.viewListeners}" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilGuardSuggestion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:hint="@string/guard_name_or_id"
+                android:textColorHint="@color/textColorBlackBold"
+                app:boxStrokeColor="@color/outlineBorderTrans"
+                app:hintTextColor="@color/textColorBlackBold">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:completionThreshold="1"
+                    android:paddingStart="@dimen/_8sdp"
+                    android:text="@{vm.obsGuardName}"
+                    app:allGuards="@{vm.allGuards}"
+                    app:setAllGuardViewListener="@{vm.guardSuggestionViewListeners}" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

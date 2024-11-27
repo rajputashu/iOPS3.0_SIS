@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.mask.DistributedMaskMO" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/border_round_greystroke_whitebody"
+        android:padding="@dimen/_8sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/guardRegNo"
+            style="@style/BlackTitleTextColor13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/dynamic_two_values(model.guardRegNo,model.guardName)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/unitCodeName"
+            style="@style/BlackSubTitleTextColor11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@{@string/dynamic_two_values(model.siteCode,model.siteName)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guardRegNo" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/issuedDate"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@{@string/dynamic_issued_date(TimeUtils.formatServerDateToDDMMYYYY(model.createdDateTime))}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/unitCodeName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

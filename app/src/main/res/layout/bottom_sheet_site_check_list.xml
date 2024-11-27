@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.SiteCheckListViewModel" />
+
+        <import type="com.sisindia.ai.android.models.CheckListOptionResponseType" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_top_corner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_marginLeft="@dimen/_130sdp"
+                android:layout_marginRight="@dimen/_130sdp"
+                android:background="@color/colorLightGrey_2"
+                android:gravity="center" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@{vm.itemObs.checklistLabel}" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onCheckedChange(compoundButton, checked)}"
+                app:setSiteCheckListRadioButtons="@{vm.options}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="@{vm.selectedOptionObs.optionResponseType.equalsIgnoreCase(CheckListOptionResponseType.IMAGE.responseType)?View.VISIBLE:View.GONE}">
+
+                <com.droidcommons.views.roundedimageview.RoundedImageView
+                    android:id="@+id/ivLeftDocument"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:scaleType="fitXY"
+                    android:visibility="@{TextUtils.isEmpty(vm.siteCheckAttachment.localFilePath)?View.GONE:View.VISIBLE}"
+                    app:riv_corner_radius="@dimen/_8sdp"
+                    app:setImagePreview="@{vm.siteCheckAttachment.localFilePath}" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabCapture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:onClick="@{vm::onCaptureImageForSiteCheckListClick}"
+                    app:backgroundTint="@color/colorLightRed"
+                    app:srcCompat="@drawable/ic_photo_camera"
+                    app:tint="@color/colorWhite" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/RoundedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:onClick="@{vm::onSiteCheckListSelected}"
+                android:text="@string/string_done" />
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

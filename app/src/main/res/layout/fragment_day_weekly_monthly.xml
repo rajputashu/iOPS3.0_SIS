@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.rotacompliance.ComplianceDWMViewModel" />
+    </data>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDayWeekMonthly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp" />
+    <!--        app:dayWeekMonthAdapter="@{vm.adapter}"-->
+
+</layout>

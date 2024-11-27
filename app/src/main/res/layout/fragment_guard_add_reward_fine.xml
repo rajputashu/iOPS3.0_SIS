@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.rewardfine.GuardAddRewardFineViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.sisindia.ai.android.room.entities.EmployeeFineRewardEntity.RewardType" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/llBottomLayout"
+            android:layout_marginTop="@dimen/_8sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llGuardDutyHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/string_guard_duty_history"
+                        android:textColor="@color/colorLightGrey_2"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColorBlackBold"
+                            android:textSize="@dimen/_12ssp"
+                            app:setDeployedDate="@{vm.selectedGuardObs.deployedDate}" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_at_unit"
+                            android:textColor="@color/colorTextGrey" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:gravity="center"
+                        android:text="@{vm.selectedGuardObs.employeeName.trim()+@string/appos_score}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:text="@{vm.selectedGuardObs.employeeNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_24sdp"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlue"
+                        android:textSize="@dimen/_30ssp"
+                        app:setGuardTotalTurnOut="@{vm.selectedGuardObs.totalTurnOut}"
+                        app:setGuardTotalTurnOutScore="@{vm.selectedGuardObs.turnOutScore}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/rewardFineMessage"
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_24sdp"
+                        android:gravity="center"
+                        android:text="@{vm.deservesRewardOrFine}"
+                        android:visibility="@{vm.isRewardAdded?View.GONE:View.VISIBLE}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:layout_marginBottom="@dimen/_30sdp"
+                        android:gravity="center"
+                        android:visibility="@{vm.isRewardAdded?View.VISIBLE:View.GONE}"
+                        app:setOnRewardFineAdded="@{vm.selectedCategoryObs.displayName}"
+                        app:setRewardType="@{vm.rewardTypeObs}" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/addRewardButton"
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_25sdp"
+                        android:background="@drawable/rectangle_green"
+                        android:drawableTint="@color/colorStatusDone"
+                        android:gravity="center"
+                        android:onClick="@{vm::onAddRewardClick}"
+                        android:text="@string/string_add_reward"
+                        android:textColor="@color/colorStatusDone"
+                        android:visibility="@{vm.isRewardAdded?View.GONE:View.VISIBLE}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/addFineButton"
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_30sdp"
+                        android:gravity="center"
+                        android:onClick="@{vm::onAddFineClick}"
+                        android:text="@string/string_add_fine"
+                        android:textColor="@color/colorLightRed"
+                        android:visibility="@{vm.isRewardAdded?View.GONE:View.VISIBLE}" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/llBottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_38sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                app:setAddedRewardBackground="@{vm.rewardTypeObs}"
+                app:setAddedRewardDone="@{vm.isRewardAdded}">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/reward_added"
+                    android:textColor="@color/colorStatusDone"
+                    android:visibility="@{(vm.rewardTypeObs == RewardType.REWARD)?View.VISIBLE:View.GONE}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/fine_added"
+                    android:textColor="@color/colorLightRed"
+                    android:visibility="@{(vm.rewardTypeObs == RewardType.FINE)?View.VISIBLE:View.GONE}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{vm::onRewardUndoClick}"
+                    android:text="@string/undo_reward"
+                    app:textAllCaps="true" />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BottomButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_gravity="bottom"
+                android:onClick="@{vm::onContinueToAddSignature}"
+                android:text="@string/string_continue_add_sig" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sisindia.ai.android.uat",
+  "variantName": "UATDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 19,
+      "versionName": "Ver-U(1.9)",
+      "outputFile": "iOPS2.0_UAT_debug_Ver-U(1.9).apk"
+    }
+  ],
+  "elementType": "File"
+}

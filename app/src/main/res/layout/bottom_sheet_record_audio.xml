@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.commons.audiorecord.AudioRecordingViewModel" />
+
+        <import type="com.sisindia.ai.android.models.AudioRecordState" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_top_corner">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvUserLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorWhite">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:background="@drawable/ic_round_circle"
+                    android:backgroundTint="@color/colorWhiteGrey"
+                    android:padding="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_clear" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivAudioWav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivClose"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="matrix"
+                    app:srcCompat="@drawable/ic_audio_wav" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAudioCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivAudioWav"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:text="@{vm.timerText}"
+                    android:textColor="@color/textColorBlackBold"
+                    android:textSize="@dimen/_40ssp" />
+
+                <LinearLayout
+                    android:id="@+id/llAudioMedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvAudioCounter"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_4sdp">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/ivPlayMedia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{vm::onPlayMedia}"
+                        app:backgroundTint="@color/colorLightRed"
+                        app:fabSize="mini"
+                        app:setPlayMediaAudioPlay="@{vm.btnPlayState}"
+                        app:setPlayMediaAudioRecord="@{vm.btnRecordState}"
+                        app:srcCompat="@drawable/ic_play_media"
+                        app:tint="@color/colorWhite" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/ivRecordMedia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_50sdp"
+                        android:layout_marginRight="@dimen/_50sdp"
+                        android:onClick="@{vm::onRecordMedia}"
+                        app:backgroundTint="@color/colorLightRed"
+                        app:fabSize="normal"
+                        app:setRecordMediaAudioPlay="@{vm.btnPlayState}"
+                        app:setRecordMediaAudioRecord="@{vm.btnRecordState}"
+                        app:srcCompat="@drawable/ic_mic"
+                        app:tint="@color/colorWhite" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/ivDeleteMedia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{vm::onDeleteMedia}"
+                        app:backgroundTint="@color/colorLightRed"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/ic_delete_media"
+                        app:tint="@color/colorWhite" />
+
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRecordState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llAudioMedia"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:textSize="@dimen/_12ssp"
+                    app:setRecordTextState="@{vm.btnRecordState}" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSaveAudio"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_below="@id/tvRecordState"
+                    android:background="@drawable/button_background_state_color"
+                    android:enabled="@{vm.btnRecordState != AudioRecordState.RECORDING}"
+                    android:onClick="@{vm::onAudioRecordSaveClick}"
+                    android:text="@string/done_text"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14ssp" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

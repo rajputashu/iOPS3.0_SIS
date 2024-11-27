@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.units.details.posts.UnitPostsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sitePostsLabel"
+            style="@style/BlackTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/border_round_grey_body"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:text="@string/string_label_site_posts" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/sitePostsLabel"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_16sdp"
+            app:postListener="@{vm.postListener}"
+            app:unitPostsAdapter="@{vm.unitPostAdapter}" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/sitePostsLabel"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:background="@color/colorTextGrey"
+            android:visibility="@{vm.isPostAvailable}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/OnlyFontFamily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sitePostsLabel"
+            android:layout_margin="@dimen/_16sdp"
+            android:background="@drawable/border_round_red_body"
+            android:gravity="center"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:text="@string/string_no_post_configured"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            android:visibility="@{vm.isPostAvailable}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_8sdp"
+            android:onClick="@{vm::onAddPost}"
+            app:backgroundTint="@color/colorLightRed"
+            app:srcCompat="@drawable/ic_fab_add"
+            app:tint="@color/colorWhite" />
+
+    </RelativeLayout>
+</layout>

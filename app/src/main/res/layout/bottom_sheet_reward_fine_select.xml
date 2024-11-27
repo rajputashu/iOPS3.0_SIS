@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.rewardfine.GuardAddRewardFineViewModel" />
+
+        <import type="com.sisindia.ai.android.room.entities.EmployeeFineRewardEntity.RewardType" />
+    </data>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawable_top_corner">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvUserLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/colorWhite">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_130sdp"
+                    android:layout_marginRight="@dimen/_130sdp"
+                    android:background="@color/colorDarkGrey"
+                    android:gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:textColor="@color/titleTextColor_80"
+                    app:setRewardTypeText="@{vm.rewardTypeObs}"
+                    app:textAllCaps="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:animationCache="true"
+                        android:backgroundTint="@color/textColorBlackBold"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:chipSpacingHorizontal="@dimen/_10sdp"
+                        app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onCheckedChange(compoundButton, checked)}"
+                        app:setRewardFineCategory="@{vm.categoryObs}"
+                        app:singleSelection="true" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:textColor="@color/titleTextColor_80"
+                    android:text="@string/string_select_reason"
+                    app:textAllCaps="true" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:pointerIcon="arrow"
+                    android:popupBackground="@color/colorWhite"
+                    app:listener="@{vm.listener}"
+                    app:rewardFineReasons="@{vm.obsRewardOrPunishmentReasons}"
+                    tools:targetApi="n" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/RoundedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:enabled="@{vm.isBtnEnable}"
+                    android:onClick="@{vm::onAddRewardFineDone}"
+                    android:text="@string/string_done" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

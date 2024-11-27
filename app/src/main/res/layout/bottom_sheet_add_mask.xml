@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.mask.MaskDistributionViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawable_top_corner"
+        android:minHeight="@dimen/_600sdp"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_16sdp">
+
+        <View
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_2sdp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorTextGrey" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/_16sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/string_add_mask_distribution"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sheetCloseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{vm::onViewClicks}"
+                app:srcCompat="@drawable/ic_close_grey_bg" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <LinearLayout
+            android:id="@+id/scanGuardQRView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_24sdp"
+            android:background="@drawable/border_round_red_body"
+            android:gravity="center"
+            android:onClick="@{vm::onViewClicks}">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawablePadding="@dimen/_12sdp"
+                android:gravity="center"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:text="@string/string_scan_gurad_id"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14ssp"
+                app:drawableStartCompat="@drawable/ic_white_scan_qr" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/border"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_12sdp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/hint_enter_here"
+                    android:inputType="text"
+                    android:text="@={vm.obsGuardIdOrName}"
+                    android:textColor="@color/textColorBlackBold"
+                    android:textSize="@dimen/_12ssp"
+                    tools:ignore="Autofill,TextFields" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:text="@string/string_guard_id_name"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_12ssp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_16sdp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/border"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_8sdp">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/sectorOrStatusSpinner"
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:pointerIcon="arrow"
+                    android:popupBackground="@color/colorWhite"
+                    app:listener="@{vm.listener}"
+                    app:rewardFineReasons="@{vm.obsSiteList}"
+                    tools:targetApi="n" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:text="@string/string_select_unit_name"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_12ssp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/takeGuardPhotoLayout"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_72sdp"
+            android:layout_margin="@dimen/_15sdp"
+            android:background="@drawable/border_round_greystroke_whitebody"
+            android:onClick="@{vm::onViewClicks}">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:setImagePreview="@{vm.obsPhotoAttachment.localFilePath}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_add_photo" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/OnlyFontFamily"
+            android:id="@+id/takeGuardPhotoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_13sdp"
+            android:text="@string/string_guard_photo"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/_11ssp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/OnlyFontFamily"
+            android:id="@+id/addMaskDistributionButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_margin="@dimen/_20sdp"
+            android:background="@drawable/border_round_red_body"
+            android:gravity="center"
+            android:onClick="@{vm::onViewClicks}"
+            android:text="@string/string_add"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp" />
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center_horizontal"
+            android:visibility="@{vm.isLoading}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/OnlyFontFamily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/string_please_wait"
+            android:textColor="@color/colorLightRed"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="@{vm.isLoading}" />
+
+    </LinearLayout>
+
+</layout>

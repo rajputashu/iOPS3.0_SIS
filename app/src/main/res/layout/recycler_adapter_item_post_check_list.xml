@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="adapterItem"
+            type="com.sisindia.ai.android.room.entities.CheckedPostCheckListEntity" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/_8sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TitleNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_toStartOf="@id/ivSiteCheckListStatusIcon"
+                android:text="@{adapterItem.checklistLabel}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSiteCheckListStatusIcon"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/_16sdp"
+                app:setCheckListStatusIcon="@{adapterItem.isEdited}"
+                app:srcCompat="@drawable/ic_group" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SubTitleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_16sdp"
+                android:text="@{adapterItem.optionLabel}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SubTitleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_16sdp"
+                android:text="@{adapterItem.remarks}" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSiteCheckList"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_16sdp"
+                android:scaleType="fitXY"
+                android:visibility="@{adapterItem.imageAttachmentId==0?View.GONE:View.VISIBLE}" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

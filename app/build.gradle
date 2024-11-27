@@ -1,0 +1,323 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.sisindia.ai.android"
+        minSdkVersion 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            debuggable false
+//            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        /*sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17*/
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+//        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    /*splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi","armeabi-v7a",'arm64-v8a',"mips","x86","x86_64",'arm64-v8a'
+            universalApk true
+        }
+    }*/
+    signingConfigs {
+        release {
+            keyAlias 'iOPS2.0'
+            keyPassword 'iopsv2'
+            storeFile file('../keyStore/iOPSv2.jks')
+            storePassword 'iopsv2'
+        }
+    }
+
+    flavorDimensions 'dimensions'
+
+    productFlavors {
+
+        UAT {
+            applicationId "com.sisindia.ai.android.uat"
+            versionName "Ver-U(2.8)"
+            versionCode 28
+            buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
+//            buildConfigField 'String', 'CORE_API', '"https://eventmanagment-api.azurewebsites.net/"'
+            buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'MASTER_API', '"https://iops2master-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'AUTHORIZATION_API', '"https://sisidserver-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CLIENT_ID_CC_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'CLIENT_ID_RO_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'SCOPE_VALUE', '""' ////scope offline_access
+            multiDexEnabled true
+            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.uatrelease
+            proguardFile("proguard-rules.pro")
+        }
+
+        sisProd {
+            applicationId "com.sisindia.ai.android.dev"
+            versionName "Ver-P(4.3)"
+            versionCode 43
+            buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'MASTER_API', '"https://iops2master-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'AUTHORIZATION_API', '"https://sisidserver-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CLIENT_ID_CC_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'CLIENT_ID_RO_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'SCOPE_VALUE', '""'
+            multiDexEnabled true
+            signingConfig signingConfigs.release
+            proguardFile("proguard-rules.pro")
+        }
+
+        uniqUat {
+            applicationId "com.sisindia.ai.android.uniq"
+            versionName "Ver-U(1.2)"
+            versionCode 12
+            buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'MASTER_API', '"https://iops2master-uat.azurewebsites.net/"'
+//            buildConfigField 'String', 'AUTHORIZATION_API', '"https://iops2identityserver.azurewebsites.net/"'
+            buildConfigField 'String', 'AUTHORIZATION_API', '"https://sisidserver-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CLIENT_ID_CC_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'CLIENT_ID_RO_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'SCOPE_VALUE', '""'
+            multiDexEnabled true
+            signingConfig signingConfigs.release
+            proguardFile("proguard-rules.pro")
+        }
+
+        uniqProd {
+            applicationId "com.sisindia.ai.android.dev"
+            versionName "Ver-P(1.6)"
+            versionCode 16
+            buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'MASTER_API', '"https://iops2master-uat.azurewebsites.net/"'
+//            buildConfigField 'String', 'AUTHORIZATION_API', '"https://iops2identityserver.azurewebsites.net/"'
+            buildConfigField 'String', 'AUTHORIZATION_API', '"https://sisidserver-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CLIENT_ID_CC_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'CLIENT_ID_RO_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'SCOPE_VALUE', '""'
+            multiDexEnabled true
+            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.uniqrelease
+            proguardFile("proguard-rules.pro")
+        }
+
+        slvProd {
+//            applicationId "com.sisindia.ai.android.slv" // Update and create app in google serice as well like uniq
+            applicationId "com.sisindia.ai.android.dev"
+            versionName "Ver-P(1.6)"
+            versionCode 16
+            buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'MASTER_API', '"https://iops2master-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'AUTHORIZATION_API', '"https://sisidserver-uat.azurewebsites.net/"'
+            buildConfigField 'String', 'CLIENT_ID_CC_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'CLIENT_ID_RO_VALUE', '"iOpsMobileAPP"'
+            buildConfigField 'String', 'SCOPE_VALUE', '""'
+            multiDexEnabled true
+            signingConfig signingConfigs.release
+            proguardFile("proguard-rules.pro")
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "iOPS2.0"
+            def SEP = "_"
+            def flavor = variant.productFlavors[0].name
+//            def buildType = variant.variantData.variantConfiguration.buildType.name {Throwing Error}
+            def buildType = variant.buildType.name
+            def version = variant.versionName
+//            def date = new Date()
+//            def formattedDate = date.format('ddMMyy_HHmm')
+//            def newApkName = project + SEP + flavor + SEP + buildType + SEP + version + SEP + formattedDate + ".apk"
+            def newApkName = project + SEP + flavor + SEP + buildType + SEP + version + ".apk"
+            outputFileName = new File(newApkName)
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.core:core-ktx:1.8.0'
+//    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation("androidx.collection:collection-ktx:1.2.0")
+
+    implementation 'com.google.dagger:dagger-android-support:2.28.3'     //daggerSupport
+    kapt 'com.google.dagger:dagger-android-processor:2.28.3'             //daggerProcessor
+    kapt 'com.google.dagger:dagger-compiler:2.35'                       //daggerCompiler
+    implementation 'com.google.dagger:dagger:2.35'                      //dagger
+
+    implementation "androidx.annotation:annotation:1.4.0"               //androidXAnnotations
+    implementation "com.google.android.material:material:1.6.1"         //androidMaterial
+    implementation "androidx.recyclerview:recyclerview:1.2.1"           //androidXRecyclerview
+    implementation "androidx.appcompat:appcompat:1.4.1"                  //androidXRAppcompat
+    implementation "androidx.legacy:legacy-support-v13:1.0.0"           //androidXSupportV13
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"            //androidXSupportV4
+    implementation "androidx.room:room-runtime:2.5.2"                   //androidXRoomRuntime
+    implementation "androidx.room:room-rxjava2:2.5.2"                   //androidXRoomRxJava
+    implementation "androidx.multidex:multidex:2.0.1"                   //androidXMultidex
+    kapt "androidx.room:room-compiler:2.5.2"                            //androidXRoomCompiler
+
+    /**
+     * Android Life Cycle
+     */
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.4.1"
+
+    /**
+     * Retrofit Dependencies
+     */
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'                  //okHttp
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.11.0'    // okHttpLogger
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'              //retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'        //retrofitConverter
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'       //retrofitAdapter
+    implementation 'com.squareup.retrofit2:converter-scalars:2.8.1'     //retrofitScalar
+
+    implementation "com.jakewharton.timber:timber:4.7.1"                //timber
+//    implementation "com.tspoon.traceur:traceur:1.0.1"                   //traceur
+    implementation "com.facebook.stetho:stetho:1.6.0"                   //stetho
+    implementation "com.facebook.stetho:stetho-okhttp3:1.5.1"           //stethoOkhttp
+
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"                //rxKotlin
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"               //rxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:2.2.16"                 //rxJava
+
+    implementation "com.github.bumptech.glide:glide:4.13.2"              //Glide
+
+    implementation "javax.annotation:jsr250-api:1.0"                  //javaxAnnotation
+    implementation "javax.inject:javax.inject:1"                      //javaxInject
+
+    implementation 'com.google.code.gson:gson:2.10.1'                    //Gson
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-crashlytics'
+
+    implementation 'com.google.mlkit:pose-detection:17.0.0'
+
+    /**
+     * PARCELS
+     * */
+    implementation 'org.parceler:parceler-api:1.1.13'
+    kapt 'org.parceler:parceler:1.1.13'
+
+    /**
+     * THREE-TEN-BP
+     * */
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
+
+    /**
+     * CONSTRAINT LAYOUT
+     * */
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+
+    implementation project(':droidcommons')
+
+    /**
+     * AndroidX Worker
+     * */
+    implementation "androidx.work:work-runtime:2.8.1" // (Java only)
+    implementation "androidx.work:work-rxjava2:2.8.1" // optional - RxJava2 support
+    // optional - GCMNetworkManager support
+    implementation "androidx.work:work-gcm:2.8.1"
+
+    // CameraX core library
+    def camera_version = "1.2.0-alpha01"
+    implementation "androidx.camera:camera-core:$camera_version"
+    implementation "androidx.camera:camera-camera2:$camera_version"
+    implementation "androidx.camera:camera-lifecycle:$camera_version"
+    implementation "androidx.camera:camera-view:$camera_version"
+
+    /**
+     * Chuck
+     */
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+
+    //---------Graphs[MPChart]--------//
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //--------Google MAP----------//
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+
+    implementation 'id.zelory:compressor:3.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'io.nlopez.smartlocation:library:3.3.3'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+
+    //Below libraries are used for image detection and classification via TFLite models
+    // Core TensorFlow Lite for inference
+    implementation("org.tensorflow:tensorflow-lite:2.16.1")
+    // TensorFlow Lite support library for image processing and tensor manipulation
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    // GPU acceleration support (if using GPU for inference)
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.16.1")
+    implementation("org.tensorflow:tensorflow-lite-gpu-api:2.16.1")
+
+
+    implementation ('org.jitsi.react:jitsi-meet-sdk:10.2.1') { transitive = true }
+
+}
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

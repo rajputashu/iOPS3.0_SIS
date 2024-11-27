@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sisindia.ai.android.uat",
+  "variantName": "UATRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 28,
+      "versionName": "Ver-U(2.8)",
+      "outputFile": "iOPS2.0_UAT_release_Ver-U(2.8).apk"
+    }
+  ],
+  "elementType": "File"
+}

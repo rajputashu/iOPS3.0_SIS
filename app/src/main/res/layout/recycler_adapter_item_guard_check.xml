@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="adapterItem"
+            type="com.sisindia.ai.android.uimodels.CheckedGuardItemModel" />
+
+        <import type="com.sisindia.ai.android.room.entities.CheckedGuardEntity.CheckedGuardStatus" />
+
+        <import type="com.sisindia.ai.android.room.entities.CheckedGuardEntity.GuardStatus" />
+
+        <import type="android.view.View" />
+
+        <import type="com.sisindia.ai.android.room.entities.EmployeeFineRewardEntity.RewardType" />
+
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_172sdp"
+        android:layout_height="@dimen/_176sdp"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/_8sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_8sdp">
+
+            <RelativeLayout
+                android:id="@+id/rlGuardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <com.droidcommons.views.roundedimageview.RoundedImageView
+                    android:id="@+id/ivGuardPic"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/ic_person_icon" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_toStartOf="@id/ivGuardCheckStatusIcon"
+                    android:layout_toEndOf="@id/ivGuardPic"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TitleNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{adapterItem.employeeName}"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SubTitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{adapterItem.postName}"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGuardCheckStatusIcon"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_alignParentEnd="true"
+                    app:setGuardStatusIcon="@{adapterItem}"
+                    app:srcCompat="@drawable/ic_group" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llGuardFound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/rlGuardLayout"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:visibility="@{adapterItem.guardStatus == GuardStatus.NOT_AVAILABLE.guardStatus ? View.GONE:View.VISIBLE}">
+
+                <LinearLayout
+                    android:id="@+id/llLegendary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:visibility="@{adapterItem.grievances!=0?View.VISIBLE:View.GONE}"
+                        app:srcCompat="@drawable/ic_grievance" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:visibility="@{adapterItem.kitItems!=0?View.VISIBLE:View.GONE}"
+                        app:srcCompat="@drawable/ic_kit_request" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{RewardType.of(adapterItem.rewardType)==RewardType.REWARD?View.VISIBLE:View.GONE}"
+                        app:srcCompat="@drawable/ic_guard_turn_out_score" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{RewardType.of(adapterItem.rewardType)==RewardType.FINE?View.VISIBLE:View.GONE}"
+                        app:tint="@color/iconColor"
+                        app:srcCompat="@drawable/ic_guard_fine" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="@dimen/_12ssp"
+                    app:setGuardTotalTurnOut="@{adapterItem.totalTurnOut}"
+                    app:setGuardTotalTurnOutScore="@{adapterItem.turnOutScore}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SubTitleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/overall_score" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlGuardNotFound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/rlGuardLayout"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:visibility="@{adapterItem.guardStatus == GuardStatus.NOT_AVAILABLE.guardStatus ? View.VISIBLE:View.GONE}">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGuardNotFoundPic"
+                    android:layout_width="@dimen/_84sdp"
+                    android:layout_height="@dimen/_84sdp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/ic_round_circle_big"
+                    android:backgroundTint="@color/colorTransparentRed"
+                    android:padding="@dimen/_16sdp"
+                    app:srcCompat="@drawable/ic_person"
+                    app:tint="@color/colorLightRed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TitleNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivGuardNotFoundPic"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/guard_not_found"
+                    android:textColor="@color/colorStatusPending" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

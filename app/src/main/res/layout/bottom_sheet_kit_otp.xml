@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.clienthandshake.sheet.FeedbackOtpSheetViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_top_corner"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_16sdp">
+
+            <View
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorTextGrey" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@string/string_validate_kit_by_otp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_1sdp"
+                android:text="@{@string/dyn_enter_otp_code_sent(vm.clientMobNo)}"
+                android:textColor="@color/colorLightGrey_2"
+                android:textSize="@dimen/_12ssp" />
+
+            <com.droidcommons.views.otpview.OtpView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:inputType="number"
+                android:itemBackground="@color/colorWhite"
+                android:text="@={vm.clientOTP}"
+                android:textColor="@color/textColorBlackBold"
+                app:itemCount="4"
+                app:itemHeight="@dimen/_35sdp"
+                app:itemSpacing="@dimen/_6sdp"
+                app:itemWidth="@dimen/_35sdp"
+                app:lineColor="@color/outlineBorderTrans"
+                app:lineWidth="@dimen/_1sdp"
+                app:state_filled="true"
+                app:viewType="rectangle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/resendOTP"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:enabled="@{vm.isTimerEnable ? false : true}"
+                android:onClick="@{vm::onBtnClick}"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_1sdp"
+                android:text="@string/string_resend_otp_code"
+                android:textColor="@{vm.isTimerEnable ? @color/outlineBorderTrans : @color/colorLightRed}"
+                android:textSize="@dimen/_13ssp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@{vm.waitingTime}"
+                android:textColor="@color/colorLightRed"
+                android:textSize="@dimen/_10ssp"
+                android:visibility="@{vm.isTimerEnable ? View.VISIBLE:View.GONE}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/otpDoneButton"
+                style="@style/BottomButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_42sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/border_round_red_body"
+                android:gravity="center"
+                android:onClick="@{vm::onBtnClick}"
+                android:text="@string/string_validate_otp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reasonRadioGroup" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/skipOtpVerification"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:text="@string/string_trouble_in_otp"
+                android:textColor="@color/colorLightRed"
+                android:onClick="@{vm::onBtnClick}"
+                android:textSize="@dimen/_11ssp"
+                android:visibility="@{vm.obsShowSkipLayout ? View.VISIBLE : View.GONE}" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/otpCrossButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/_6sdp"
+            android:background="@drawable/ic_close_grey_bg"
+            android:onClick="@{vm::onBtnClick}"
+            android:padding="@dimen/_10sdp"
+            tools:ignore="ContentDescription" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

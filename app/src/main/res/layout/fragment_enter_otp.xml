@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.login.otp.EnterOtpViewModel" />
+
+        <import type="com.droidcommons.preference.Prefs" />
+
+        <import type="com.sisindia.ai.android.constants.PrefConstants" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{vm.isDataSyncing?View.GONE :View.VISIBLE}">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp"
+                android:text="@string/string_verification_code" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackSubTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:text="@{@string/please_type_verification_code_sent_to+vm.phoneNumber}"
+                android:textAlignment="center"
+                android:textColor="@color/subTitle1TextColor_100" />
+
+
+            <!--<androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{vm::onEditNumberClick}"
+                android:text="@string/string_edit_phone_number"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />-->
+
+
+            <com.droidcommons.views.otpview.OtpView
+                android:id="@+id/otp_view"
+                style="@style/BlackTitleTextColor20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:inputType="number"
+                android:itemBackground="@color/colorWhite"
+                android:text="@={vm.otpText}"
+                app:itemCount="6"
+                app:itemHeight="@dimen/_35sdp"
+                app:itemSpacing="@dimen/_6sdp"
+                app:itemWidth="@dimen/_35sdp"
+                app:lineColor="@color/boxOutLineColor"
+                app:lineWidth="@dimen/_1sdp"
+                app:setOtpCompletionListener="@{vm.otpCompletionListener}"
+                app:state_filled="true"
+                app:viewType="rectangle" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:onClick="@{vm::onResendOtpClick}"
+                android:text="@string/string_resend_otp"
+                android:textAlignment="center"
+                android:textColor="@color/textColorRed_100" />
+
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:enabled="@{vm.isLoading == View.GONE}"
+            android:onClick="@{vm::onValidateBtnClick}"
+            android:text="@string/string_submit"
+            android:visibility="@{vm.isDataSyncing?View.GONE :View.VISIBLE}" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+        <!--<me.turkergoksu.lib.PercentageView
+            android:id="@+id/loadingPercentageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isDataSyncing?View.VISIBLE :View.GONE}"
+            app:animDuration="1500"
+            app:centerColor="@color/colorWhite"
+            app:percentageWidth="50"
+            app:progressBackgroundColor="@color/colorRed_30opct"
+            app:progressColor="@color/colorLightRed"
+            app:softness="true"
+            app:textColor="@color/textColorBlackBold"
+            app:textSize="@dimen/_40ssp" />-->
+
+        <com.github.lzyzsd.circleprogress.ArcProgress
+            android:id="@+id/loadingPercentageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@color/colorWhite"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isDataSyncing?View.VISIBLE :View.GONE}"
+            custom:arc_bottom_text="Loading"
+            custom:arc_text_size="50sp"
+            custom:arc_suffix_text_size="30sp"
+            custom:arc_stroke_width="12sp"
+            custom:arc_bottom_text_size="@dimen/_18ssp"
+            custom:arc_text_color="@color/textColorBlackBold"/>
+        <!--custom:arc_finished_color="@color/colorLightRed"
+        custom:arc_unfinished_color="@color/colorRed_30opct"-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor13"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/loading_config_msg"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:paddingStart="@dimen/_30sdp"
+            android:gravity="center_horizontal"
+            android:paddingEnd="@dimen/_30sdp"
+            android:layout_below="@id/loadingPercentageView"
+            android:visibility="@{vm.isDataSyncing?View.VISIBLE :View.GONE}" />
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:background="@drawable/border_round_greystroke_whitebody"
+        android:padding="@dimen/_16sdp">
+
+        <TextView
+            android:id="@+id/complianceChartHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/complianceChartPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:drawableStart="@drawable/ic_up_arrow_green"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/complianceChartHeader" />
+
+        <!--        <com.github.mikephil.charting.charts.BarChart-->
+        <com.sisindia.ai.android.commons.graph.RoundedBarChart
+            android:id="@+id/complianceBarChart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/complianceChartPercentage" />
+
+        <TextView
+            android:id="@+id/legendAchieved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:drawableStart="@drawable/ic_circle_orange"
+            android:drawablePadding="@dimen/_3sdp"
+            android:gravity="end"
+            android:text="@string/string_achieved"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@id/legendTarget"
+            app:layout_constraintTop_toBottomOf="@id/complianceBarChart" />
+
+        <TextView
+            android:id="@+id/legendTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:drawableStart="@drawable/ic_circle_grey"
+            android:drawablePadding="@dimen/_3sdp"
+            android:gravity="center_vertical"
+            android:text="@string/string_target"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/complianceBarChart" />
+
+        <TextView
+            android:id="@+id/legendAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:drawableStart="@drawable/ic_circle_blue"
+            android:drawablePadding="@dimen/_3sdp"
+            android:gravity="start"
+            android:text="@string/string_average"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintStart_toEndOf="@id/legendTarget"
+            app:layout_constraintTop_toBottomOf="@id/complianceBarChart" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

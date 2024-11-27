@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.units.addedit.AddEditPostViewModel" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbAddPost"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorWhite"
+                app:elevation="@dimen/_5sdp"
+                app:titleTextColor="@color/textColorBlackBold">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/ToolBarTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.toolBarTitle}" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/colorWindowBackGround" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_60sdp">
+
+                    <!-- POST NAME-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/_12sdp"
+                            android:paddingTop="@dimen/_16sdp"
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:paddingBottom="@dimen/_3sdp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:hint="@string/hint_type_post_name"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:paddingStart="@dimen/_6sdp"
+                                android:paddingEnd="@dimen/_6sdp"
+                                android:text="@={vm.postName}"
+                                android:textColor="@color/textColorBlackBold"
+                                tools:ignore="Autofill,TextFields" />
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                style="@style/BlackTitleTextColor14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:checked="@={vm.isMainGate()}"
+                                android:text="@string/string_is_main_gate"
+                                android:textSize="@dimen/_14ssp" />
+
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="@color/colorWhite"
+                            android:paddingStart="@dimen/_6sdp"
+                            android:paddingEnd="@dimen/_6sdp"
+                            android:text="@string/string_post_name" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/scanPostQRView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_22sdp"
+                        android:background="@drawable/border_round_red_body"
+                        android:gravity="center"
+                        android:onClick="@{vm::onViewClicked}">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:drawablePadding="@dimen/_12sdp"
+                            android:gravity="center"
+                            android:paddingTop="@dimen/_12sdp"
+                            android:paddingBottom="@dimen/_12sdp"
+                            android:text="@string/string_scan_post_qr"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_14ssp"
+                            app:drawableStartCompat="@drawable/ic_white_scan_qr" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:padding="@dimen/_6sdp"
+                        android:text="@{@string/qr_config_with_code(vm.postQRCode)}"
+                        android:textColor="@color/colorGreen"
+                        android:visibility="@{vm.postQRCode.empty ? View.GONE : View.VISIBLE}" />
+
+                    <!-- YOUR CURRENT LOCATION (CO-ORDINATES)-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_20sdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_1sdp">
+
+                            <androidx.fragment.app.FragmentContainerView
+                                android:id="@+id/postGoogleMap"
+                                android:name="com.google.android.gms.maps.SupportMapFragment"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_190sdp"
+                                android:paddingTop="@dimen/_10sdp" />
+
+                        </RelativeLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:background="@color/colorWhite"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_8sdp"
+                            android:text="@string/string_current_location"
+                            tools:ignore="RelativeOverlap" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/locationRefreshButton"
+                            style="@style/BlackTitleTextColor11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:background="@drawable/border_red_stroke_white_body"
+                            android:onClick="@{vm::onViewClicked}"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:text="@string/string_refresh"
+                            android:textColor="@color/textColorBlackBold"
+                            tools:ignore="RelativeOverlap" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_24sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/takePostPhotoView"
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:drawableTop="@drawable/ic_camera"
+                            android:drawablePadding="@dimen/_12sdp"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{vm::onViewClicked}"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_8sdp"
+                            android:text="@string/string_photo_post"
+                            android:textColor="@{vm.postImageUri==null ? @color/colorTextGrey : @color/colorStatusDone}"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/takeSPIPhotoView"
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:drawableTop="@drawable/ic_camera"
+                            android:drawablePadding="@dimen/_12sdp"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{vm::onViewClicked}"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_8sdp"
+                            android:text="@{vm.isEditingSpiImage ? @string/string_already_config(`SPI`) : @string/string_photo_spi}"
+                            android:textColor="@{vm.isEditingSpiImage ? @color/colorStatusDone : @color/colorTextGrey}"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                    <!--<androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:drawableBottom="@drawable/ic_camera"
+                        android:drawablePadding="@dimen/_12sdp"
+                        android:text="@string/string_photo_post"
+                        android:onClick="@{vm::onTakePostPicture}"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_12ssp" />-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:background="@drawable/border"
+                        android:padding="@dimen/_8sdp"
+                        android:visibility="gone">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/postRegisterLabel"
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_post_register"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/mapRegisterButtonView"
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{vm::onViewClicked}"
+                            android:text="@string/string_map"
+                            android:textColor="@color/colorLightRed"
+                            android:textSize="@dimen/_14ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:equipmentAdapter="@{vm.equipAdapter}"
+                            app:layout_constraintTop_toBottomOf="@id/postRegisterLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:text="@string/string_msg_no_register_map"
+                            android:textStyle="italic"
+                            android:visibility="@{vm.isEquipmentListVisible}"
+                            app:layout_constraintTop_toBottomOf="@id/postRegisterLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@drawable/border"
+                        android:padding="@dimen/_8sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/equipmentListLabel"
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_equipment_list"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/addEquipmentButtonView"
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{vm::onViewClicked}"
+                            android:text="@string/string_add_equipment"
+                            android:textColor="@color/colorLightRed"
+                            android:textSize="@dimen/_14ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:equipmentAdapter="@{vm.equipAdapter}"
+                            app:layout_constraintTop_toBottomOf="@id/equipmentListLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:text="@string/string_msg_no_equipment"
+                            android:textStyle="italic"
+                            android:visibility="@{vm.isEquipmentListVisible}"
+                            app:layout_constraintTop_toBottomOf="@id/equipmentListLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onSaveBtnClick}"
+            android:text="@string/string_save_post"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/colorGreen"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

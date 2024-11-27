@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.features.dynamictask.models.DynamicCheckBoxMO" />
+
+        <!--<variable
+            name="vm"
+            type="com.sisindia.ai.android.features.dynamictask.DynamicTaskViewModel" />-->
+    </data>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/dynamicCheckBox"
+        style="@style/BlackTitleTextColor13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorLightRed"
+        android:gravity="center_vertical"
+        android:padding="1dp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:text="@{model.cbLabel}">
+<!--        android:onCheckedChanged="@{(compoundButton, checked) -> vm.onCheckedChange(compoundButton, checked)}"-->
+
+    </androidx.appcompat.widget.AppCompatCheckBox>
+
+</layout>

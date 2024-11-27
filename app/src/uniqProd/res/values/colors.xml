@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F3F3F3</color>
+    <color name="colorPrimaryDark">#d3d3d3</color>
+    <color name="colorAccent">#00A1DA</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorLightGrey">#d3d3d3</color>
+    <!-- <color name="splashBgRed">#d2212f</color>-->
+    <color name="colorLightRed">#00A1DA</color>
+<!--    <color name="colorRed_30opct">#30d2212f</color>-->
+    <color name="colorRed_30opct">#3000A1DA</color>
+    <color name="colorLightGrey_2">#979797</color>
+    <color name="outlineBorderTrans">#66979797</color>
+    <color name="textColorBlackBold">#181c2d</color>
+
+    <!-- <color name="textColorGrey">#75859d</color>-->
+    <color name="colorTextGrey">#75859d</color>
+
+    <color name="colorDividerRed">#00A1DA</color>
+    <color name="colorBlue">#063074</color>
+
+    <color name="colorStatusDone">#1ac887</color>
+    <color name="colorStatusPending">#ffa400</color>
+    <color name="black">#000000</color>
+    <color name="barcode_reticle_stroke">#40000000</color>
+    <color name="barcode_reticle_background">#99000000</color>
+    <color name="reticle_ripple">#9AFFFFFF</color>
+    <color name="colorLightGreyWhite">#eef3f7</color>
+    <color name="colorDarkBlue">#215eff</color>
+    <color name="colorTransparentRed">#19ef2755</color>
+    <color name="colorTransparentRed2">#19FB5C81</color>
+    <color name="colorDarkGrey">#d8d8d8</color>
+    <color name="colorLightBlue">#cdd7e7</color>
+    <color name="colorDarkBlack">#99979797</color>
+    <color name="colorWhiteGrey">#cfd3d7</color>
+    <color name="colorTransferRed">#ef2755</color>
+    <color name="colorGreyDark">#3375859d</color>
+    <color name="colorGreyLight">#75859d</color>
+    <color name="colorWhiteLight">#f8f9fa</color>
+    <color name="colorTransparent">#55000000</color>
+<!--    <color name="colorBGLightGrey">#f3f3f3</color>-->
+    <color name="colorLightOrange">#ff805c</color>
+    <color name="colorIndigoBlue">#4b4eb2</color>
+    <color name="colorUltraLightBlue">#eef2f8</color>
+    <color name="colorStatusBar">#f5f8fc</color>
+    <color name="colorWindowBackGround">#f3f3f3</color>
+    <color name="colorDarkerGrey">#74859e</color>
+    <color name="colorCircularBlue">#82bbff</color>
+    <color name="colorTransparentGreen">#331ac887</color>
+    <color name="colorLauncherDarkGreen">#44000000</color>
+    <color name="colorLightGreyDark">#808080</color>
+    <color name="colorGreen">#1ac887</color>
+    <color name="colorDarkGreen">#329A74</color>
+    <color name="colorGreyDot">#cacaca</color>
+    <color name="colorCloseIcon">#848d9b</color>
+    <color name="iconColor">#75859D</color>
+
+
+    <!--text colors-->
+    <color name="titleTextColor_100">#181c2d</color>
+    <color name="titleTextColor_90">#90181c2d</color>
+    <color name="titleTextColor_80">#80181c2d</color>
+    <color name="titleTextColor_70">#70181c2d</color>
+    <color name="titleTextColor_60">#60181c2d</color>
+    <color name="titleTextColor_50">#50181c2d</color>
+    <color name="titleTextColor_40">#40181c2d</color>
+    <color name="titleTextColor_30">#30181c2d</color>
+    <color name="titleTextColor_20">#20181c2d</color>
+    <color name="titleTextColor_10">#10181c2d</color>
+
+    <color name="subTitleTextColor_100">#75859d</color>
+    <color name="subTitleTextColor_90">#9075859d</color>
+    <color name="subTitleTextColor_80">#8075859d</color>
+    <color name="subTitleTextColor_70">#7075859d</color>
+    <color name="subTitleTextColor_60">#6075859d</color>
+    <color name="subTitleTextColor_50">#5075859d</color>
+    <color name="subTitleTextColor_40">#4075859d</color>
+    <color name="subTitleTextColor_30">#3075859d</color>
+    <color name="subTitleTextColor_20">#2075859d</color>
+    <color name="subTitleTextColor_10">#1075859d</color>
+
+
+    <color name="subTitle1TextColor_100">#979797</color>
+    <color name="subTitle1TextColor_90">#90979797</color>
+    <color name="subTitle1TextColor_80">#80979797</color>
+    <color name="subTitle1TextColor_70">#70979797</color>
+    <color name="subTitle1TextColor_60">#60979797</color>
+    <color name="subTitle1TextColor_50">#50979797</color>
+    <color name="subTitle1TextColor_40">#40979797</color>
+    <color name="subTitle1TextColor_30">#30979797</color>
+    <color name="subTitle1TextColor_20">#20979797</color>
+    <color name="subTitle1TextColor_10">#10979797</color>
+
+
+    <color name="textColorWhite_100">#ffffff</color>
+    <color name="textColorWhite_90">#90ffffff</color>
+    <color name="textColorWhite_80">#80ffffff</color>
+    <color name="textColorWhite_70">#70ffffff</color>
+    <color name="textColorWhite_60">#60ffffff</color>
+    <color name="textColorWhite_50">#50ffffff</color>
+    <color name="textColorWhite_40">#40ffffff</color>
+    <color name="textColorWhite_30">#30ffffff</color>
+    <color name="textColorWhite_20">#20ffffff</color>
+    <color name="textColorWhite_10">#10ffffff</color>
+
+    <color name="textColorRed_100">#d2212f</color>
+    <color name="textColorRed_90">#90d2212f</color>
+    <color name="textColorRed_80">#80d2212f</color>
+    <color name="textColorRed_70">#70d2212f</color>
+    <color name="textColorRed_60">#60d2212f</color>
+    <color name="textColorRed_50">#50d2212f</color>
+    <color name="textColorRed_40">#40d2212f</color>
+    <color name="textColorRed_30">#30d2212f</color>
+    <color name="textColorRed_20">#20d2212f</color>
+    <color name="textColorRed_10">#10d2212f</color>
+    <color name="textColorRed_less_48">#e14b56</color>
+    <color name="textColorRed_more_48">#d2212f</color>
+    <color name="textColorRed_more_7">#991822</color>
+
+    <color name="boxOutLineColor">#66979797</color>
+    <color name="editTextHintColor">#66979797</color>
+    <color name="imageBorderColor">#66d2212f</color>
+
+    <color name="colorDotGrey">#B1B1B1</color>
+    <color name="colorBlueButton">#317AE1</color>
+    <color name="colorBlueText">#317AE1</color>
+    <color name="colorButtonsOuter">#23000000</color>
+    <color name="colorChatBG">#dcf8c6</color>
+
+    <color name="colorGradient1">#00A7E2</color>
+    <color name="colorGradient2">#009ED6</color>
+    <color name="colorGradient3">#007BA6</color>
+    <color name="colorAOBg">#40ffffff</color>
+</resources>

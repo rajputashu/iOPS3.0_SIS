@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.uimodels.tasks.MySiSTaskDescription" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_112sdp"
+        android:background="@color/colorWindowBackGround"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_minus6sdp"
+            android:background="@color/colorWindowBackGround"
+            android:backgroundTint="@color/colorGreyDark" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvUserLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_93sdp"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:cardBackgroundColor="@color/textColorWhite_100"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPadding="@dimen/_8sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_2sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMySISTaskName"
+                    style="@style/BlackTitleTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_toStartOf="@id/tvTaskItemStatus"
+                    android:ellipsize="end"
+                    android:ems="8"
+                    android:maxLines="1"
+                    android:text="@{model.task}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTaskItemStatus"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:text="@string/pending_text"
+                    android:textSize="@dimen/_10ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamilyLessSpace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvMySISTaskName"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:ems="8"
+                    android:maxLines="1"
+                    android:text="@{model.taskDate}"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_10ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTaskCloseByDateTime"
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/tvMySISUnitsCount"
+                    android:text="@{@string/mysis_close_by(model.closeBy)}"
+                    android:textColor="@color/colorDarkGreen"
+                    tools:ignore="RelativeOverlap" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMySISUnitsCount"
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{@string/mysis_units_count(model.sitesCompleted)}"
+                    android:textColor="@color/subTitle1TextColor_100" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</layout>

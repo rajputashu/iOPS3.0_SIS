@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.performance.ConveyanceReportDataMO" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_2sdp"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingEnd="@dimen/_0sdp"
+        android:paddingBottom="@dimen/_7sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@{model.taskDate==null?`NA`:TimeUtils.formatServerDateToYYYYDDMM(model.taskDate)}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            app:formatDoubleOrInt="@{model.totalTasks}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            app:formatDoubleOrInt="@{model.totalArialDistance}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            app:formatDoubleOrInt="@{model.deductionDistance}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            app:formatDoubleOrInt="@{model.approvalDistance}" />
+
+    </LinearLayout>
+
+</layout>

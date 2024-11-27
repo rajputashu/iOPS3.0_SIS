@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.selfservice.SelfServiceViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/selfServiceMenu"
+            style="@style/BlackTitleTextColor14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableStart="@drawable/ic_drawer_menu"
+            android:drawablePadding="@dimen/_12sdp"
+            android:gravity="center"
+            android:onClick="@{vm::ivRotaDrawerClick}"
+            android:padding="@dimen/_12sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@string/action_menu_self_service" />
+
+        <WebView
+            android:id="@+id/selfServiceWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/selfServiceMenu"
+            android:visibility="@{vm.isWebPageLoaded?View.VISIBLE :View.GONE}" />
+        <!--        app:webViewUrl="@{vm.webViewUrl}"-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/OnlyFontFamily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/internetError"
+            android:textColor="@color/colorLightRed"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="@{vm.isWebPageLoaded?View.GONE :View.VISIBLE}" />
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selfServiceMenu"
+            android:indeterminate="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

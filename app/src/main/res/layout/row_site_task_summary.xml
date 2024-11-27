@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.site.TaskSummaryDataMO" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+
+        <variable
+            name="srNo"
+            type="Integer" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardElevation="@dimen/_3sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/siteNameId"
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_6sdp"
+                app:htmlText="@{@string/string_sr_no_site(srNo,model.siteName)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/siteCodeId"
+                style="@style/BlackSubTitleTextColor11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.siteCode}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/siteNameId" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/dcTarget"
+                        style="@style/BlackTitleTextColor16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:htmlText="@{@string/dynamic_dc_target(model.dcActual,model.dcTarget)}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/dcTargetLabel"
+                        style="@style/BlackTitleTextColor10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:drawableStart="@drawable/ic_small_circle_green"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:text="@string/string_day_check_title" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/ncTarget"
+                        style="@style/BlackTitleTextColor16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:htmlText="@{@string/dynamic_nc_target(model.ncActual,model.ncTarget)}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/ncTargetLabel"
+                        style="@style/BlackTitleTextColor10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:drawableStart="@drawable/ic_small_circle_red"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:text="@string/pre_dashboard_night_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_weight="1.2"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/chsTarget"
+                        style="@style/BlackTitleTextColor16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        app:htmlText="@{@string/dynamic_chs_target(model.chsDone)}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/chsTargetLabel"
+                        style="@style/BlackTitleTextColor10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:drawableStart="@drawable/ic_small_circle_orange"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:text="CHS" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_weight="0.3" />
+
+                <!--<LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                     <androidx.appcompat.widget.AppCompatTextView
+                         android:id="@+id/bsTarget"
+                         style="@style/BlackTitleTextColor16"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="@dimen/_7sdp"
+                         app:htmlText="@{@string/dynamic_chs_target(model.ncActual)}" />
+
+                     <androidx.appcompat.widget.AppCompatTextView
+                         android:id="@+id/bsTargetLabel"
+                         style="@style/BlackTitleTextColor10"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="@dimen/_3sdp"
+                         android:drawableStart="@drawable/ic_small_circle_grey"
+                         android:drawablePadding="@dimen/_4sdp"
+                         android:text="BS" />
+
+                </LinearLayout>-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dcLastDate"
+            style="@style/BlackSubTitleTextColor11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/dynamic_last_inspection_date(model.lastDCDone==null?`NA`:TimeUtils.formatServerDateToDDMMYYYY(model.lastDCDone))}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dcTargetLabel" />-->
+
+        <!--  <androidx.appcompat.widget.AppCompatTextView
+              android:id="@+id/ncLastDate"
+              style="@style/BlackSubTitleTextColor11"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@{@string/dynamic_last_inspection_date(model.lastNCDone==null?`NA`:TimeUtils.formatServerDateToDDMMYYYY(model.lastNCDone))}"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/ncTargetLabel" />-->
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

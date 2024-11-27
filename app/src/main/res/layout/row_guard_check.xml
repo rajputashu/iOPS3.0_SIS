@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.uimodels.CheckedGuardItemModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_140sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/border_round_white_body"
+        android:padding="@dimen/_9sdp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivGuardCheckStatusIcon"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:guardStatus="@{model.guardStatus}" />
+<!--        app:srcCompat="@drawable/ic_group"-->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivGuardNotFoundPic"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/ic_round_circle_big"
+            android:backgroundTint="@color/colorTransparentRed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:tint="@color/colorLightRed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/employeeName"
+            style="@style/TitleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ivGuardNotFoundPic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_horizontal"
+            android:text="@{model.employeeName}"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TitleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/employeeName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_horizontal"
+            android:text="@{model.employeeNo}"
+            android:textSize="@dimen/_12ssp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

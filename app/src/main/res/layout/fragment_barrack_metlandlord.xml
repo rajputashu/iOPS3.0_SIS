@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.barracks.inspection.frags.BarrackMetLandlordViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_46sdp"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_60sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:text="@string/string_met_landlord_custodian"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@{vm.metLandlordRGChecked}"
+                    android:orientation="horizontal"
+                    app:radioCheckedListener="@{vm.metLandlordRCListener}">
+
+                    <RadioButton
+                        android:id="@+id/rbYesMetLandlord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbNotMetLandlord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:text="@string/string_no" />
+
+                </RadioGroup>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_24sdp"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.showMetLandlordUI}">
+
+                    <!-- NAME LAYOUT-->
+                    <RelativeLayout
+                        android:id="@+id/nameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_13sdp">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:hint="@string/hint_enter_name"
+                                android:inputType="text"
+                                android:lines="1"
+                                android:text="@={vm.name}"
+                                android:textColor="@color/textColorBlackBold"
+                                android:textSize="@dimen/_12ssp"
+                                tools:ignore="Autofill,TextFields" />
+
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:background="@color/colorWhite"
+                            android:paddingStart="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_4sdp"
+                            android:text="@string/string_name"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </RelativeLayout>
+
+                    <!-- MOBILE NUMBER LAYOUT-->
+                    <RelativeLayout
+                        android:id="@+id/mobileNumberLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/nameLayout">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/border"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_13sdp">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:hint="@string/string_enter_mobile_number"
+                                android:inputType="number"
+                                android:lines="1"
+                                android:maxLength="10"
+                                android:text="@={vm.mobileNumber}"
+                                android:textColor="@color/textColorBlackBold"
+                                android:textSize="@dimen/_12ssp"
+                                tools:ignore="Autofill,TextFields" />
+
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:background="@color/colorWhite"
+                            android:paddingStart="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_4sdp"
+                            android:text="@string/string_mobile"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_13ssp" />
+
+                    </RelativeLayout>
+
+                    <!-- PAYMENT COMING ON COMMITTED DATES LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/paymentComingLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:background="@color/colorWhite"
+                        android:text="@string/string_payment_coming"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mobileNumberLayout" />
+
+                    <RadioGroup
+                        android:id="@+id/paymentComingRadioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@{vm.paymentComingRGChecked}"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/paymentComingLayout"
+                        app:radioCheckedListener="@{vm.paymentComingRCListener}">
+
+                        <RadioButton
+                            android:id="@+id/rbYesPaymentComing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_yes" />
+
+                        <RadioButton
+                            android:id="@+id/rbNoPaymentComing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:text="@string/string_no" />
+
+                    </RadioGroup>
+
+                    <!-- PAYMENT COMING ON COMMITTED DATES LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/photoWithLandlord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@color/colorWhite"
+                        android:text="@string/string_picture_with_landlord"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/paymentComingRadioGroup" />
+
+                    <RelativeLayout
+                        android:id="@+id/takePhotoWithLandlord"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:background="@drawable/border_round_greystroke_whitebody"
+                        android:onClick="@{vm::onPhotosClicked}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/photoWithLandlord">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            app:srcImageFromUri="@{vm.photoWithLandlordUri}" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/ic_add_photo" />
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/landlordLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@string/string_with_landord"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintEnd_toEndOf="@id/takePhotoWithLandlord"
+                        app:layout_constraintStart_toStartOf="@id/takePhotoWithLandlord"
+                        app:layout_constraintTop_toBottomOf="@id/takePhotoWithLandlord" />
+
+                    <RelativeLayout
+                        android:id="@+id/takePhotoWithCustodian"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/border_round_greystroke_whitebody"
+                        android:onClick="@{vm::onPhotosClicked}"
+                        app:layout_constraintStart_toEndOf="@id/takePhotoWithLandlord"
+                        app:layout_constraintTop_toBottomOf="@id/photoWithLandlord">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            app:srcImageFromUri="@{vm.photoWithCustodianUri}" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/ic_add_photo" />
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:text="@string/string_with_custodian"
+                        android:textColor="@color/colorTextGrey"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintEnd_toEndOf="@id/takePhotoWithCustodian"
+                        app:layout_constraintStart_toStartOf="@id/takePhotoWithCustodian"
+                        app:layout_constraintTop_toBottomOf="@id/takePhotoWithCustodian" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/string_amenities_provided"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@{vm.amenitiesRGChecked}"
+                    android:orientation="horizontal"
+                    app:radioCheckedListener="@{vm.amenitiesRCListener}">
+
+                    <RadioButton
+                        android:id="@+id/rbYesAmenities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_yes" />
+
+                    <RadioButton
+                        android:id="@+id/rbNoAmenities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:text="@string/string_no" />
+
+                </RadioGroup>
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:hint="@string/string_add_remarks"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@={vm.addAmenitiesRemarks}"
+                    android:textColor="@color/textColorBlackBold"
+                    android:textSize="@dimen/_12ssp"
+                    android:visibility="@{vm.showAmenitiesRemarks}"
+                    tools:ignore="Autofill,TextFields" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/string_landlord_type"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@{vm.landlordTypeRGChecked}"
+                    android:orientation="horizontal"
+                    app:radioCheckedListener="@{vm.landlordTypeRCListener}">
+
+                    <RadioButton
+                        android:id="@+id/rbRealLandlord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_real_owner" />
+
+                    <RadioButton
+                        android:id="@+id/rbCustodian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:text="@string/string_custodian" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onDoneButtonClick}"
+            android:text="@string/string_done"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

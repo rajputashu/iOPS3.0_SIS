@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sisindia.ai.android.audit",
+  "variantName": "auditRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 11,
+      "versionName": "Ver-P(1.1)",
+      "outputFile": "iOPS2.0_audit_release_Ver-P(1.1).apk"
+    }
+  ],
+  "elementType": "File"
+}

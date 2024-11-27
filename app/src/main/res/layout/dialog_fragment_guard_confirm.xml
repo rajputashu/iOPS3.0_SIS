@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.guardcheck.available.GuardAvailableViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_white_grey_border">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/ic_round_circle"
+            android:backgroundTint="@color/colorLightGreyWhite"
+            android:onClick="@{vm::onCloseDialogClick}"
+            android:padding="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_clear"
+            app:tint="@color/colorCloseIcon" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/ButtonStyleForDialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_below="@id/llGuardDetail"
+            android:layout_margin="@dimen/_16sdp"
+            android:onClick="@{vm::onGuardCheckInClick}"
+            android:text="@string/select" />
+
+        <LinearLayout
+            android:id="@+id/llGuardDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_16sdp"
+                app:srcCompat="@drawable/ic_person_icon" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_8sdp"
+                android:text="@{vm.selectedGuard.employeeName}"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_14ssp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_4sdp"
+                android:textSize="@dimen/_12ssp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

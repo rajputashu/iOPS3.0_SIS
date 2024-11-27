@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sisindia.ai.android.dev",
+  "variantName": "slvProdRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 16,
+      "versionName": "Ver-P(1.6)",
+      "outputFile": "iOPS2.0_slvProd_release_Ver-P(1.6).apk"
+    }
+  ],
+  "elementType": "File"
+}

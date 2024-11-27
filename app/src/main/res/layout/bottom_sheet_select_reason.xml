@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.addtask.SelectReasonViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawable_top_corner"
+        android:minHeight="@dimen/_250sdp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvUserLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/colorWhite">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp"
+                    android:layout_marginLeft="@dimen/_130sdp"
+                    android:layout_marginRight="@dimen/_130sdp"
+                    android:background="@color/colorLightBlue"
+                    android:gravity="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:background="@drawable/border">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        style="@style/TitleNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_margin="@dimen/_8ssp"
+                        android:background="@null"
+                        android:drawableEnd="@drawable/ic_search"
+                        android:drawableTint="@color/textColorBlackBold"
+                        android:hint="@string/string_search_reason"
+                        android:onTextChanged="@{(text, start, before, count) -> vm.onSearchReasonTextChanged(text)}" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:visibility="@{vm.isReasonAvailable?View.VISIBLE:View.GONE}"
+                    app:setReasonListAdapter="@{vm.recyclerAdapter}"
+                    app:setViewListeners="@{vm.viewListeners}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/no_items_present"
+                    android:textSize="@dimen/_16ssp"
+                    android:visibility="@{vm.isReasonAvailable?View.GONE:View.VISIBLE}" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

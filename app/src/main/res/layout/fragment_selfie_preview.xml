@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.selfie.SelfieViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/selfiePreviewIV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_70sdp"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@id/selfieRetakeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImagePreview="@{vm.photoAttachmentObs.localFilePath}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/selfieRetakeButton"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_red_border_bg_white"
+            android:onClick="@{vm::onViewClicks}"
+            android:text="@string/string_take_new_photo"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/colorLightRed"
+            app:layout_constraintEnd_toStartOf="@id/selfieConfirmButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selfiePreviewIV" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/selfieConfirmButton"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_red1"
+            android:onClick="@{vm::onViewClicks}"
+            android:text="@string/string_conform"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/selfieRetakeButton"
+            app:layout_constraintTop_toBottomOf="@id/selfiePreviewIV" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.clienthandshake.frags.ClientHandShakeAddComplaintViewModel" />
+
+        <import type="com.sisindia.ai.android.models.AudioRecordState" />
+
+        <import type="android.view.View" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btnAddComplaint">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/textColorWhite_100"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/complaint_mode" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:animationCache="true"
+                        android:backgroundTint="@color/textColorBlackBold"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:chipSpacingHorizontal="@dimen/_10sdp"
+                        app:setComplaintModes="@{vm.modesObs}"
+                        app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onComplaintModeChanged(compoundButton, checked)}"
+                        app:singleSelection="true" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/complaint_type" />
+
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:animationCache="true"
+                        android:backgroundTint="@color/textColorBlackBold"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:chipSpacingHorizontal="@dimen/_10sdp"
+                        app:setComplaintTypes="@{vm.typesObs}"
+                        app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onComplaintTypeChanged(compoundButton, checked)}"
+                        app:singleSelection="true" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@string/complaint_nature" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:animationCache="true"
+                        android:backgroundTint="@color/textColorBlackBold"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:chipSpacingHorizontal="@dimen/_10sdp"
+                        app:setComplaintNatures="@{vm.naturesObs}"
+                        app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onComplaintNatureChanged(compoundButton, checked)}"
+                        app:singleSelection="true" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/textColorWhite_100"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_11sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_11sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_48sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@drawable/border"
+                            android:orientation="horizontal"
+                            tools:ignore="UselessParent">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:pointerIcon="arrow"
+                                android:popupBackground="@color/colorWhite"
+                                app:actionPlanListener="@{vm.actionPlanListener}"
+                                app:setActionPlans="@{vm.actionPlanObs}" />
+
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackSubTitleTextColor12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_minus3sdp"
+                            android:background="@color/colorWhite"
+                            android:paddingLeft="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_3sdp"
+                            android:text="@string/add_action_plan" />
+
+                    </RelativeLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_margin="@dimen/_16sdp"
+                        android:hint="@string/string_additional_remarks"
+                        app:boxStrokeColor="@color/boxOutLineColor"
+                        app:hintTextColor="@color/subTitleTextColor_100">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:maxLength="40"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_16sdp"
+                            android:text="@={vm.remarks}"
+                            android:textColorHint="@color/subTitleTextColor_100"
+                            tools:ignore="RtlSymmetry" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_margin="@dimen/_16sdp"
+                        android:hint="@string/target_date"
+                        app:boxStrokeColor="@color/boxOutLineColor"
+                        app:hintTextColor="@color/subTitleTextColor_100">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableEnd="@drawable/ic_calender"
+                            android:focusable="false"
+                            android:onClick="@{vm::onSetTargetDateClick}"
+                            android:paddingStart="@dimen/_16sdp"
+                            android:textColorHint="@color/subTitleTextColor_100"
+                            app:setTargetDateTime="@{vm.targetDate}"
+                            tools:ignore="RtlSymmetry" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <LinearLayout
+            android:id="@+id/btnAddComplaint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/_14sdp"
+                    android:layout_marginBottom="@dimen/_minus8sdp"
+                    android:onClick="@{vm::onAddAudioClick}"
+                    android:visibility="@{vm.isRecordedObs == AudioRecordState.NOT_RECORDED?View.VISIBLE:View.GONE}"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardElevation="@dimen/_4sdp"
+                    app:cardForegroundColor="@color/colorWhite">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rectangle_red_corner8">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_toStartOf="@id/tvAudioClip"
+                            android:backgroundTint="@color/colorLightRed"
+                            android:padding="@dimen/_10sdp"
+                            android:tint="@color/colorLightRed"
+                            app:srcCompat="@drawable/ic_mic" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvAudioClip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/string_audio_clip"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorLightRed"
+                            android:textSize="@dimen/_14ssp" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/ivPlayMedia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/_14sdp"
+                    android:onClick="@{vm::onPlayMedia}"
+                    android:visibility="@{vm.isRecordedObs == AudioRecordState.NOT_RECORDED?View.GONE:View.VISIBLE}"
+                    app:backgroundTint="@color/colorLightRed"
+                    app:fabSize="mini"
+                    app:setRecordedAudioPlayState="@{vm.btnPlayState}"
+                    app:srcCompat="@drawable/ic_play_media"
+                    app:tint="@color/colorWhite" />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BottomButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:onClick="@{vm::onAddComplaintClick}"
+                android:text="@string/string_add_complaint" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</layout>

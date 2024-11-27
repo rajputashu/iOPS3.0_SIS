@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.addkitrequest.AddKitRequestViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.sisindia.ai.android.features.addkitrequest.AddKitRequestViewModel.KitRequestType" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tbAddKitRequest"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:elevation="@dimen/_5sdp"
+                    app:layout_scrollFlags="snap"
+                    app:titleTextColor="@color/textColorBlackBold">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/ToolBarTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_kit_request_tool_bar_title" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_divider"
+                android:orientation="vertical"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <FrameLayout
+                    android:id="@+id/tilGuardSuggestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:hint="@string/guard_name_or_id"
+                        android:textColorHint="@color/textColorBlackBold"
+                        android:visibility="@{vm.kitRequestType==KitRequestType.SITE?View.VISIBLE:View.GONE}"
+                        app:boxStrokeColor="@color/outlineBorderTrans"
+                        app:hintTextColor="@color/textColorBlackBold">
+
+                        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:completionThreshold="1"
+                            android:paddingStart="@dimen/_8sdp"
+                            app:allGuards="@{vm.allGuards}"
+                            app:setAllGuardViewListener="@{vm.guardSuggestionViewListeners}" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:hint="@string/guard_name_or_id"
+                        android:textColorHint="@color/textColorBlackBold"
+                        android:visibility="@{vm.kitRequestType==KitRequestType.EMPLOYEE?View.VISIBLE:View.GONE}"
+                        app:boxStrokeColor="@color/outlineBorderTrans"
+                        app:hintTextColor="@color/textColorBlackBold">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:text="@{vm.selectedGuardObs.employeeName}" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/llImageLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tilGuardSuggestion"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:visibility="@{TextUtils.isEmpty(vm.photoAttachmentObs.localFilePath)?View.GONE:View.VISIBLE}">
+
+                        <com.droidcommons.views.roundedimageview.RoundedImageView
+                            android:layout_width="@dimen/_45sdp"
+                            android:layout_height="@dimen/_45sdp"
+                            android:scaleType="fitXY"
+                            app:riv_corner_radius="@dimen/_8sdp"
+                            app:setImagePreview="@{vm.photoAttachmentObs.localFilePath}"
+                            app:srcCompat="@drawable/ic_place_holder" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:background="@drawable/ic_round_circle"
+                            android:backgroundTint="@color/colorWhiteGrey"
+                            android:onClick="@{vm::onImageClear}"
+                            android:padding="@dimen/_5sdp"
+                            app:srcCompat="@drawable/ic_clear" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:visibility="@{TextUtils.isEmpty(vm.signAttachmentObs.localFilePath)?View.GONE:View.VISIBLE}">
+
+                        <com.droidcommons.views.roundedimageview.RoundedImageView
+                            android:layout_width="@dimen/_45sdp"
+                            android:layout_height="@dimen/_45sdp"
+                            android:background="@color/colorWhite"
+                            app:riv_corner_radius="@dimen/_8sdp"
+                            app:setImagePreview="@{vm.signAttachmentObs.localFilePath}"
+                            app:srcCompat="@drawable/ic_place_holder" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:background="@drawable/ic_round_circle"
+                            android:backgroundTint="@color/colorWhiteGrey"
+                            android:onClick="@{vm::onSignatureClear}"
+                            android:padding="@dimen/_5sdp"
+                            app:srcCompat="@drawable/ic_clear" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:layout_below="@id/llImageLayout"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SubTitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/items_to_replace" />
+
+                    <LinearLayout
+                        android:id="@+id/llSignatureLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:onClick="@{vm::onKitRequestCaptureSignatureClick}"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_add_sign" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/SubTitleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/add_kit_request_take_signature"
+                            android:textSize="@dimen/_10ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llTakePictureLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:layout_toStartOf="@id/llSignatureLayout"
+                        android:gravity="center"
+                        android:onClick="@{vm::onKitRequestCaptureImageClick}"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_place_holder" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/SubTitleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/add_kit_request_take_image"
+                            android:textSize="@dimen/_10ssp" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/btnAddKitRequest"
+                    android:layout_below="@id/rlLayout"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    app:setKitItemAdapter="@{vm.recyclerAdapter}"
+                    app:setKitViewListener="@{vm.viewListeners}" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddKitRequest"
+                    style="@style/BottomButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:onClick="@{vm::onAddKitRequestClick}"
+                    android:text="@string/done_text" />
+
+            </RelativeLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{vm.isLoading}" />
+
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,120 @@
+{
+    "Controls": [
+        {
+            "contentType": "LABEL",
+            "ControlID": "106-6",
+            "data": {
+                "title": "(PICTURE BEFORE CLEANING)",
+                "isBold": "false",
+                "Align": "left",
+                "maxsize": 100,
+                "color": "lightgrey",
+                "isManditory": "True"
+            }
+        },
+        {
+            "contentType": "PICTURE",
+            "ControlID": "106-7",
+            "data": {
+                "title": "Images",
+                "Count": "2",
+                "GPS": "ON"
+            }
+        },
+        {
+            "contentType": "LABEL",
+            "ControlID": "106-8",
+            "data": {
+                "title": "CLEANING CHECKLIST",
+                "isBold": "false",
+                "Align": "left",
+                "maxsize": 100,
+                "color": "lightgrey"
+            }
+        },
+        {
+            "contentType": "CHECKBOX",
+            "ControlID": "102-9",
+            "data": {
+                "title": "Clean ATM",
+                "Legend": "Clean ATM",
+                "LabelAlign": "right",
+                "datavalue": [
+                    "0",
+                    "1"
+                ]
+            }
+        },
+        {
+            "contentType": "CHECKBOX",
+            "ControlID": "102-10",
+            "data": {
+                "title": "Clean Glass Surface",
+                "Legend": "Clean Glass Surface",
+                "LabelAlign": "right",
+                "datavalue": [
+                    "0",
+                    "1"
+                ]
+            }
+        },
+        {
+            "contentType": "CHECKBOX",
+            "ControlID": "102-11",
+            "data": {
+                "title": "Clean Furniture",
+                "Legend": "Clean Furniture",
+                "LabelAlign": "right",
+                "datavalue": [
+                    "0",
+                    "1"
+                ]
+            }
+        },
+        {
+            "contentType": "CHECKBOX",
+            "ControlID": "102-12",
+            "data": {
+                "title": "Manage Stationary",
+                "Legend": "Manage Stationary",
+                "LabelAlign": "right",
+                "datavalue": [
+                    "0",
+                    "1"
+                ]
+            }
+        },
+        {
+            "contentType": "LABEL",
+            "ControlID": "106-13",
+            "data": {
+                "title": "(PICTURE AFTER CLEANING)",
+                "isBold": "false",
+                "Align": "left",
+                "maxsize": 100,
+                "bgcolor": "lightgrey"
+            }
+        },
+        {
+            "contentType": "PICTURE",
+            "ControlID": "106-14",
+            "data": {
+                "title": "Images",
+                "Count": "2",
+                "GPS": "ON",
+                "isManditory": "True"
+            }
+        },
+        {
+            "ControlID": "3",
+            "contentType": "TEXT",
+            "data": {
+                "title": "Remarks",
+                "isManditory": "false",
+                "datatype": "string",
+                "maxsize": "250",
+                "innertitle": "Remarks"
+            }
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.barracks.listing.BarrackListingViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerBarracks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableStart="@drawable/ic_drawer_menu"
+            android:drawablePadding="@dimen/_12sdp"
+            android:onClick="@{vm::ivRotaDrawerClick}"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/string_barracks"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_14ssp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/barrackLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/border_round_grey_body"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_below="@id/headerBarracks"
+            android:text="@string/string_label_barrack_list"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_10ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/barrackLabel"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:barrackAdapter="@{vm.barrackAdapter}"
+            app:listener="@{vm.barrackListener}" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+</layout>

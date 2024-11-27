@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.mlcore.QRScannerViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true">
+
+        <com.sisindia.ai.android.mlcore.camera.QRCameraSourcePreview
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.sisindia.ai.android.mlcore.camera.QRGraphicOverlay
+                android:id="@+id/cameraPreviewGraphicOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <FrameLayout
+                android:id="@+id/staticOverlayContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_24sdp"
+                    android:padding="@dimen/_8sdp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/bottomPromptChip"
+                        style="@style/Widget.MaterialComponents.Chip.Entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:checkable="false"
+                        android:clickable="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_14ssp"
+                        android:visibility="visible"
+                        app:chipCornerRadius="@dimen/_8sdp"
+                        app:chipSurfaceColor="@color/textColorBlackBold"
+                        app:closeIconVisible="false" />
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+        </com.sisindia.ai.android.mlcore.camera.QRCameraSourcePreview>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_action_bar_scrim">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivFlash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:tint="@color/colorWhite"
+                app:srcCompat="@drawable/ic_flash_off" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivRetake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivFlash"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:tint="@color/colorWhite"
+                app:srcCompat="@drawable/ic_retake" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/string_scan_qr_checkin"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14ssp"
+                android:visibility="@{vm.isCheckInOutRequest ? View.VISIBLE : View.GONE}"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/skipCheckInOutButton"
+            style="@style/BlackTitleTextColor14"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:gravity="center"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@drawable/border_round_white_body"
+            android:padding="@dimen/_8sdp"
+            android:text="Skip"
+            android:onClick="@{vm::onSkipCheckInOutButton}"
+            android:visibility="@{vm.isCheckInOutRequest ? View.VISIBLE : View.GONE}"
+            android:textColor="@color/black" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

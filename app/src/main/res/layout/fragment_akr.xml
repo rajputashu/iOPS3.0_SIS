@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.akr.AKRViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <RelativeLayout
+            android:id="@+id/headerAKR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/akrMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_drawer_menu"
+                android:drawablePadding="@dimen/_12sdp"
+                android:onClick="@{vm::ivRotaDrawerClick}"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/string_akr"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_14ssp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/akrRefreshIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_refresh_black"
+                android:drawablePadding="@dimen/_6sdp"
+                android:onClick="@{vm::ivRotaDrawerClick}"
+                android:padding="@dimen/_12sdp"
+                android:textColor="@color/textColorBlackBold"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/akrCountsCardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headerAKR"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/border_round_red_body">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dueAkrTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_19ssp"
+                app:htmlText="@{@string/dynamic_due_akr(vm.dueAKRCount)}"
+                app:layout_constraintBottom_toTopOf="@id/horizontalSeparator"
+                app:layout_constraintEnd_toStartOf="@id/verticalSeparator"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/verticalSeparator"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:background="@color/colorDividerRed"
+                app:layout_constraintEnd_toStartOf="@id/addedAkrTV"
+                app:layout_constraintStart_toEndOf="@id/dueAkrTV"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/addedAkrTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_19ssp"
+                app:htmlText="@{@string/dynamic_added_akr(vm.addedAKRCount)}"
+                app:layout_constraintBottom_toTopOf="@id/horizontalSeparator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/verticalSeparator"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/horizontalSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/colorDividerRed"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/verticalSeparator" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pendingAkrTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_19ssp"
+                app:htmlText="@{@string/dynamic_pending_akr(vm.pendingAKRCount)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/verticalSeparator2"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontalSeparator" />
+
+            <View
+                android:id="@+id/verticalSeparator2"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:background="@color/colorDividerRed"
+                app:layout_constraintEnd_toStartOf="@id/addedAkrTV"
+                app:layout_constraintStart_toEndOf="@id/dueAkrTV"
+                app:layout_constraintTop_toBottomOf="@id/horizontalSeparator" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/distributedAkrTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_19ssp"
+                app:htmlText="@{@string/dynamic_distributed_akr(vm.distributedAKRCount)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/verticalSeparator2"
+                app:layout_constraintTop_toBottomOf="@id/horizontalSeparator" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/akrCountsCardLayout"
+            app:akrAdapter="@{vm.adapter}"
+            app:akrListener="@{vm.akrListener}" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="31dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+    </RelativeLayout>
+
+</layout>

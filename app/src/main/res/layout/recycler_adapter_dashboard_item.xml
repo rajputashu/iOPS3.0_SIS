@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.uimodels.RotaTaskItemModel" />
+
+        <import type="com.sisindia.ai.android.room.entities.TaskEntity.TaskStatus" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:background="@color/colorWindowBackGround"
+        android:orientation="vertical">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/cDayCheckDateTime"
+            style="@style/BlackSubTitleTextColor10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/_minus6sdp"
+            android:backgroundTint="@color/colorGreyDark"
+            android:minWidth="@dimen/_100sdp"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_10ssp"
+            app:setTaskTitle="@{model}" />
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/cDayCheckDateTime"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_minus6sdp"
+            android:background="@color/colorWindowBackGround"
+            android:backgroundTint="@color/colorGreyDark" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvUserLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_93sdp"
+            android:layout_below="@id/cDayCheckDateTime"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            app:cardBackgroundColor="@color/textColorWhite_100"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="@dimen/_4sdp"
+            app:contentPadding="@dimen/_8sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_2sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTaskItemUnitName"
+                    style="@style/BlackTitleTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_toStartOf="@id/tvTaskItemStatus"
+                    android:ellipsize="end"
+                    android:ems="8"
+                    android:maxLines="1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTaskItemStatus"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:text="@string/pending_text"
+
+                    android:textSize="@dimen/_10ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamilyLessSpace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvTaskItemUnitName"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:ellipsize="end"
+                    android:ems="8"
+                    android:maxLines="1"
+                    android:text="@{model.siteAddress}"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_10ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRotaTimeAndGuardCount"
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/tvRotaSiteCode"
+                    android:textColor="@color/colorDarkGreen"
+                    app:minGuardCount="@{model.minGuard}"
+                    app:taskTime="@{model.estimatedTime}"
+                    tools:ignore="RelativeOverlap" />
+                <!--                android:text="@{model.minGuard>9? @string/string_mins_guards(model.estimatedTime, model.minGuard) : @string/string_mins_guard(model.estimatedTime, model.minGuard)}"-->
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRotaSiteCode"
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textColor="@color/subTitle1TextColor_100" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRotaDistanceTime"
+                    style="@style/BlackSubTitleTextColor10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textColor="@color/colorGreen"
+                    android:visibility="gone"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="unitMO"
+            type="com.sisindia.ai.android.features.units.entity.SiteTaskDetailsMO" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_4sdp">
+        <!--        app:contentPadding="@dimen/_8sdp"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@{unitMO.parentSiteId==null ?@color/colorWhite : @color/titleTextColor_20}"
+            android:padding="@dimen/_10sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/unitsName"
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{unitMO.UnitName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/unitLocationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@{unitMO.isUnitTagged ? @drawable/ic_location_green :@drawable/ic_location_red}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/unitCode"
+                style="@style/BlackSubTitleTextColor11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                app:htmlText="@{unitMO.parentSiteId==null ? @string/string_operational(unitMO.UnitCode) : @string/string_associated(unitMO.UnitCode)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unitsName" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/noOfPostAtSite"
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:drawableStart="@drawable/ic_post"
+                android:drawablePadding="@dimen/_6sdp"
+                android:gravity="center_vertical"
+                app:htmlText="@{@string/dynamic_no_of_posts(unitMO.NoOfPost)}"
+                app:layout_constraintEnd_toStartOf="@id/postTaggedAtSite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unitCode" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/postTaggedAtSite"
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toEndOf="@id/noOfPostAtSite"
+                app:layout_constraintTop_toBottomOf="@id/unitCode"
+                app:postCount="@{unitMO.NoOfPost}"
+                app:qrTaggedCount="@{unitMO.postTagged}" />
+
+            <!--            COMMENTING TEMPORARY -->
+            <!--
+            <View
+                android:id="@+id/horizontalDivider1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/colorWindowBackGround"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/noOfPostAtSite" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelUpcomingActivity"
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:text="@string/string_upcoming_activity"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontalDivider1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/upcomingActivityStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@{unitMO.UpcomingTask==null ? `NA` : unitMO.UpcomingTask}"
+                android:textColor="@color/colorLightGrey_2"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/labelUpcomingActivity" />
+
+            <ImageView
+                android:id="@+id/expandableArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_0sdp"
+                android:paddingBottom="@dimen/_9sdp"
+                android:src="@{unitMO.isExpandable ? @drawable/ic_arrow_up :@drawable/ic_arrow_down}"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horizontalDivider1"
+                tools:ignore="ContentDescription" />-->
+
+            <!--            COMMENTING TEMPORARY -->
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/upcomingActivityMainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/upcomingActivityStatus">
+
+                <View
+                    android:id="@+id/horizontalDivider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@color/colorWindowBackGround"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelPendingTask"
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_pending"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/horizontalDivider2" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/valuePendingTask"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{unitMO.pendingTasksMO.pendingTask}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelPendingTask" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelBillDate"
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/string_bill_date"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/valuePendingTask" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/valueBillDate"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{unitMO.pendingTasksMO.billDate}"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelBillDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelWageDate"
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:gravity="center"
+                    android:text="@string/string_wage_date"
+                    app:layout_constraintEnd_toStartOf="@id/labelCollectionDate"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/labelBillDate"
+                    app:layout_constraintTop_toBottomOf="@id/valuePendingTask" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/valueWageDate"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:gravity="center"
+                    android:text="@{unitMO.pendingTasksMO.wageDate}"
+                    app:layout_constraintEnd_toStartOf="@id/valueCollectionDate"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/valueBillDate"
+                    app:layout_constraintTop_toBottomOf="@id/labelWageDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelCollectionDate"
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/string_collection_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/valuePendingTask" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/valueCollectionDate"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{unitMO.pendingTasksMO.collectionDate}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toBottomOf="@id/labelCollectionDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelIssues"
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="@string/string_issue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/valueBillDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/valueIssues"
+                    style="@style/BlackSubTitleTextColor11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@{unitMO.pendingTasksMO.issues}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelIssues" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

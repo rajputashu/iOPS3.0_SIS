@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.clienthandshake.frags.SummaryHandshakeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_person_icon"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textColor="@color/textColorBlackBold"
+                app:htmlText="@{vm.spannedUnitName}" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@color/colorLightGrey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:drawableStart="@drawable/ic_person_icon"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textColor="@color/textColorBlackBold"
+                app:htmlText="@{vm.spannedClientName}" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@color/colorLightGrey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:drawableStart="@drawable/ic_person_icon"
+                android:drawablePadding="@dimen/_8sdp"
+                android:textColor="@color/textColorBlackBold"
+                app:htmlText="@{vm.spannedClientNumber}" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:background="@color/colorLightGrey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="@{vm.questionsList}"
+                android:textColor="@color/colorLightRed"
+                android:textSize="@dimen/_11ssp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@color/colorWhite"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp"
+            android:onClick="@{vm::onAddComplaint}"
+            android:visibility="@{vm.isComplaintAvailable?View.GONE:View.VISIBLE}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_red_stroke_white_body"
+                android:gravity="center"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/string_add_complaint"
+                android:textColor="@color/colorLightRed" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp"
+            android:visibility="@{vm.isComplaintAvailable?View.VISIBLE:View.GONE}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/dynamic_string_complaints(vm.labelComplaintsCount)}"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_12ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                app:setComplaintRecyclerAdapter="@{vm.openComplaintsAdapter}"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onCompleteClientHandshake}"
+            android:text="@string/string_complete_handshake"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:clientListener="@{vm.clientListener}" />
+
+    </LinearLayout>
+</layout>

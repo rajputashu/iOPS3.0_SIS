@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="mySISTaskCount"
+            type="String" />
+    </data>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cDayCheckDateTime"
+        style="@style/BlackTitleTextColor11"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_mysis"
+        android:paddingStart="@dimen/_4sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingEnd="@dimen/_6sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:drawablePadding="@dimen/_6sdp"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_round_grey_body"
+        android:text="@{@string/mysis_task_count(mySISTaskCount)}"
+        android:textColor="@color/textColorBlackBold" />
+
+</layout>

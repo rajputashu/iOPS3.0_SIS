@@ -1,0 +1,413 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorStatusBar</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
+        <item name="android:windowBackground">@color/colorWindowBackGround</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="TransParentTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
+    </style>
+
+    <!-- Theme.AppCompat.Light is not a dialog theme -->
+    <style name="DatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/colorLightRed</item>
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+    </style>
+
+
+    <style name="OnBoardTheme" parent="AppTheme">
+        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+    </style>
+
+    <style name="OtpWidget.OtpView" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="McvWeekText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:layout_marginTop">@dimen/_4sdp</item>
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <style name="McvDayText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textColor">@color/calendar_date_text_appearance</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppBottomSheetDialogThemeWithKeyboard" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/drawable_top_corner</item>
+    </style>
+
+    <style name="ContentLoadingProgress">
+        <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
+    <style name="GreenContentLoadingProgress">
+        <item name="colorAccent">@color/colorStatusDone</item>
+    </style>
+
+    <style name="ActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorTextGrey</item>
+        <item name="colorAccent">@color/colorLightRed</item>
+        <item name="android:itemBackground">@color/colorLightGrey</item>
+    </style>
+
+    <style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/_1ssp</item>
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
+    <style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/_18ssp</item>
+        <item name="android:textColor">@color/textColorBlackBold</item>
+    </style>
+
+    <style name="RedButtonStyle">
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/btn_ripple_with_corners</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>
+
+    <style name="ButtonStyleForDialog">
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/btn_ripple_with_corners</item>
+    </style>
+
+    <style name="Theme.Rating" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorStatusPending</item>
+    </style>
+
+
+    <style name="BlackTitleTextColor20">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor20">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+    </style>
+
+    <!---->
+
+    <style name="BlackTitleTextColor18">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:textSize">@dimen/_18ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor18">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_18ssp</item>
+    </style>
+    <!---->
+
+    <!---->
+
+    <style name="BlackTitleTextColor16">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor16">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+    <!---->
+
+
+    <!---->
+
+    <style name="BlackTitleTextColor14">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
+
+    <style name="BlackTitleTextColor13">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor14">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
+
+    <style name="BlackTitleTextColor12">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor13">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor12">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor11">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="BlackTitleTextColor10">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="BlackTitleTextColor11">
+        <item name="android:textColor">@color/titleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="OnlyFontFamily">
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+    </style>
+
+    <style name="OnlyFontFamilyLessSpace">
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_2sdp</item>
+    </style>
+
+    <style name="BlackSubTitleTextColor10">
+        <item name="android:textColor">@color/subTitleTextColor_100</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+    <!---->
+
+    <style name="TitleExtraBigLight">
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+    </style>
+
+    <style name="TitleExtraBig">
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_20ssp</item>
+    </style>
+
+
+    <style name="TitleBig">
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+
+    <style name="TitleNormal">
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
+
+    <style name="TitleNormal_13Sp">
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+    </style>
+
+    <style name="ToolBarTitleStyle">
+        <item name="android:layout_marginEnd">?actionBarSize</item>
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TitleSmall">
+        <item name="android:textColor">@color/textColorBlackBold</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+
+    <style name="SubTitleBig">
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+    </style>
+
+    <style name="SubTitleNormal">
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
+
+    <style name="SubTitleSmall">
+        <item name="android:layout_marginTop">@dimen/_4sdp</item>
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:letterSpacing">.02</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <style name="SubTitleExtraSmall">
+        <item name="android:layout_marginTop">@dimen/_4sdp</item>
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:lineSpacingExtra">@dimen/_5sdp</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="SubTitleExtraSmall11">
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+    </style>
+
+    <style name="BottomButton">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/btn_ripple_normal</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+
+    </style>
+
+    <style name="BottomButton13">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/btn_ripple_normal</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+
+    </style>
+
+    <style name="RoundedButton">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/btn_ripple_with_corners</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:fontFamily">@font/helvetica_medium</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+    </style>
+
+    <style name="RoundedWhiteBgRedTextButton">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorLightRed</item>
+        <item name="android:background">@drawable/ripple_red_border_bg_white</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_margin">@dimen/_5sdp</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textAppearance">@style/BlackTitleTextColor10</item>
+    </style>
+
+    <style name="RoundedTransBgRedTextButton">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorLightRed</item>
+        <item name="android:background">@drawable/ripple_red_border_bg_transparent</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_margin">@dimen/_5sdp</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textAppearance">@style/BlackTitleTextColor10</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_marginTop">@dimen/_4sdp</item>
+        <item name="android:textColor">@color/colorTextGrey</item>
+        <item name="android:fontFamily">@font/helvetica_light</item>
+        <item name="android:letterSpacing">.05</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+</resources>

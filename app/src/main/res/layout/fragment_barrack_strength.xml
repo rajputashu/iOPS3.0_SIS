@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.barracks.inspection.frags.BarrackStrengthViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_12sdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/headerAKR"
+                android:background="@drawable/border_round_red_body"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/capacityTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_19ssp"
+                    app:htmlText="@{@string/dynamic_capacity(vm.capacity)}" />
+
+                <View
+                    android:id="@+id/verticalSeparator"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="@dimen/_58sdp"
+                    android:background="@color/colorDividerRed" />
+
+                <TextView
+                    android:id="@+id/vacantTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_19ssp"
+                    app:htmlText="@{@string/dynamic_vacant(vm.vacant)}" />
+
+                <View
+                    android:id="@+id/verticalSeparator2"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="@dimen/_58sdp"
+                    android:background="@color/colorDividerRed" />
+
+                <TextView
+                    android:id="@+id/lastInspectedTV"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.1"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_19ssp"
+                    app:htmlText="@{@string/dynamic_last_inspection(vm.lastInspectionStrength)}" />
+
+            </LinearLayout>
+
+            <!-- Capacity LAYOUT-->
+            <!--<RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_11sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{vm.capacity}"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/textColorBlackBold"
+                        tools:ignore="Autofill,TextFields" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:text="@string/string_capacity"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>-->
+
+            <!-- Current Strength LAYOUT-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_11sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_current_strength"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="@={vm.currentStrength}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="Autofill,TextFields" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:text="@string/string_strength_present"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>
+
+            <!-- LEAVE SICK LAYOUT-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_11sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_add_leave"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="@={vm.leaveSick}"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="Autofill,TextFields" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:text="@string/string_leave_sick"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>
+
+            <!-- Vacant LAYOUT-->
+            <!--<RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_11sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{vm.vacant}"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/textColorBlackBold"
+                        tools:ignore="Autofill,TextFields" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:text="@string/string_vacant"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>-->
+
+            <!-- Vacant LAYOUT-->
+            <!--<RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_13sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="@{vm.lastInspectionStrength}"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/textColorBlackBold"
+                        tools:ignore="Autofill,TextFields" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:text="@string/string_last_inspected_strength"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_13ssp" />
+
+            </RelativeLayout>-->
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onStrengthBtnClick}"
+            android:text="@string/string_done"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_12ssp" />
+
+    </RelativeLayout>
+
+</layout>

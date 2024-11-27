@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.postguardscan.GuardCheckScanSuccessViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/GuardScanResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btnTakePhoto">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_260sdp"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <com.droidcommons.views.roundedimageview.RoundedImageView
+                        android:layout_width="@dimen/_58sdp"
+                        android:layout_height="@dimen/_58sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        app:riv_border_color="@color/boxOutLineColor"
+                        app:riv_border_width="@dimen/_2sdp"
+                        app:riv_oval="true"
+                        app:srcCompat="@drawable/ic_person" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@{vm.checkedGuardObs.employeeNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="@{vm.checkedGuardObs.employeeName}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="@{vm.checkedGuardObs.phone}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:background="@drawable/oval_shape"
+                                android:backgroundTint="@color/colorTransparentGreen"
+                                android:tint="@color/colorStatusDone"
+                                app:srcCompat="@drawable/ic_guard_reward" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackSubTitleTextColor12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/reward_given" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{@string/rupee_symbol+vm.checkedGuardObs.totalReward}" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{vm.rewardCount}" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:background="@drawable/oval_shape"
+                                android:backgroundTint="@color/colorTransparentRed"
+                                android:tint="@color/colorLightRed"
+                                app:srcCompat="@drawable/ic_guard_fine" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackSubTitleTextColor12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/fine_given" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor20"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{@string/rupee_symbol+vm.checkedGuardObs.totalFine}" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:text="@{vm.fineCount}" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{@string/grievance_pending+'('+vm.grievancePendingCount+')'}"
+                        android:textColor="@color/titleTextColor_40"
+                        app:textAllCaps="true" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:setGrievanceRecyclerAdapter="@{vm.grievanceRecyclerAdapter}" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.companyId == 1 ? View.VISIBLE : View.GONE}">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{@string/string_kit_request+'('+vm.kitRequestAllCount+')'}"
+                        android:textColor="@color/titleTextColor_40"
+                        app:textAllCaps="true" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:setKitRequestAdapter="@{vm.kitRequestRecyclerAdapter}" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTakePhoto"
+            style="@style/BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:onClick="@{vm::onTakePhotoClick}"
+            android:text="@string/string_take_photo" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.improvementplans.ImprovePoaListViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbPOAUnitsName"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorWhite"
+            app:elevation="@dimen/_5sdp"
+            app:titleTextColor="@color/textColorBlackBold">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{vm.poaSiteName}" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tbPOAUnitsName"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:background="@drawable/border_round_red_body">
+
+                    <LinearLayout
+                        android:id="@+id/poaPendingLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/uarCompletedLayout"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/_6sdp"
+                            android:text="@{vm.poaPendingCount}"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_13ssp"
+                            app:drawableEndCompat="@drawable/ic_circle_orange" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_label_pending"
+                            android:textColor="@color/colorWindowBackGround"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_56ssp"
+                        android:background="@color/colorDividerRed"
+                        app:layout_constraintBottom_toTopOf="@id/horizontalSeparator"
+                        app:layout_constraintEnd_toStartOf="@id/uarCompletedLayout"
+                        app:layout_constraintStart_toEndOf="@id/poaPendingLayout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/uarCompletedLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/uarTotalPoaLayout"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/poaPendingLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/_6sdp"
+                            android:text="@{vm.poaCompletedCount}"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_13ssp"
+                            app:drawableEndCompat="@drawable/ic_circle_green" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_label_completed"
+                            android:textColor="@color/colorWindowBackGround"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_56ssp"
+                        android:background="@color/colorDividerRed"
+                        app:layout_constraintBottom_toTopOf="@id/horizontalSeparator"
+                        app:layout_constraintEnd_toStartOf="@id/uarTotalPoaLayout"
+                        app:layout_constraintStart_toEndOf="@id/uarCompletedLayout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/uarTotalPoaLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/uarCompletedLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/_6sdp"
+                            android:text="@{vm.poaTotalCount}"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_13ssp"
+                            app:drawableEndCompat="@drawable/ic_circle_grey" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_label_total_poa"
+                            android:textColor="@color/colorWindowBackGround"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/horizontalSeparator"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:background="@color/colorDividerRed"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/poaPendingLayout" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/labelYourCompliance"
+                        style="@style/OnlyFontFamily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_poa_progress"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/horizontalSeparator" />
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/pbYourCompliance"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="@{vm.poaProgressValue}"
+                        android:theme="@style/ContentLoadingProgress"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/yourCompliancePercentageTV"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/labelYourCompliance" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/yourCompliancePercentageTV"
+                        style="@style/OnlyFontFamily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_24ssp"
+                        android:textStyle="bold"
+                        app:intToStrWithPercent="@{vm.poaProgressValue}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/pbYourCompliance"
+                        app:layout_constraintTop_toBottomOf="@id/horizontalSeparator" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@{vm.labelPendingPOAsWithCount}"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    android:visibility="@{vm.showRecyclerViews}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:visibility="@{vm.showRecyclerViews}"
+                    app:ipPendingPOAAdapter="@{vm.pendingPOAAdapter}"
+                    app:poaListener="@{vm.poaListener}" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@{vm.labelCompletedPOAsWithCount}"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold"
+                    android:visibility="@{vm.showRecyclerViews}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:visibility="@{vm.showRecyclerViews}"
+                    app:ipPendingPOAAdapter="@{vm.completedPOAAdapter}"
+                    app:poaListener="@{vm.poaListener}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.showNoPendingUI}">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/OnlyFontFamily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_20sdp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/string_no_pending_poa"
+                        android:textColor="@color/textColorBlackBold"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        app:drawableTopCompat="@drawable/ic_trophy" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/OnlyFontFamily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:gravity="center_horizontal"
+                        android:text="@{@string/dynamic_out_of_risk(vm.poaSiteName)}"
+                        android:textColor="@color/colorLightGrey_2"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

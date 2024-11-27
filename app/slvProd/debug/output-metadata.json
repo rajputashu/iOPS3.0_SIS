@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sisindia.ai.android.dev",
+  "variantName": "slvProdDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 10,
+      "versionName": "Ver-P(1.0)",
+      "outputFile": "iOPS2.0_slvProd_debug_Ver-P(1.0).apk"
+    }
+  ],
+  "elementType": "File"
+}

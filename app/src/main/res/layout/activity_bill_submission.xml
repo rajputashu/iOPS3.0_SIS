@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.billsubmit.BillSubmissionViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbOtherTasks"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorWhite"
+                app:elevation="@dimen/_5sdp"
+                app:titleTextColor="@color/textColorBlackBold">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/ToolBarTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_add_task_bill_submission" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <include
+                android:id="@+id/includeTimeSpent"
+                layout="@layout/include_layout_time_spent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp" />
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- UNIT NAME LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_unit_name" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:text="@{vm.unitName}"
+                        android:textColor="@color/colorTextGrey" />
+
+                    <include layout="@layout/include_horizontal_divider_line" />
+
+                    <!-- BILL CHECKLIST LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:drawableEnd="@drawable/ic_black_forward_arrow"
+                        android:onClick="@{vm::onBillCheckListClick}"
+                        android:text="@string/string_bill_checklist" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:text="@{vm.pendingCheckListCount}" />
+
+                    <include layout="@layout/include_horizontal_divider_line" />
+
+                    <!--BILL HANDED OVER TO CLIENT LAYOUT-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:text="@string/string_bill_handed_to_client" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:radioCheckedListener="@{vm.onRadioCheckedListener}">
+
+                        <RadioButton
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_26sdp"
+                            android:text="@string/string_client"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <RadioButton
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_26sdp"
+                            android:paddingTop="-8dp"
+                            android:paddingBottom="-8dp"
+                            android:text="@{@string/string_bill_handover_emp(vm.obsBillHandedToEmpLabel)}"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <RadioButton
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_26sdp"
+                            android:text="@string/string_accounts"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <RadioButton
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_26sdp"
+                            android:text="@string/string_nag"
+                            android:textColor="@color/colorTextGrey"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{vm.obsIsOnlineOpted ? View.GONE : View.VISIBLE}">
+
+                        <!--'Bill Given to' LAYOUT-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:text="@string/string_bill_given_to" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:layout_marginEnd="@dimen/_12sdp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/string_enter_name"
+                                android:inputType="text"
+                                android:text="@={vm.billGivenToName}"
+                                android:textColor="@color/textColorBlackBold"
+                                android:textColorHint="@color/textColorBlackBold"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_12sdp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/string_enter_designation"
+                                android:inputType="text"
+                                android:text="@={vm.billGivenToDesignation}"
+                                android:textColor="@color/textColorBlackBold"
+                                android:textColorHint="@color/textColorBlackBold"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <include layout="@layout/include_horizontal_divider_line" />
+
+                        <!--PHOTO OF BILL/RECEIPT LAYOUT-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:text="@string/string_photo_of_bill" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackSubTitleTextColor12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:text="@string/string_bill_photo_msg" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16ssp"
+                            android:layout_marginTop="@dimen/_8ssp"
+                            android:layout_marginBottom="@dimen/_90sdp"
+                            android:drawableBottom="@drawable/ic_camera"
+                            android:drawablePadding="@dimen/_6sdp"
+                            android:onClick="@{vm::onTakePhotoClick}"
+                            android:text="@{vm.billImageUri==null?@string/string_take_photo:@string/string_photo_captured}"
+                            android:textColor="@{vm.billImageUri==null?@color/textColorBlackBold:@color/colorStatusDone}"
+                            android:textSize="@dimen/_14ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCompleteBillSubmissionTask"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:onClick="@{vm::onTaskCompleteBtnClick}"
+            android:text="@string/string_complete_bill_submit"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_14ssp" />
+
+    </RelativeLayout>
+
+</layout>

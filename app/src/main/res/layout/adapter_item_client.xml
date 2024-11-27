@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="adapterItem"
+            type="com.sisindia.ai.android.uimodels.ClientModel" />
+    </data>
+
+    <androidx.appcompat.widget.AppCompatRadioButton
+        android:id="@+id/rbClient"
+        style="@style/TitleNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:text="@{adapterItem.title+@string/string_space+adapterItem.contactFullName}"
+        android:textColor="@color/textColorBlackBold" />
+
+</layout>

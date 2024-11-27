@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.sales.SalesReferenceViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWindowBackGround">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/headerRecruitment"
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:drawableStart="@drawable/ic_drawer_menu"
+                android:drawablePadding="@dimen/_12sdp"
+                android:gravity="center"
+                android:onClick="@{vm::ivRotaDrawerClick}"
+                android:padding="@dimen/_12sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@string/string_sales_reference" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@id/acsSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/headerRecruitment"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:dropDownWidth="@dimen/_140sdp"
+                android:popupBackground="@color/colorLightGrey"
+                app:performanceSortListener="@{vm.filterSelectionListener}"
+                app:siteSortItems="@{vm.filterItems}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/headerRecruitment"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="@string/string_your_reference" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:background="@drawable/border_round_red_body"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_19ssp"
+                        app:htmlText="@{@string/dynamic_recommended(vm.obsRecommended)}" />
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_62sdp"
+                        android:background="@color/colorDividerRed" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_19ssp"
+                        app:htmlText="@{@string/dynamic_raised(vm.obsRaised)}" />
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="@dimen/_62sdp"
+                        android:background="@color/colorDividerRed" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_19ssp"
+                        app:htmlText="@{@string/dynamic_approved(vm.obsApproved)}" />
+
+                    <!-- <View
+                         android:layout_width="@dimen/_1sdp"
+                         android:layout_height="@dimen/_62sdp"
+                         android:background="@color/colorDividerRed" />
+
+                     <TextView
+                         android:layout_width="0dp"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1.2"
+                         android:gravity="center"
+                         android:textColor="@color/colorWhite"
+                         android:textSize="@dimen/_19ssp"
+                         app:htmlText="@{@string/dynamic_inprogress(vm.obsInProgress)}" />-->
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_20sdp"
+                    app:listener="@{vm.salesListener}"
+                    app:salesRefAdapter="@{vm.salesReferenceAdapter}" />
+
+            </LinearLayout>
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="@{vm.isLoading}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/noDataTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/msgDataNA"
+                android:textSize="@dimen/_16ssp"
+                android:visibility="@{vm.obsIsDataAvailable?View.GONE:View.VISIBLE}" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_8sdp"
+                android:onClick="@{vm::onAddSalesReference}"
+                app:backgroundTint="@color/colorLightRed"
+                app:srcCompat="@drawable/ic_fab_add"
+                app:tint="@color/colorWhite" />
+
+        </RelativeLayout>
+
+<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
+</layout>

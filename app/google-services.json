@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "91297038070",
+    "project_id": "iops-ver2",
+    "storage_bucket": "iops-ver2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91297038070:android:c23e6a4c017353b54276d7",
+        "android_client_info": {
+          "package_name": "com.sisindia.ai.android.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUBAQyRR7NLipQMI5852Y61c3JXRBcvMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91297038070:android:1f8118947dd8b6d94276d7",
+        "android_client_info": {
+          "package_name": "com.sisindia.ai.android.slv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUBAQyRR7NLipQMI5852Y61c3JXRBcvMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91297038070:android:4859f381d5046fc94276d7",
+        "android_client_info": {
+          "package_name": "com.sisindia.ai.android.uat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUBAQyRR7NLipQMI5852Y61c3JXRBcvMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91297038070:android:54167f4670b2409d4276d7",
+        "android_client_info": {
+          "package_name": "com.sisindia.ai.android.uniq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUBAQyRR7NLipQMI5852Y61c3JXRBcvMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91297038070-ru8ktdobpad5p4pomvisoj21rd5j62av.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_top_corner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp">
+
+            <View
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorDarkGrey" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SubTitleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="@string/add_kit_request_take_signature" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.droidcommons.views.ink.InkView
+                    android:id="@+id/inkSignature"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_230sdp"
+                    android:layout_marginBottom="@dimen/_45sdp"
+                    android:background="@color/colorWhite"
+                    app:inkFlags="interpolation|responsiveWeight" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivOnSignatureClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/ic_round_circle"
+                    android:backgroundTint="@color/colorWhiteGrey"
+                    android:padding="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_clear" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSignatureDone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/btn_ripple_normal"
+                    android:letterSpacing=".05"
+                    android:text="@string/string_done"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14ssp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

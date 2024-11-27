@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.sisindia.ai.android.uimodels.GuardTurnOutResult.GuardTurnoutModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TitleBig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:drawableStart="@drawable/ic_round_circle_8dp"
+                android:drawablePadding="@dimen/_5sdp"
+                android:drawableTint="@color/colorStatusDone"
+                android:padding="@dimen/_5sdp"
+                android:text="@{item.displayName}" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scGuardTurnOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:buttonTint="@color/radio_button_color"
+                android:padding="@dimen/_5sdp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

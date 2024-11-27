@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.nudges.NudgesViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerNudgesDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:drawableStart="@drawable/ic_drawer_menu"
+            android:drawablePadding="@dimen/_12sdp"
+            android:onClick="@{vm::onViewClicks}"
+            android:padding="@dimen/_12sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@string/string_nudges"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_14ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/headerNudgesDashboard"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:visibility="@{vm.isNudgesAvailable ? View.VISIBLE : View.GONE }"
+            app:listener="@{vm.listener}"
+            app:nudgesAdapter="@{vm.nudgesAdapter}" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/headerNudgesDashboard"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{vm.isNudgesAvailable ? View.GONE : View.VISIBLE }">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                app:srcCompat="@drawable/ic_no_notification" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_notification_yet" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackSubTitleTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="center_horizontal"
+                android:text="@string/no_notification_msg" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nudgesFetchButton"
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:background="@drawable/border_round_dark_grey_body"
+                android:gravity="center"
+                android:onClick="@{vm::onViewClicks}"
+                android:paddingStart="@dimen/_36ssp"
+                android:paddingTop="@dimen/_14ssp"
+                android:paddingEnd="@dimen/_36ssp"
+                android:paddingBottom="@dimen/_14ssp"
+                android:text="@string/string_continue" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </RelativeLayout>
+</layout>

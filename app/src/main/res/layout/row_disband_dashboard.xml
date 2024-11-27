@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.features.disband.DashboardDisbandmentSitesData" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDisbandSites"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_98sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        app:cardBackgroundColor="@color/textColorWhite_100"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_4sdp"
+        app:contentPadding="@dimen/_8sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_2sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTaskItemUnitName"
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_toStartOf="@id/tvTaskItemStatus"
+                android:ellipsize="end"
+                android:ems="8"
+                android:maxLines="1"
+                android:text="@{model.siteName}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTaskItemStatus"
+                style="@style/BlackSubTitleTextColor11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="@dimen/_4sdp"
+                android:gravity="center"
+                android:text="@{model.statusName}"
+                android:textSize="@dimen/_10ssp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamilyLessSpace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTaskItemUnitName"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:ellipsize="end"
+                android:ems="8"
+                android:maxLines="1"
+                android:text="@{model.siteCode}"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_10ssp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRotaTimeAndGuardCount"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tvRotaSiteCode"
+                android:text="@{model.requestedDateTime}"
+                android:textColor="@color/colorDarkGreen"
+                tools:ignore="RelativeOverlap" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRotaSiteCode"
+                style="@style/OnlyFontFamilyLessSpace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="@{model.disbandmentRemarks}"
+                android:textSize="@dimen/_10ssp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/subTitle1TextColor_100" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

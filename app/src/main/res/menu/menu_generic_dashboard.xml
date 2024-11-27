@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/drawerGroupOne"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/actionDashboardRota"
+            android:icon="@drawable/ic_menu_dashboard_rota"
+            android:title="@string/action_menu_dashboard_rota"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/actionUnits"
+            android:icon="@drawable/ic_menu_units"
+            android:title="@string/string_sites"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/actionPerformance"
+            android:icon="@drawable/ic_menu_performance"
+            android:title="@string/action_menu_performance"
+            app:showAsAction="never" />
+
+    </group>
+
+    <group
+        android:id="@+id/g_two"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_timeline"
+            android:icon="@drawable/ic_menu_timeline"
+            android:title="@string/string_menu_timeline" />
+
+        <item
+            android:id="@+id/actionConveyance"
+            android:icon="@drawable/ic_bike"
+            android:title="@string/conveyance" />
+
+        <item
+            android:id="@+id/actionPlanOfActions"
+            android:icon="@drawable/ic_menu_unit_at_risk_poa"
+            android:title="@string/action_menu_poa" />
+
+        <item
+            android:id="@+id/actionIssueManagement"
+            android:icon="@drawable/ic_menu_issue_management"
+            android:title="@string/action_menu_issue_management" />
+
+        <item
+            android:id="@+id/actionRecruit"
+            android:icon="@drawable/ic_menu_recut"
+            android:title="@string/action_menu_recruit" />
+
+        <item
+            android:id="@+id/actionSalesReference"
+            android:icon="@drawable/ic_sales_reference"
+            android:title="@string/string_sales_reference" />
+
+        <item
+            android:id="@+id/actionDisbandment"
+            android:icon="@drawable/ic_disbandment"
+            android:title="@string/string_disbandment"/>
+
+    </group>
+
+    <group
+        android:id="@+id/g_three"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/actionSelfService"
+            android:icon="@drawable/ic_ticket"
+            android:title="@string/action_menu_self_service" />
+
+        <item
+            android:id="@+id/actionMyKPIs"
+            android:icon="@drawable/ic_menu_kpi"
+            android:title="@string/action_menu_my_kpis" />
+
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_ai_location"
+            android:title="@string/string_menu_home_location" />
+
+        <item
+            android:id="@+id/actionManualSync"
+            android:icon="@drawable/ic_menu_sync"
+            android:title="@string/manual_sync" />
+
+        <item
+            android:id="@+id/action_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/string_logout" />
+    </group>
+
+</menu>

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.sisindia.ai.android.dev",
+  "variantName": "azureUatDebug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 63,
+      "versionName": "Ver-U(6.3)",
+      "enabled": true,
+      "outputFile": "iOPS2.0_azureUat_debug_Ver-U(6.3).apk"
+    }
+  ]
+}

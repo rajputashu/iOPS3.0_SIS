@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.sales.SalesReferenceMO" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:background="@drawable/border_round_greystroke_whitebody"
+        android:padding="@dimen/_12sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/siteName"
+            style="@style/BlackTitleTextColor13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.name}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelRecommended"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/string_recommended"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/recommendedValue"
+            app:layout_constraintTop_toBottomOf="@id/siteName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/recommendedValue"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintHorizontal_weight="2"
+            android:text="@{TimeUtils.formatServerDateToDDMMYYYY(model.dateOfRecommendation)}"
+            app:layout_constraintStart_toEndOf="@id/labelRecommended"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/siteName" />-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelStatus"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_status"
+            app:isLabel="@{true}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/siteName"
+            app:salesStatus="@{model.status}" />
+        <!--        app:layout_constraintTop_toBottomOf="@id/labelRecommended"-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:isLabel="@{false}"
+            app:layout_constraintStart_toEndOf="@id/labelStatus"
+            app:layout_constraintTop_toBottomOf="@id/siteName"
+            app:salesStatus="@{model.status}" />
+        <!--        app:layout_constraintTop_toBottomOf="@id/labelRecommended"-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelRecommended"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_recommended"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelStatus" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@{model.dateOfRecommendation.contains(`0001-01-01`) ? `N.A` :TimeUtils.formatServerDateToDDMMYYYY(model.dateOfRecommendation)}"
+            app:layout_constraintStart_toEndOf="@id/labelRecommended"
+            app:layout_constraintTop_toBottomOf="@id/labelStatus" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelRaised"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_raised"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelRecommended" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@{model.dateOfRaising.contains(`0001-01-01`) ? `N.A` :TimeUtils.formatServerDateToDDMMYYYY(model.dateOfRaising)}"
+            app:layout_constraintStart_toEndOf="@id/labelRaised"
+            app:layout_constraintTop_toBottomOf="@id/labelRecommended" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelApprove"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_approved_on"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelRaised" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@{model.approvedOn.contains(`0001-01-01`) ? `N.A` :TimeUtils.formatServerDateToDDMMYYYY(model.approvedOn)}"
+            app:layout_constraintStart_toEndOf="@id/labelApprove"
+            app:layout_constraintTop_toBottomOf="@id/labelRaised" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelCredited"
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_credited"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelApprove" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="N.A."
+            app:layout_constraintStart_toEndOf="@id/labelCredited"
+            app:layout_constraintTop_toBottomOf="@id/labelApprove" />
+<!--        android:text="@{model.dateOfReporting.contains(`0001-01-01`) ? `N.A` :TimeUtils.formatServerDateToDDMMYYYY(model.dateOfReporting)}"-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

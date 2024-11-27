@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="postsMO"
+            type="com.sisindia.ai.android.uimodels.SitePostModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:background="@color/colorGreyDark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:background="@drawable/border_round_greystroke_whitebody"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_8sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/postIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_post" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/postName"
+                style="@style/BlackTitleTextColor12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_toEndOf="@id/postIcon"
+                android:gravity="center_vertical"
+                android:text="@{postsMO.postName}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/isQrEnabledTV"
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/postName"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_toEndOf="@id/postIcon"
+                android:drawableEnd="@{postsMO.qRenabled? @drawable/ic_circle_green :@drawable/ic_circle_orange}"
+                android:drawablePadding="@dimen/_3sdp"
+                android:gravity="center_vertical"
+                android:text="@string/string_qr_enabled" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/isQrEnabledTV"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_toEndOf="@id/postIcon"
+                android:gravity="center_vertical"
+                android:visibility="@{postsMO.qRenabled? View.VISIBLE : View.GONE}"
+                android:text="@{@string/string_qr_code(postsMO.dutyPostCode)}"
+                android:textColor="@color/subTitleTextColor_100"
+                android:textSize="@dimen/_9ssp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/isSPIEnabledTV"
+                style="@style/BlackTitleTextColor11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/postName"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_toEndOf="@id/isQrEnabledTV"
+                android:drawableEnd="@{postsMO.spiEnabled? @drawable/ic_circle_green :@drawable/ic_circle_orange}"
+                android:drawablePadding="@dimen/_3sdp"
+                android:gravity="center_vertical"
+                android:text="@string/string_SPI_enabled" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/deletePost"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:drawableTop="@drawable/ic_delete"
+                android:gravity="center_horizontal"
+                android:text="@string/string_delete"
+                android:textSize="@dimen/_7ssp"
+                tools:ignore="ContentDescription,RelativeOverlap" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

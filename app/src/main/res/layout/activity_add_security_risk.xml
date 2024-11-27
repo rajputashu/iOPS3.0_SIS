@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.securityrisk.AddSecurityRiskViewModel" />
+
+        <import type="com.sisindia.ai.android.features.securityrisk.AddSecurityRiskViewModel.AddSecurityPhotoState" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tbAddSecurityRisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/colorWhite"
+                    app:elevation="@dimen/_5sdp"
+                    app:layout_scrollFlags="snap"
+                    app:titleTextColor="@color/textColorBlackBold">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/ToolBarTitleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_security_risk_title_text" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <include
+                    android:id="@+id/includeTimeSpent"
+                    layout="@layout/include_layout_time_spent"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_alignParentTop="true" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/flAddGrievance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/btnAddSecurityRisk"
+                    android:layout_below="@id/includeTimeSpent"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:id="@+id/flPhotoLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_300sdp">
+
+                            <RelativeLayout
+                                android:layout_width="@dimen/_240sdp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:visibility="@{vm.photoState == AddSecurityPhotoState.IDLE?View.GONE:View.VISIBLE}">
+
+                                <com.droidcommons.views.roundedimageview.RoundedImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="fitXY"
+                                    app:riv_corner_radius="@dimen/_4sdp"
+                                    app:setImagePreview="@{vm.imageAttachment.localFilePath}" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:background="@drawable/bottom_scrim"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="@dimen/_40sdp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_marginStart="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_marginBottom="@dimen/_8sdp"
+                                        android:background="@drawable/circle_shape"
+                                        android:onClick="@{vm::onAddSecurityImageClear}"
+                                        android:padding="@dimen/_5sdp"
+                                        app:backgroundTint="@color/colorTransparentRed"
+                                        app:srcCompat="@drawable/ic_clear"
+                                        app:tint="@color/colorLightRed" />
+
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="@dimen/_40sdp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_marginStart="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_8sdp"
+                                        android:layout_marginBottom="@dimen/_8sdp"
+                                        android:background="@drawable/circle_shape"
+                                        android:onClick="@{vm::onAddSecurityImageCapture}"
+                                        android:padding="@dimen/_5sdp"
+                                        app:backgroundTint="@color/colorTransparentRed"
+                                        app:srcCompat="@drawable/ic_retake"
+                                        app:tint="@color/colorLightRed" />
+
+                                </LinearLayout>
+
+
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="@dimen/_90sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/ic_round_circle_big"
+                                android:onClick="@{vm::onAddSecurityImageCapture}"
+                                android:padding="@dimen/_30sdp"
+                                android:visibility="@{vm.photoState == AddSecurityPhotoState.IDLE?View.VISIBLE:View.GONE}"
+                                app:srcCompat="@drawable/ic_add_photo"
+                                app:tint="@color/colorLightRed" />
+
+
+                        </FrameLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:text="@string/severity"
+                            android:textColor="@color/textColorBlackBold"
+                            android:textSize="@dimen/_16ssp" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:animationCache="true"
+                            android:backgroundTint="@color/textColorBlackBold"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            app:chipSpacingHorizontal="@dimen/_10sdp"
+                            app:setOnCheckedChangeListener="@{(compoundButton, checked) -> vm.onCheckedChange(compoundButton, checked)}"
+                            app:setSecurityCategory="@{vm.categoryObs}"
+                            app:singleSelection="true" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:hint="@string/string_add_remarks"
+                            android:paddingTop="@dimen/_10sdp"
+                            android:paddingBottom="@dimen/_10sdp"
+                            android:paddingStart="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_4sdp"
+                            android:background="@drawable/border_round_greystroke_whitebody"
+                            android:text="@={vm.addSecurityRiskRemarks}" />
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddSecurityRisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_46sdp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorLightRed"
+                    android:onClick="@{vm::onAddSecurityRisk}"
+                    android:text="@string/add_security_risk_button_text"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/_14ssp" />
+
+            </RelativeLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{vm.isLoading}" />
+
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.rota.RotaViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rlParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:background="@color/colorWhite">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRotaDrawer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="@{vm::rotaDashboardClicks}"
+                        android:padding="@dimen/_10sdp"
+                        app:srcCompat="@drawable/ic_drawer_menu" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRotaDate"
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:drawableEnd="@drawable/ic_arrow_down"
+                        android:gravity="center"
+                        android:onClick="@{vm::tvRotaDateClick}"
+                        app:setRotaSelectedDate="@{vm.selectedDateObs}"
+                        tools:ignore="RelativeOverlap" />
+                    <!--                    android:layout_toEndOf="@id/ivRotaDrawer"-->
+
+                    <RelativeLayout
+                        android:id="@+id/nudgesLayout"
+                        android:layout_width="@dimen/_36ssp"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@id/tvAddRota"
+                        android:layout_marginEnd="@dimen/_7sdp"
+                        android:gravity="center_vertical"
+                        android:visibility="invisible"
+                        android:onClick="@{vm::onViewsClick}"
+                        android:layout_centerVertical="true">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/_7ssp"
+                            app:srcCompat="@drawable/ic_nudges_bell"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/OnlyFontFamily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textSize="@dimen/_8ssp"
+                            android:paddingStart="@dimen/_4sdp"
+                            android:paddingEnd="@dimen/_4sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:textColor="@color/colorWhite"
+                            android:background="@drawable/border_green_body"
+                            android:text="99"/>
+
+                    </RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAddRota"
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:onClick="@{vm::onViewsClick}"
+                        android:padding="@dimen/_4sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:background="@drawable/ic_circle_grey"
+                        app:drawableTint="@color/colorLightRed"
+                        android:drawableStart="@drawable/ic_fab_add"
+                        tools:ignore="RelativeOverlap" />
+
+                    <!--android:text="@string/string_add_rota"
+                    android:textColor="@color/colorLightRed"-->
+
+                    <!--<androidx.appcompat.widget.AppCompatImageView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@id/tvAddRota"
+                        android:gravity="center_vertical"
+                        android:onClick="@{vm::tvAddRotaClick}"
+                        android:padding="@dimen/_10sdp"
+                        app:srcCompat="@drawable/ic_menu_sync"
+                        tools:ignore="RelativeOverlap" />-->
+
+                </RelativeLayout>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/_40sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vpWeeklyRota"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_140sdp"
+                            app:rotaViewListeners="@{vm.rotaViewListeners}"
+                            app:weeklyRotaComplianceRecyclerAdapter="@{vm.viewPagerAdapter}" />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tlWeeklyRota"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@android:color/transparent"
+                            app:tabGravity="center"
+                            app:tabIndicatorColor="@null"
+                            app:tabMaxWidth="@dimen/_15sdp"
+                            app:tabMode="scrollable"
+                            app:tabPaddingEnd="@dimen/_3sdp"
+                            app:tabPaddingStart="@dimen/_3sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:gravity="center_vertical"
+                            android:text="@string/string_today_task"
+                            android:visibility="@{vm.noTasksVisibility == View.GONE?View.VISIBLE:View.GONE}" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:text="@{@string/pending_text+'('+vm.pendingCount+')'}"
+                            android:textAllCaps="true"
+                            android:textColor="@color/titleTextColor_70"
+                            android:visibility="@{vm.noTasksVisibility == View.GONE?View.VISIBLE:View.GONE}" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:background="@color/colorWindowBackGround"
+                            android:visibility="@{vm.noTasksVisibility == View.GONE?View.VISIBLE:View.GONE}"
+                            app:dashBoardAdapter="@{vm.dashBoardAdapter}"
+                            app:rotaViewListeners="@{vm.rotaViewListeners}" />
+                        <!--                        android:layout_marginBottom="@dimen/_20sdp"-->
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_40sdp"
+                            android:layout_marginBottom="@dimen/_40sdp"
+                            android:text="@string/no_tasks_for_selected_date"
+                            android:textColor="@color/textColorBlackBold"
+                            android:textSize="@dimen/_14ssp"
+                            android:visibility="@{vm.noTasksVisibility}" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/billSubmissionLayout"
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_12sdp"
+                            android:background="@drawable/border_round_dark_grey_body"
+                            android:drawableEnd="@drawable/ic_white_forward_arrow"
+                            android:gravity="center_vertical"
+                            android:onClick="@{vm::rotaDashboardClicks}"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_7sdp"
+                            android:paddingEnd="@dimen/_8sdp"
+                            android:paddingBottom="@dimen/_7sdp"
+                            android:text="@{vm.billSubmissionCount}"
+                            android:visibility="@{vm.isShownBSLayout}" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/monInputLayout"
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_20sdp"
+                            android:background="@drawable/border_round_dark_grey_body"
+                            android:drawableEnd="@drawable/ic_white_forward_arrow"
+                            android:gravity="center_vertical"
+                            android:onClick="@{vm::rotaDashboardClicks}"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_8sdp"
+                            android:paddingEnd="@dimen/_8sdp"
+                            android:paddingBottom="@dimen/_8sdp"
+                            android:text="@{vm.monInputCount}"
+                            android:visibility="@{vm.isShownMILayout}" />
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+            </LinearLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/clpRota"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+        <LinearLayout
+            android:id="@+id/conveyanceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightRed"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="@{vm.todayConveyance}"
+                android:textColor="@color/colorWhite" />
+
+            <View
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/conveyanceOfMonthView"
+                style="@style/BlackTitleTextColor10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{vm::rotaDashboardClicks}"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="@{vm.monthsConveyance}"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

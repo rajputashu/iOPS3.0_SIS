@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.predashboard.PreDashboardViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rlTopLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_74sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:background="@color/textColorWhite_100">
+
+            <com.droidcommons.views.roundedimageview.RoundedImageView
+                android:id="@+id/ivUserPic"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_16sdp"
+                app:riv_border_color="@color/imageBorderColor"
+                app:riv_border_width="@dimen/_1sdp"
+                app:riv_oval="true"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_toEndOf="@id/ivUserPic"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/string_welcome"
+                    android:textColor="@color/colorLightRed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@{vm.userName}"
+                    android:textColor="@color/colorLightRed" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--<androidx.cardview.widget.CardView
+            android:id="@+id/cvUserPerformanceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_85sdp"
+            android:layout_below="@id/rlTopLayout"
+            android:layout_margin="@dimen/_16sdp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/colorLightRed"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="@dimen/_4sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_margin="@dimen/_16sdp"
+                    android:layout_weight=".5"
+                    android:gravity="start|center_vertical"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Great going!"
+                        android:textColor="@color/textColorWhite_100" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="Your Overall Score for ‘Nov-2019’"
+                        android:textColor="@color/textColorWhite_100" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5">
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/pbOverAllPerformance"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/circle_shape"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="65"
+                        android:progressDrawable="@drawable/circular_progress_bar" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50%"
+                        android:textColor="@color/textColorWhite_100" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>-->
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btnBottom"
+            android:layout_below="@id/rlTopLayout"
+            android:layout_marginTop="@dimen/_6sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <!--BILL SUBMISSION CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvBillSubmissionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:onClick="@{vm::onCardItemsClicked}"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/pre_dashboard_bill_submission" />
+
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:backgroundTint="@color/colorWindowBackGround"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progress="67"
+                                android:progressTint="@color/colorStatusDone"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:baselineAligned="false"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortBillSubmission.billSubmissionPending==0?@string/string_zero:vm.effortBillSubmission.billSubmissionPending+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pending_text" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortBillSubmission.billSubmissionCompleted==0?@string/string_zero:vm.effortBillSubmission.billSubmissionCompleted+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_bill_submission_completed" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortBillSubmission.billSubmissionOverDue==0?@string/string_zero:vm.effortBillSubmission.billSubmissionOverDue+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_bill_submission_overdue" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--MON INPUT CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvMonInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:onClick="@{vm::onCardItemsClicked}"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+<!--                    android:visibility="@{vm.companyId == 1 ? View.VISIBLE : View.GONE}"-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/BlackTitleTextColor14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:text="@string/pre_dashboard_mon_input" />
+
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_2sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:backgroundTint="@color/colorWindowBackGround"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progress="67"
+                                android:progressTint="@color/colorStatusDone"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortMonInput.monInputPending==0?@string/string_zero:vm.effortMonInput.monInputPending+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pending_text" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortMonInput.monInputCompleted==0?@string/string_zero:vm.effortMonInput.monInputCompleted+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_mon_input_completed" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--BILL COLLECTION CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvBillCollection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:onClick="@{vm::onCardItemsClicked}"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pre_dashboard_bill_collections" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortBillCollection.bills==0?@string/string_zero:vm.effortBillCollection.bills+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_bill_collections_bills" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortBillCollection.outstanding==0?@string/string_zero:vm.effortBillCollection.outstanding+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/string_bills" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortBillCollection.overdue==0?@string/string_zero:vm.effortBillCollection.overdue+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_bill_collections_overdue" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--UNIT AT RISK CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvUnitsAtRisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:onClick="@{vm::onCardItemsClicked}"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pre_dashboard_units_at_risks" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:baselineAligned="false"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortUnitAtRisk.siteAtRisk==0?@string/string_zero:vm.effortUnitAtRisk.siteAtRisk+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_units_at_risks_units_at_risk" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortUnitAtRisk.poaCreated==0?@string/string_zero:vm.effortUnitAtRisk.poaCreated+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_uar_poa_created" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortUnitAtRisk.poaPending==0?@string/string_zero:vm.effortUnitAtRisk.poaPending+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_uar_poa_pending" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--DAY CHECK CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvDayCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pre_dashboard_day_check" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10ssp"
+                            android:baselineAligned="false"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortDayCheck.target==0?@string/string_zero:vm.effortDayCheck.target+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_dc_target"
+                                    tools:ignore="TooManyViews" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_green"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortDayCheck.completed==0?@string/string_zero:vm.effortDayCheck.completed+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_dc_completed" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <!--<LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="invisible"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortDayCheck.rota==0?@string/string_zero:vm.effortDayCheck.rota+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_dc_rota" />
+
+                            </LinearLayout>-->
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--NIGHT CHECK CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvNightCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pre_dashboard_night_check" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:baselineAligned="false"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortNightCheck.target==0?@string/string_zero:vm.effortNightCheck.target+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_dc_target" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_green"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortNightCheck.completed==0?@string/string_zero:vm.effortNightCheck.completed+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_dc_completed" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <!--<LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:visibility="invisible"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortNightCheck.rota==0?@string/string_zero:vm.effortNightCheck.rota+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_dc_rota" />
+
+                            </LinearLayout>-->
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--OTHERS TASKS CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvOtherTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pre_dashboard_other_task" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:baselineAligned="false"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortOthers.created==0?@string/string_zero:vm.effortOthers.created+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_other_created" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortOthers.completed==0?@string/string_zero:vm.effortOthers.completed+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_others_completed" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!--MY UNITS(SITES) CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvUnits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:onClick="@{vm::onCardItemsClicked}"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pre_dashboard_units" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:baselineAligned="false"
+                            android:weightSum="3.1">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortUnits.pendingGeoTagging==0?@string/string_zero:vm.effortUnits.pendingGeoTagging+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor11"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_units_pending_geotagging" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortUnits.pendingSPI==0?@string/string_zero:vm.effortUnits.pendingSPI+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor11"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_units_pending_spi" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="0" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor11"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_units_pending_qr" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBottom"
+            style="@style/BottomButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_46sdp"
+            android:layout_gravity="bottom"
+            android:onClick="@{vm::onContinueBtnClick}"
+            android:text="@string/string_continue" />
+
+    </RelativeLayout>
+
+</layout>

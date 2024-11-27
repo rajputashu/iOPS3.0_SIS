@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.taskcheck.postcheck.summary.GuardSummaryViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.sisindia.ai.android.room.entities.EmployeeFineRewardEntity.RewardType" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbGuardSummary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <com.droidcommons.views.roundedimageview.RoundedImageView
+                        android:layout_width="@dimen/_58sdp"
+                        android:layout_height="@dimen/_58sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        app:riv_border_color="@color/colorLightGreyWhite"
+                        app:riv_border_width="@dimen/_2sdp"
+                        app:riv_oval="true"
+                        app:srcCompat="@drawable/ic_person" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackSubTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@{vm.item.employeeNo}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TitleBig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@{vm.item.employeeName}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SubTitleNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@{vm.item.phone}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_16sdp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginBottom="@dimen/_8sdp"
+                                android:background="@drawable/oval_shape"
+                                android:backgroundTint="@color/colorLightGreyWhite"
+                                android:tint="@color/colorDarkBlue"
+                                app:srcCompat="@drawable/ic_guard_turn_out_score" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/SubTitleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/evaluation_score" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/textColorBlackBold"
+                                android:textSize="@dimen/_18ssp"
+                                app:setGuardTotalTurnOut="@{vm.item.totalTurnOut}"
+                                app:setGuardTotalTurnOutScore="@{vm.item.turnOutScore}" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="@{vm.item.rewardType==0?View.GONE:View.VISIBLE}">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                app:setGuardSummaryRewardTypeIcon="@{vm.item.rewardType}"
+                                app:srcCompat="@drawable/ic_guard_reward" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/SubTitleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                app:setGuardSummaryRewardTypeText="@{vm.item.rewardType}" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TitleBig"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{@string/rupee_symbol+vm.item.displayName}" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--                    android:visibility="@{vm.countryId ==1 ? View.VISIBLE : View.GONE}"-->
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{@string/grievance_pending+'('+vm.grievanceAllCount+')'}"
+                        android:textColor="@color/titleTextColor_40"
+                        app:textAllCaps="true" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:setGrievanceRecyclerAdapter="@{vm.grievanceRecyclerAdapter}" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="@{vm.companyId ==1 ? View.VISIBLE : View.INVISIBLE}">
+                    <!--                    android:visibility="@{vm.countryId ==1 ? View.VISIBLE : View.GONE}"-->
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:text="@{@string/string_kit_request+'('+vm.kitRequestAllCount+')'}"
+                        android:textColor="@color/titleTextColor_40"
+                        app:textAllCaps="true" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:setKitRequestAdapter="@{vm.kitRequestRecyclerAdapter}" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/RoundedWhiteBgRedTextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:onClick="@{vm::onAddGrievanceClick}"
+                    android:text="@string/post_check_add_grievance_text" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/RoundedWhiteBgRedTextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:onClick="@{vm::onAddKitRequestClick}"
+                    android:text="@string/post_check_add_kit_request_text"
+                    android:visibility="@{vm.companyId ==1 ? View.VISIBLE : View.INVISIBLE}" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/BottomButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:onClick="@{vm::onGuardCheckCompleteClick}"
+                android:text="@string/string_complete_guard_check" />
+            <!--            android:id="@+id/btnTakePhoto"-->
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</layout>

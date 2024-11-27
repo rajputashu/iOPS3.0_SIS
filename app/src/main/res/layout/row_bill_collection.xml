@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="billCollectionMO"
+            type="com.sisindia.ai.android.room.entities.BillCollectionsEntity" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:background="@drawable/border"
+        android:paddingStart="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_0sdp"
+        android:paddingBottom="@dimen/_6sdp">
+
+        <TextView
+            android:id="@+id/bsBillNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:text="@{@string/dynamic_bill_number(billCollectionMO.billNumber)}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_13ssp" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/bsCheckBox"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bsBillNumber"
+            android:layout_centerVertical="true"
+            android:checked="@{billCollectionMO.isBillSelected}"
+            android:text="@null" />
+
+        <TextView
+            android:id="@+id/bsBillDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bsBillNumber"
+            android:layout_toEndOf="@id/bsCheckBox"
+            android:text="@{TimeUtils.getMonth(billCollectionMO.billingMonth)+` - `+billCollectionMO.billingYear}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:id="@+id/bsBillDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bsBillDate"
+            android:layout_toEndOf="@id/bsCheckBox"
+            android:text="@{@string/dynamic_due_date(billCollectionMO.billingMonth)}"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="@dimen/_13ssp" />
+
+        <TextView
+            android:id="@+id/bsBillAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bsBillNumber"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@drawable/border_right_crop"
+            android:gravity="end|center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="@{`₹ `+billCollectionMO.outstandingAmount}"
+            android:textColor="@color/textColorBlackBold"
+            android:textSize="@dimen/_13ssp" />
+
+    </RelativeLayout>
+</layout>
