@@ -10,4 +10,5 @@ interface DynamicTasksListener {
     fun onCheckBoxClicked(position: Int, checkedValue: Boolean)
     fun onSpinnerSelected(position: Int, selectedValue: String)
     fun onClickDateTimePicker(position: Int) {}
+    fun onRadioButtonSelected(position: Int, selectedValue: String) {}
 }

@@ -68,6 +68,23 @@
 
         </activity>
 
+       <!-- <activity
+            android:name=".features.videocall.VideoCallActivity"
+            android:alwaysRetainTaskState="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/OnBoardTheme"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>-->
+
         <activity
             android:name=".features.dashboard.DashBoardActivity"
             android:theme="@style/AppTheme" />
@@ -345,10 +362,12 @@
             android:resource="@drawable/ic_app_notification" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
+            android:resource="@color/colorAccent" />-->
+
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />-->
+            android:value="@string/default_notification_channel_id" />
 
         <service
             android:name=".firebase.IopsMessagingService"

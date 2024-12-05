@@ -34,6 +34,10 @@ public abstract class DynamicTaskDao implements BaseDao<DynamicFormEntity> {
     @Query("SELECT df.*,dt.name as taskName from DynamicFormEntity df inner join TaskTypeEntity dt on df.dynamicTaskTypeId=dt.id where dynamicTaskTypeId=:taskTypeId")
     public abstract Maybe<DynamicFormMO> fetchDynamicForm(int taskTypeId);
 
-    @Query("SELECT * from NotificationDataEntity where ids=:taskTypeId")
-    public abstract Maybe<NotificationDataEntity> fetchDynamicNudgesForm(int taskTypeId);
+    /*@Query("SELECT * from NotificationDataEntity where ids=:notificationId")
+    public abstract Maybe<NotificationDataEntity> fetchDynamicNudgesForm(int notificationId);*/
+
+//    @Query("SELECT * from NotificationDataEntity where notificationId =:id")
+    @Query("SELECT * from NotificationDataEntity where notificationId =:id ORDER BY ids DESC LIMIT 1")
+    public abstract Maybe<NotificationDataEntity> fetchDynamicNudgesForm(String id);
 }

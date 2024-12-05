@@ -35,7 +35,7 @@ class NudgesDashboardAdapter : BaseRecyclerAdapter<NotificationDataEntity>() {
         override fun onBind(item: NotificationDataEntity) {
             view.model = item
             view.root.setOnClickListener {
-                listener.onDashboardNudgesSelection(item.ids)
+                listener.onDashboardNudgesSelection(item.notificationId)
             }
         }
     }

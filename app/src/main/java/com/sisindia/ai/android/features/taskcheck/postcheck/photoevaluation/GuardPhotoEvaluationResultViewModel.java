@@ -189,9 +189,9 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
                     break;
             }
 
-//            if (!uniqueClassifierClasses.containsKey(originalClass) && turnOutDisplayList.contains(originalClass)) {
             if (!uniqueClassifierClasses.containsKey(originalClass) && matchFound) {
-                if (matchedPosition != -1 && isProperTurnOut) {
+//                if (matchedPosition != -1 && isProperTurnOut) {
+                if (isProperTurnOut) {
                     recyclerAdapter.getItem(matchedPosition).isSelected = true;
                     uniqueClassifierClasses.put(originalClass, true);
                     mlTurnOutScore += 1;
@@ -207,15 +207,44 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
         if (uniqueClassifierClasses.size() == finalClassifierList.size()) {
             Timber.e("COMING AFTER PROCESSING ALL CLASSIFIER AND UPDATING UI");
 
+            int uniformDetectedScore = 0;
+            int badgeDetectedScore = 0;
+            List<String> completeUniformSet = List.of("SHIRT", "PANT", "SHOE", "JACKET");
+            List<String> badgeSet = List.of("CAP BADGE", "SHIRT_BADGE", "JACKET_BADGE", "SWEATER_BADGE");
+
             //Further checking detection from DETECTED OBJECTS FROM final list aiTurnOutMOList
             if (!detectedBoundingBox.isEmpty()) {
                 for (BoundingBox detectedBox : detectedBoundingBox) {
-                    if (detectedBox.getClsName().trim().equalsIgnoreCase("PRINTED CARD")) {
+                    String detectedLabel = detectedBox.getClsName().trim();
+                    if (detectedLabel.equalsIgnoreCase("PRINTED CARD")) {
                         mlTurnOutScore += 1;
-                        recyclerAdapter.getItem(4).isSelected = true;
-                        break;
+                        recyclerAdapter.getItem(4).isSelected = true; // Printed Card
+                    }
+
+                    Timber.e("Uniform Bounding Box Label %s", detectedLabel);
+                    if (completeUniformSet.contains(detectedLabel)) {
+                        Timber.e("Uniform : Detected Label %s", detectedLabel);
+                        uniformDetectedScore = uniformDetectedScore + 1;
+                    }
+
+                    if (badgeSet.contains(detectedLabel)) {
+                        Timber.e("Badge : Detected Label %s", detectedLabel);
+                        badgeDetectedScore = badgeDetectedScore + 1;
                     }
                 }
+            }
+            Timber.e("Uniform and Badge DetectedScore %d, %d ", uniformDetectedScore,badgeDetectedScore);
+
+            //Checking below condition for Complete Uniform wrt Uniform score
+            if (uniformDetectedScore > 2) {
+                mlTurnOutScore += 1;
+                recyclerAdapter.getItem(2).isSelected = true; // Uniform
+            }
+
+            //Checking below condition for Badge wrt Badge score
+            if (badgeDetectedScore > 0) {
+                mlTurnOutScore += 1;
+                recyclerAdapter.getItem(5).isSelected = true; // BADGE
             }
 
             Handler mainHandler = new Handler(Looper.getMainLooper());

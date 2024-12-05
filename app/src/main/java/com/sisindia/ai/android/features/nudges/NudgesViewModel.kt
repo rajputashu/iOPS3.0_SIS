@@ -20,9 +20,9 @@ class NudgesViewModel @Inject constructor(val app: Application) : IopsBaseViewMo
     lateinit var notificationDao: NotificationsDao
 
     val listener = object : NudgesListener {
-        override fun onDashboardNudgesSelection(nudgesId: Int) {
+        override fun onDashboardNudgesSelection(nudgesId: String?) {
             message.what = NavigationConstants.OPEN_DYNAMIC_NUDGE_SCREEN
-            message.arg1 = nudgesId
+            message.obj = nudgesId
             liveData.postValue(message)
         }
     }

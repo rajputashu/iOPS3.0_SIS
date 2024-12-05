@@ -21,6 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorWhiteLight"
             app:elevation="@dimen/_5sdp"
+            android:visibility="gone"
             app:titleTextColor="@color/textColorBlackBold">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -35,22 +36,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/_42ssp"
-            android:background="@color/colorWhite"
             android:layout_marginTop="@dimen/_6sdp"
+            android:background="@drawable/drawable_top_corner"
             android:layout_below="@id/tbDynamicTasks"
             android:visibility="@{vm.noData ? View.GONE : View.VISIBLE}"
             app:dynamicNudgesAdapter="@{vm.dynamicTaskAdapter}"
             app:taskListener="@{vm.taskListener}" />
+<!--        android:background="@color/colorWhite"-->
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/BottomButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40ssp"
+            android:layout_height="@dimen/_42ssp"
             android:gravity="center"
             android:onClick="@{vm::onTaskValidation}"
             android:visibility="@{vm.noData ? View.GONE : View.VISIBLE}"
-            android:text="@{@string/dynamic_tasks_name(vm.obsDynamicTaskName)}"
+            android:text="@string/string_submit"
             android:textSize="@dimen/_12ssp" />
+<!--        android:text="@{@string/dynamic_tasks_name(vm.obsDynamicTaskName)}"-->
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/BlackTitleTextColor16"
