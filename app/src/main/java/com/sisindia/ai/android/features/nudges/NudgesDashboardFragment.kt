@@ -42,7 +42,7 @@ class NudgesDashboardFragment : IopsBaseFragment() {
             when (message.what) {
                 OPEN_DYNAMIC_NUDGE_SCREEN -> {
                     val intent = Intent(activity, NudgesDynamicActivity::class.java)
-                    intent.putExtra(DYNAMIC_FORM_ID, message.arg1)
+                    intent.putExtra(DYNAMIC_FORM_ID, message.obj as String)
                     dynamicNudgesLauncher.launch(intent)
                 }
             }

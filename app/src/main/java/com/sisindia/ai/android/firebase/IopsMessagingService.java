@@ -21,9 +21,11 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.sisindia.ai.android.R;
 import com.sisindia.ai.android.commons.NotificationMode;
+import com.sisindia.ai.android.constants.IntentConstants;
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionCardsActivity;
 import com.sisindia.ai.android.features.dashboard.DashBoardActivity;
 import com.sisindia.ai.android.features.notification.CustomWebPage;
+import com.sisindia.ai.android.features.nudges.NudgesDynamicActivity;
 import com.sisindia.ai.android.features.splash.SplashFragment;
 import com.sisindia.ai.android.room.dao.NotificationsDao;
 import com.sisindia.ai.android.room.entities.NotificationDataEntity;
@@ -74,6 +76,7 @@ public class IopsMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         try {
             String notificationData = new Gson().toJson(remoteMessage.getData());
+            Timber.e("Notification DATA %s", notificationData);
             NotificationDataEntity model = new Gson().fromJson(notificationData, NotificationDataEntity.class);
 
             if (model.getMode() != null && !model.getMode().isEmpty()) {
@@ -170,6 +173,11 @@ public class IopsMessagingService extends FirebaseMessagingService {
                             .putExtra("NOTIFICATION_URL", notificationMO.getCallBackUrl())
                             .putExtra("NOTIFICATION_TITLE", notificationMO.getMessage());
                     break;
+                case "NUDGES":
+//                    Timber.e("NotificationId selected %s",notificationMO.getNotificationId());
+                    intent = new Intent(this, NudgesDynamicActivity.class)
+                            .putExtra(IntentConstants.DYNAMIC_FORM_ID, notificationMO.getNotificationId());
+                    break;
                 default:
                     intent = new Intent(this, SplashFragment.class);
                     break;
@@ -181,11 +189,12 @@ public class IopsMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getActivity(this,
-                    0, intent, PendingIntent.FLAG_IMMUTABLE);
+                    0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT);
 
         } else {
             pendingIntent = PendingIntent.getActivity(this,
-                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         }
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
@@ -305,7 +314,7 @@ public class IopsMessagingService extends FirebaseMessagingService {
                 case "AdhocApproved":
                     notificationHandler.triggerToUpdateAdHocTask(notification.getJsonData());
                     break;
-                case "Nudges":
+                case "NUDGES":
                     Timber.e("Notification Coming to trigger Nudges");
                     break;
             }

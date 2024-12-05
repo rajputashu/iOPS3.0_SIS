@@ -75,8 +75,8 @@ android {
 
         UAT {
             applicationId "com.sisindia.ai.android.uat"
-            versionName "Ver-U(2.8)"
-            versionCode 28
+            versionName "Ver-U(2.9)"
+            versionCode 29
             buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
 //            buildConfigField 'String', 'CORE_API', '"https://eventmanagment-api.azurewebsites.net/"'

@@ -6,12 +6,12 @@ import android.text.TextUtils
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.work.Data
 import com.droidcommons.preference.Prefs
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sisindia.ai.android.base.IopsBaseViewModel
+import com.sisindia.ai.android.commons.TaskControllerType
 import com.sisindia.ai.android.commons.TaskControllerType.AUDIO
 import com.sisindia.ai.android.commons.TaskControllerType.CHECKBOX
 import com.sisindia.ai.android.commons.TaskControllerType.DATETIMEPICKER
@@ -32,6 +32,7 @@ import com.sisindia.ai.android.features.dynamictask.models.DynamicDateTimePicker
 import com.sisindia.ai.android.features.dynamictask.models.DynamicEditTextMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicLabel
 import com.sisindia.ai.android.features.dynamictask.models.DynamicPictureMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicRadioGroupMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicRatingMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicScanQrMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicSpinnerMO
@@ -72,7 +73,9 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 //    private var tik = TaskTimer(0)
 
     val obsDynamicTaskName = ObservableField("")
-    val obsTaskTypeId = ObservableInt(1)
+
+    //    val obsTaskTypeId = ObservableInt(1)
+    val obsNotificationId = ObservableField("1")
 
     var isRecordedObs = ObservableField(AudioRecordState.NOT_RECORDED)
     private var audioAttachment: AttachmentEntity =
@@ -139,10 +142,8 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
     fun updateImageCaptureStatus() {
         if (selectedCaptureImagePos != -1) {
             val uri = Uri.parse(imageAttachment.get()!!.localFilePath)
-            (dynamicTaskAdapter.items[selectedCaptureImagePos] as DynamicPictureMO)
-                .isImageCaptured = true
-            (dynamicTaskAdapter.items[selectedCaptureImagePos] as DynamicPictureMO)
-                .imageUri = uri
+            (dynamicTaskAdapter.items[selectedCaptureImagePos] as DynamicPictureMO).isImageCaptured = true
+            (dynamicTaskAdapter.items[selectedCaptureImagePos] as DynamicPictureMO).imageUri = uri
             dynamicTaskAdapter.notifyItemChanged(selectedCaptureImagePos)
         }
     }
@@ -156,15 +157,17 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 
     fun updateDateTimeToWidget(dateTime: String) {
         if (dateTime.isNotEmpty() && selectedWidgetPos != -1) {
-            (dynamicTaskAdapter.items[selectedWidgetPos] as DynamicDateTimePickerMO).selectedDateTime = dateTime
+            (dynamicTaskAdapter.items[selectedWidgetPos] as DynamicDateTimePickerMO).selectedDateTime =
+                dateTime
             dynamicTaskAdapter.notifyItemChanged(selectedWidgetPos)
         }
     }
 
     fun fetchJsonFormViaId() {
-        Timber.e("TaskTypeId : ${obsTaskTypeId.get()}")
-        addDisposable(dynamicTaskDao.fetchDynamicNudgesForm(obsTaskTypeId.get()).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({ dynamicTaskForm ->
+        Timber.e("Notification IN vm Id : ${obsNotificationId.get()}")
+        addDisposable(dynamicTaskDao.fetchDynamicNudgesForm(obsNotificationId.get())
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ dynamicTaskForm ->
                 dynamicTaskForm?.apply {
                     obsDynamicTaskName.set(this.moduleName)
                     noData.set(false)
@@ -235,6 +238,16 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                             spinnerList = spinnerItems))
                     }
 
+                    TaskControllerType.RadioButton.name -> {
+                        completeUiList.add(DynamicLabel(label = controls.title))
+                        controls.dataValue?.let {
+                            completeUiList.add(DynamicRadioGroupMO(controllerId = controls.ControlID,
+                                controllerName = controls.contentType,
+                                isMandatory = controls.isMandatory!!.toBoolean(),
+                                radioButtonList = it))
+                        }
+                    }
+
                     AUDIO.name -> {
                         completeUiList.add(DynamicAudioMO(controllerId = controls.ControlID,
                             controllerName = controls.contentType,
@@ -291,6 +304,11 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                 isMandatoryViewsDone = false
                 showToast("Please select option for ${viewsMO.label}")
                 break
+//            } else if (viewsMO is DynamicRadioGroupMO && viewsMO.isMandatory && viewsMO.selectedRadioValue == null) {
+            } else if (viewsMO is DynamicRadioGroupMO && viewsMO.selectedRadioValue == null) {
+                isMandatoryViewsDone = false
+                showToast("Please select your reason")
+                break
             } else if (viewsMO is DynamicRatingMO && viewsMO.isMandatory && viewsMO.rating == 0) {
                 isMandatoryViewsDone = false
                 showToast("Please select rating for ${viewsMO.label}")
@@ -303,7 +321,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
             val taskExecutionResult = DynamicTaskResultMO()
             taskExecutionResult.siteId = Prefs.getInt(PrefConstants.CURRENT_SITE)
             taskExecutionResult.taskId = Prefs.getInt(PrefConstants.TASK_SERVER_ID)
-            taskExecutionResult.taskTypeId = obsTaskTypeId.get()
+            taskExecutionResult.taskTypeId = obsNotificationId.get()?.toInt()
             val questionList = arrayListOf<QuestionsMO>()
             for (viewsMO: Any in dynamicTaskAdapter.items) {
                 when (viewsMO) {
@@ -346,6 +364,11 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                         controlId = viewsMO.controllerId,
                         controlName = viewsMO.controllerName,
                         response = viewsMO.rating.toString()))
+
+                    is DynamicRadioGroupMO -> questionList.add(QuestionsMO(controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = viewsMO.label,
+                        response = viewsMO.selectedRadioValue))
                 }
             }
             taskExecutionResult.question = questionList
@@ -368,18 +391,18 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
             actualExecutionEndDT,
             executionResult,
             location).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
-                isLoading.set(View.GONE)
-                triggerRotaTaskWorker()
-                oneTimeWorkerWithNetwork(AttachmentsUploadWorker::class.java)
+            isLoading.set(View.GONE)
+            triggerRotaTaskWorker()
+            oneTimeWorkerWithNetwork(AttachmentsUploadWorker::class.java)
 
-                message.what = NavigationConstants.ON_DYNAMIC_TASK_COMPLETE
-                liveData.postValue(message)
-                showToast("Task saved successfully")
+            message.what = NavigationConstants.ON_DYNAMIC_TASK_COMPLETE
+            liveData.postValue(message)
+            showToast("Task saved successfully")
 
-            }, {
-                isLoading.set(View.GONE)
-                showToast("Unable to save the task...")
-            }))
+        }, {
+            isLoading.set(View.GONE)
+            showToast("Unable to save the task...")
+        }))
     }
 
     private fun triggerRotaTaskWorker() {

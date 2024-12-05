@@ -55,6 +55,7 @@ import com.sisindia.ai.android.features.uar.poa.POAActivity;
 import com.sisindia.ai.android.features.units.addedit.AddEditPostActivity;
 import com.sisindia.ai.android.features.units.details.UnitDetailActivity;
 import com.sisindia.ai.android.features.units.registermap.MapRegistersActivity;
+import com.sisindia.ai.android.features.videocall.VideoCallActivity;
 import com.sisindia.ai.android.mlcore.ScanQRActivity;
 
 import dagger.Binds;
@@ -274,6 +275,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector
     abstract NudgesDynamicActivity bindNudgesDynamic();
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    abstract VideoCallActivity bindVideoCall();
 
     @Binds
     abstract Application bindApplication(IopsApplication application);

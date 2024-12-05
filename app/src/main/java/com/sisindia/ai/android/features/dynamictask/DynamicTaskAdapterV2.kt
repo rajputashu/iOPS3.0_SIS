@@ -1,10 +1,12 @@
 package com.sisindia.ai.android.features.dynamictask
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.SpinnerAdapter
 import androidx.databinding.DataBindingUtil
@@ -17,7 +19,9 @@ import com.sisindia.ai.android.databinding.RowDynamicAudioBinding
 import com.sisindia.ai.android.databinding.RowDynamicCheckboxBinding
 import com.sisindia.ai.android.databinding.RowDynamicEditTextBinding
 import com.sisindia.ai.android.databinding.RowDynamicLabelBinding
+import com.sisindia.ai.android.databinding.RowDynamicNudgesLabelBinding
 import com.sisindia.ai.android.databinding.RowDynamicPictureBinding
+import com.sisindia.ai.android.databinding.RowDynamicRadioBinding
 import com.sisindia.ai.android.databinding.RowDynamicRatingBinding
 import com.sisindia.ai.android.databinding.RowDynamicScanBinding
 import com.sisindia.ai.android.databinding.RowDynamicSeparatorBinding
@@ -28,11 +32,14 @@ import com.sisindia.ai.android.features.dynamictask.models.DynamicDateTimePicker
 import com.sisindia.ai.android.features.dynamictask.models.DynamicEditTextMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicLabel
 import com.sisindia.ai.android.features.dynamictask.models.DynamicPictureMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicRadioGroupMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicRatingMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicScanQrMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicSeparatorMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicSpinnerMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicStaticSpinnerMO
+import timber.log.Timber
+
 /*import kotlinx.android.synthetic.main.row_dynamic_audio.view.tvAudioClip
 import kotlinx.android.synthetic.main.row_dynamic_checkbox.view.dynamicCheckBox
 import kotlinx.android.synthetic.main.row_dynamic_picture.view.dynamicPictureLayout
@@ -59,6 +66,7 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
         private const val DATE_TIME_VIEW: Int = 11
         private const val STATIC_SPINNER_VIEW: Int = 12
         private const val RATING_VIEW: Int = 13
+        private const val RADIO_BUTTON: Int = 14
     }
 
     fun initListener(taskListener: DynamicTasksListener) {
@@ -72,8 +80,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
         return when (viewType) {
 
             LABEL_VIEW -> {
-                val view: RowDynamicLabelBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_label, parent, false)
+                val view: RowDynamicNudgesLabelBinding =
+                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_nudges_label, parent, false)
                 LabelViewHolder(view)
             }
 
@@ -137,6 +145,12 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
                 DateTimeVH(view)
             }
 
+            RADIO_BUTTON -> {
+                val view: RowDynamicRadioBinding =
+                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_radio, parent, false)
+                RadioGroupVH(view)
+            }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -154,6 +168,7 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
             items[position] is DynamicStaticSpinnerMO -> STATIC_SPINNER_VIEW
             items[position] is DynamicRatingMO -> RATING_VIEW
             items[position] is DynamicDateTimePickerMO -> DATE_TIME_VIEW
+            items[position] is DynamicRadioGroupMO -> RADIO_BUTTON
             else -> SEPARATOR_VIEW
         }
     }
@@ -172,8 +187,7 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
             is ScanQRVH -> holder.onBind(getItem(position))
             is RatingVH -> holder.onBind(getItem(position))
             is DateTimeVH -> holder.onBind(getItem(position))
-//            is EmployeeSelectionVH -> holder.onBind(getItem(position))
-//            is SiteSelectionVH -> holder.onBind(getItem(position))
+            is RadioGroupVH -> holder.onBind(getItem(position))
         }
     }
 
@@ -184,7 +198,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
         }
     }
 
-    inner class LabelViewHolder(private val labelView: RowDynamicLabelBinding) :
+//    inner class LabelViewHolder(private val labelView: RowDynamicLabelBinding) :
+    inner class LabelViewHolder(private val labelView: RowDynamicNudgesLabelBinding) :
         BaseViewHolder<Any>(labelView) {
         override fun onBind(item: Any?) {
             labelView.model = item as DynamicLabel
@@ -245,6 +260,33 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
                         parent?.getItemAtPosition(pos).toString())
                     (items[layoutPosition] as DynamicStaticSpinnerMO).selectedSpinnerPosition = pos
                 }
+            }
+        }
+    }
+
+    inner class RadioGroupVH(private val rgView: RowDynamicRadioBinding) : BaseViewHolder<Any>(rgView) {
+        override fun onBind(item: Any?) {
+            val radioMO = item as DynamicRadioGroupMO
+
+            rgView.dynamicRG.removeAllViews()
+
+            radioMO.radioButtonList?.let { rbItem ->
+                rbItem.forEach {
+                    val radioButton = RadioButton(rgView.root.context)
+                    radioButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+                    radioButton.text = it
+                    radioButton.id = View.generateViewId()
+                    rgView.dynamicRG.addView(radioButton)
+                }
+            }
+
+            // Set a listener for when a radio button is selected
+            rgView.dynamicRG.setOnCheckedChangeListener { group, checkedId ->
+                val selectedRadioButton = group.findViewById<RadioButton>(checkedId)
+                val selectedText = selectedRadioButton.text.toString()
+                Timber.e("Selected RadioButton with ID: $checkedId and $selectedText")
+                taskListener.onRadioButtonSelected(layoutPosition, selectedText)
+                (items[layoutPosition] as DynamicRadioGroupMO).selectedRadioValue = selectedText
             }
         }
     }

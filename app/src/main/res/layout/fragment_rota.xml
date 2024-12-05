@@ -66,7 +66,6 @@
                         android:layout_toStartOf="@id/tvAddRota"
                         android:layout_marginEnd="@dimen/_7sdp"
                         android:gravity="center_vertical"
-                        android:visibility="invisible"
                         android:onClick="@{vm::onViewsClick}"
                         android:layout_centerVertical="true">
 

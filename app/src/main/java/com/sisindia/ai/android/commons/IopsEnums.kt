@@ -80,6 +80,7 @@ enum class NotificationMode(val mode: Int) {
 
 enum class TaskControllerType {
     LABEL, CHECKBOX, TEXT, PICTURE, SPINNER, STATICSPINNER, AUDIO, QRCODE,RATING, DATETIMEPICKER,
+    RadioButton
 }
 
 enum class GroupCompany(val companyId: Int) {
