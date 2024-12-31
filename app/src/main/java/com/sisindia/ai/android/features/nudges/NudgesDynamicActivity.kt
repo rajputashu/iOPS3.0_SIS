@@ -20,7 +20,6 @@ import com.sisindia.ai.android.features.imagecapture.CaptureImageActivityV2
 import com.sisindia.ai.android.mlcore.ScanQRActivity
 import com.sisindia.ai.android.room.entities.AttachmentEntity
 import org.parceler.Parcels.unwrap
-import timber.log.Timber
 
 /**
  * Created by Ashu_Rajput on 04/11/2024.
@@ -86,10 +85,11 @@ class NudgesDynamicActivity : IopsBaseActivity() {
     }
 
     override fun onCreated() {
-        setupToolBarForBackArrow(binding.tbDynamicTasks)
+//        setupToolBarForBackArrow(binding.tbDynamicTasks)
 
         viewModel?.apply {
-            fetchJsonFormViaId()
+//            fetchJsonFormViaId()
+            checkNotificationTaskStatus()
         }
     }
 

@@ -16,16 +16,16 @@ data class DynamicTaskParserV2(
     var title: String? = null,
     @SerializedName("innertitle")
     var hint: String? = null,
-    @SerializedName("Legend")
+    /*@SerializedName("Legend")
     var legend: String? = null,
     @SerializedName("isBold")
     var isBold: String? = null,
     @SerializedName("Align")
-    var align: String? = null,
+    var align: String? = null,*/
     @SerializedName("count")
     var count: String? = null,
-    @SerializedName("color")
-    var color: String? = null,
+    /*@SerializedName("color")
+    var color: String? = null,*/
     @SerializedName("maxsize")
     var maxsize: Int? = null,
     @SerializedName("maxduration")
@@ -40,5 +40,14 @@ data class DynamicTaskParserV2(
     var imageUrl: String? = null,
     @SerializedName("APIName")
     var routeName: String = "",
-    @SerializedName("Parameters")
-    var parameter: String = "")
+    /*@SerializedName("Parameters")
+    var parameter: String = "",*/
+    @SerializedName("HeaderPhoto")
+    var headerPhoto: String = "",
+    @SerializedName("HeaderName")
+    var headerName: String = "",
+    @SerializedName("HeaderRank")
+    var headerRank: String = "",
+    @SerializedName("childControllers")
+    var childControllers: ArrayList<ChildControllerMO>? = null
+)

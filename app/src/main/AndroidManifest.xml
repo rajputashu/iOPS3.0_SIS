@@ -68,7 +68,7 @@
 
         </activity>
 
-       <!-- <activity
+        <!--<activity
             android:name=".features.videocall.VideoCallActivity"
             android:alwaysRetainTaskState="true"
             android:exported="true"
@@ -84,6 +84,10 @@
             </intent-filter>
 
         </activity>-->
+
+        <activity
+            android:name=".features.videocall.VideoCallActivity"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".features.dashboard.DashBoardActivity"

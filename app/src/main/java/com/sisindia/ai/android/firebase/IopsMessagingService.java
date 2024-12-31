@@ -27,6 +27,7 @@ import com.sisindia.ai.android.features.dashboard.DashBoardActivity;
 import com.sisindia.ai.android.features.notification.CustomWebPage;
 import com.sisindia.ai.android.features.nudges.NudgesDynamicActivity;
 import com.sisindia.ai.android.features.splash.SplashFragment;
+import com.sisindia.ai.android.features.videocall.VideoCallActivity;
 import com.sisindia.ai.android.room.dao.NotificationsDao;
 import com.sisindia.ai.android.room.entities.NotificationDataEntity;
 
@@ -178,6 +179,9 @@ public class IopsMessagingService extends FirebaseMessagingService {
                     intent = new Intent(this, NudgesDynamicActivity.class)
                             .putExtra(IntentConstants.DYNAMIC_FORM_ID, notificationMO.getNotificationId());
                     break;
+                case "VIDEO_CALL":
+                    intent = new Intent(this, VideoCallActivity.class);
+                    break;
                 default:
                     intent = new Intent(this, SplashFragment.class);
                     break;
@@ -316,6 +320,9 @@ public class IopsMessagingService extends FirebaseMessagingService {
                     break;
                 case "NUDGES":
                     Timber.e("Notification Coming to trigger Nudges");
+                    break;
+                case "VIDEO_CALL":
+                    Timber.e("Notification Coming to VIDEO_CALL");
                     break;
             }
         }

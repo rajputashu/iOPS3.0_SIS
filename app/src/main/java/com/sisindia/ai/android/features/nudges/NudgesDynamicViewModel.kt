@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.work.Data
 import com.droidcommons.preference.Prefs
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -33,6 +32,7 @@ import com.sisindia.ai.android.features.dynamictask.models.DynamicEditTextMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicLabel
 import com.sisindia.ai.android.features.dynamictask.models.DynamicPictureMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicRadioGroupMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicRadioWithChildMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicRatingMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicScanQrMO
 import com.sisindia.ai.android.features.dynamictask.models.DynamicSpinnerMO
@@ -40,17 +40,16 @@ import com.sisindia.ai.android.features.dynamictask.models.DynamicStaticSpinnerM
 import com.sisindia.ai.android.features.dynamictask.models.DynamicTaskResultMO
 import com.sisindia.ai.android.features.dynamictask.models.QuestionsMO
 import com.sisindia.ai.android.models.AudioRecordState
+import com.sisindia.ai.android.models.nudges.NudgeRequestBodyMO
 import com.sisindia.ai.android.room.dao.AttachmentDao
 import com.sisindia.ai.android.room.dao.DynamicTaskDao
+import com.sisindia.ai.android.room.dao.NotificationsDao
 import com.sisindia.ai.android.room.dao.TaskDao
 import com.sisindia.ai.android.room.entities.AttachmentEntity
 import com.sisindia.ai.android.uimodels.attachments.OtherTaskAttachmentMetaData
 import com.sisindia.ai.android.utils.FileUtils
-import com.sisindia.ai.android.workers.AttachmentsUploadWorker
-import com.sisindia.ai.android.workers.RotaTaskWorker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.LocalDateTime
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -66,16 +65,22 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
     lateinit var taskDao: TaskDao
 
     @Inject
+    lateinit var notificationsDao: NotificationsDao
+
+    @Inject
     lateinit var attachmentDao: AttachmentDao
 
     val noData: ObservableBoolean = ObservableBoolean(true)
 
 //    private var tik = TaskTimer(0)
 
-    val obsDynamicTaskName = ObservableField("")
+//    val obsDynamicTaskName = ObservableField("")
 
     //    val obsTaskTypeId = ObservableInt(1)
     val obsNotificationId = ObservableField("1")
+    val obsHeaderUrl = ObservableField("")
+    val obsHeaderName = ObservableField("")
+    val obsHeaderRank = ObservableField("")
 
     var isRecordedObs = ObservableField(AudioRecordState.NOT_RECORDED)
     private var audioAttachment: AttachmentEntity =
@@ -88,6 +93,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
     var selectedAudioPos = -1
     var selectedQRCodePos = -1
     private var selectedWidgetPos = -1
+    private var isAnyRadioWithChildSelected = false
 
     val taskListener = object : DynamicTasksListener {
         override fun onClickPicture(picturePos: Int) {
@@ -128,6 +134,10 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
             message.what = NavigationConstants.OPEN_DATE_TIME_PICKER
             liveData.postValue(message)
         }
+
+        override fun onRadioButtonSelected(position: Int, selectedValue: String) {
+            isAnyRadioWithChildSelected = true
+        }
     }
 
     /*fun updateTaskExecutionStartDetails() {
@@ -163,13 +173,26 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
         }
     }
 
-    fun fetchJsonFormViaId() {
+    fun checkNotificationTaskStatus() {
+        addDisposable(notificationsDao.isTaskAlreadyCompleted(obsNotificationId.get())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ isSynced ->
+                if (isSynced == 0) {
+                    fetchJsonFormViaId()
+                }
+            }, { throwable: Throwable? ->
+                throwable!!.printStackTrace()
+            }))
+    }
+
+    private fun fetchJsonFormViaId() {
         Timber.e("Notification IN vm Id : ${obsNotificationId.get()}")
         addDisposable(dynamicTaskDao.fetchDynamicNudgesForm(obsNotificationId.get())
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe({ dynamicTaskForm ->
                 dynamicTaskForm?.apply {
-                    obsDynamicTaskName.set(this.moduleName)
+//                    obsDynamicTaskName.set(this.moduleName)
                     noData.set(false)
                     if (!this.jsonData.isNullOrEmpty()) {
                         val listIntroType = object : TypeToken<List<DynamicTaskParserV2>>() {}.type
@@ -238,16 +261,6 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                             spinnerList = spinnerItems))
                     }
 
-                    TaskControllerType.RadioButton.name -> {
-                        completeUiList.add(DynamicLabel(label = controls.title))
-                        controls.dataValue?.let {
-                            completeUiList.add(DynamicRadioGroupMO(controllerId = controls.ControlID,
-                                controllerName = controls.contentType,
-                                isMandatory = controls.isMandatory!!.toBoolean(),
-                                radioButtonList = it))
-                        }
-                    }
-
                     AUDIO.name -> {
                         completeUiList.add(DynamicAudioMO(controllerId = controls.ControlID,
                             controllerName = controls.contentType,
@@ -275,10 +288,47 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                             isMandatory = controls.isMandatory!!.toBoolean(),
                             label = controls.title!!))
                     }
+
+                    TaskControllerType.RadioButton.name -> {
+                        setHeaderDetails(controls)
+                        completeUiList.add(DynamicLabel(label = controls.title))
+                        controls.dataValue?.let {
+                            completeUiList.add(DynamicRadioGroupMO(controllerId = controls.ControlID,
+                                controllerName = controls.contentType,
+                                isMandatory = controls.isMandatory!!.toBoolean(),
+                                radioButtonList = it))
+                        }
+                    }
+
+                    TaskControllerType.RadioButtonWithChildControl.name -> {
+                        setHeaderDetails(controls)
+                        completeUiList.add(DynamicLabel(label = controls.title))
+                        controls.childControllers?.let {
+
+                            for (childControlMO in it) {
+                                completeUiList.add(
+                                    DynamicRadioWithChildMO(
+                                        controllerId = controls.ControlID,
+                                        controllerName = controls.contentType,
+                                        isMandatory = controls.isMandatory!!.toBoolean(),
+                                        radioButtonLabel = childControlMO.optionName!!,
+                                        dependantController = childControlMO.dependantControllerName,
+                                        dependantControllerHint = childControlMO.dependantTitle,
+                                        dependantSpinnerList = childControlMO.dependantValue))
+                            }
+                        }
+                    }
                 }
             }
             dynamicTaskAdapter.clearAndSetItems(completeUiList)
         }
+    }
+
+    private fun setHeaderDetails(controls: DynamicTaskParserV2) {
+        Timber.e("HeaderURL ${controls.headerPhoto}")
+        obsHeaderUrl.set(controls.headerPhoto)
+        obsHeaderName.set(controls.headerName)
+        obsHeaderRank.set(controls.headerRank)
     }
 
     fun onTaskValidation(view: View) {
@@ -313,15 +363,33 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                 isMandatoryViewsDone = false
                 showToast("Please select rating for ${viewsMO.label}")
                 break
+            } else if (viewsMO is DynamicRadioWithChildMO) {
+                if (!isAnyRadioWithChildSelected) {
+                    showToast("Please choose your option")
+                    isMandatoryViewsDone = false
+                    break
+                } else if (viewsMO.isRadioSelected && viewsMO.dependantController?.isNotEmpty()!!
+                    && viewsMO.dependantController == "SPINNER" && viewsMO.selectedSpinnerPosition == 0) {
+                    showToast("Please select ${viewsMO.dependantControllerHint}")
+
+                    isMandatoryViewsDone = false
+                    break
+                } else if (viewsMO.isRadioSelected && viewsMO.dependantController?.isNotEmpty()!! && viewsMO.dependantController == "EDITTEXT" &&
+                    viewsMO.enteredValue.isNullOrEmpty()) {
+                    showToast("Please enter ${viewsMO.dependantControllerHint}")
+
+                    isMandatoryViewsDone = false
+                    break
+                }
             }
         }
 
         if (isMandatoryViewsDone) {
             isLoading.set(View.VISIBLE)
             val taskExecutionResult = DynamicTaskResultMO()
-            taskExecutionResult.siteId = Prefs.getInt(PrefConstants.CURRENT_SITE)
-            taskExecutionResult.taskId = Prefs.getInt(PrefConstants.TASK_SERVER_ID)
-            taskExecutionResult.taskTypeId = obsNotificationId.get()?.toInt()
+            taskExecutionResult.siteId = 0
+            taskExecutionResult.taskId = obsNotificationId.get()?.toInt()
+            taskExecutionResult.taskTypeId = 0
             val questionList = arrayListOf<QuestionsMO>()
             for (viewsMO: Any in dynamicTaskAdapter.items) {
                 when (viewsMO) {
@@ -369,19 +437,68 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                         controlName = viewsMO.controllerName,
                         question = viewsMO.label,
                         response = viewsMO.selectedRadioValue))
+
+                    is DynamicRadioWithChildMO ->
+                        if (viewsMO.isRadioSelected) {
+                            questionList.add(QuestionsMO(
+                                controlId = viewsMO.controllerId,
+                                controlName = viewsMO.controllerName,
+                                question = viewsMO.controllerName,
+                                response = Gson().toJson(viewsMO)))
+                        }
                 }
             }
             taskExecutionResult.question = questionList
             val executionResult: String = Gson().toJson(taskExecutionResult)
-            updateTaskAndInsertAttachment(executionResult)
+            updateNudgeAndSendToAPI(executionResult)
+//            updateTaskAndInsertAttachment(executionResult)
         }
     }
 
-    private fun updateTaskAndInsertAttachment(executionResult: String) {
+    private fun updateNudgeAndSendToAPI(taskResponse: String) {
+
+        isLoading.set(View.VISIBLE)
+        val body = NudgeRequestBodyMO()
+        body.id = obsNotificationId.get()?.toInt()
+        body.response = taskResponse
+
+        addDisposable(coreApi.updateNudgeResponse(body).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({ responseMO ->
+                isLoading.set(View.GONE)
+                if (responseMO.statusCode == 200) {
+                    updateNudgeStatus()
+                } else {
+                    showToast(responseMO.statusMessage)
+                }
+
+            }, { throwable: Throwable? ->
+                isLoading.set(View.GONE)
+                throwable!!.printStackTrace()
+                showToast("Internal server error, please retry again")
+            }))
+    }
+
+    private fun updateNudgeStatus() {
+        addDisposable(obsNotificationId.get()?.let {
+            notificationsDao.updateNudge(it).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe({ count ->
+                    if (count > 0) {
+                        message.what = NavigationConstants.ON_DYNAMIC_TASK_COMPLETE
+                        liveData.postValue(message)
+                        showToast("Response updated successfully")
+                    }
+                }, { throwable: Throwable? ->
+                    throwable!!.printStackTrace()
+                })
+        })
+    }
+
+    /*private fun updateTaskAndInsertAttachment(executionResult: String) {
         val attachment = imageAttachment.get()
 
-        if (attachment != null && !TextUtils.isEmpty(attachment.localFilePath)) updateOtherAttachment(
-            attachment)
+        if (attachment != null && !TextUtils.isEmpty(attachment.localFilePath)) {
+            updateOtherAttachment(attachment)
+        }
 
         val actualExecutionEndDT = LocalDateTime.now().toString()
         val location = Prefs.getDouble(PrefConstants.LATITUDE).toString() + ", " + Prefs.getDouble(
@@ -403,13 +520,13 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
             isLoading.set(View.GONE)
             showToast("Unable to save the task...")
         }))
-    }
+    }*/
 
-    private fun triggerRotaTaskWorker() {
+    /*private fun triggerRotaTaskWorker() {
         val inputData = Data.Builder().putInt(RotaTaskWorker::class.java.simpleName,
             RotaTaskWorker.RotaTaskWorkerType.SYNC_TO_SERVER.workerType).build()
         oneTimeWorkerWithInputData(RotaTaskWorker::class.java, inputData)
-    }
+    }*/
 
     fun onAudioRecorded(audioFile: String) {
         if (TextUtils.isEmpty(audioFile)) {

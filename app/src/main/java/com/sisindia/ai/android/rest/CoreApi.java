@@ -24,6 +24,7 @@ import com.sisindia.ai.android.models.kits.KitDistributionApiBodyMO;
 import com.sisindia.ai.android.models.kits.KitDistributionResponseMO;
 import com.sisindia.ai.android.models.mask.AddMaskRequestBodyMO;
 import com.sisindia.ai.android.models.mask.MaskApiResponseMO;
+import com.sisindia.ai.android.models.nudges.NudgeRequestBodyMO;
 import com.sisindia.ai.android.models.performance.AOConveyanceSummaryResponseMO;
 import com.sisindia.ai.android.models.performance.ConveyanceReportResponseMO;
 import com.sisindia.ai.android.models.performance.IncentiveResponseMO;
@@ -59,6 +60,7 @@ import com.sisindia.ai.android.uimodels.akr.GuardKitRequestMO;
 import com.sisindia.ai.android.uimodels.attachments.AKRAttachmentMetadata;
 import com.sisindia.ai.android.uimodels.attachments.SelfieAttachmentMetadata;
 import com.sisindia.ai.android.uimodels.barracks.BarrackUpdateBodyMO;
+import com.sisindia.ai.android.uimodels.nudges.PendingNudgesResponseMO;
 import com.sisindia.ai.android.uimodels.tasks.ClientDetailsResponseMO;
 
 import java.util.List;
@@ -108,7 +110,7 @@ public interface CoreApi {
     String PERFORMANCE_EFFORTS = "api/Performance/GetPerformanceEfforts";
     String PERFORMANCE_ROTA_COMPLIANCE = "api/Rota/GetRotaSummary";
     String REFRESHED_SITE_LIST = "api/Site/GetSiteMasters";
-//    String KIT_DISTRIBUTION_LIST = "api/Kit/GetKitDistributionList";
+    //    String KIT_DISTRIBUTION_LIST = "api/Kit/GetKitDistributionList";
     String KIT_DISTRIBUTION_LIST = "api/Kit/GetKitDistributionList_V1";
     String UPDATE_KIT_DISTRIBUTION_LIST = "/api/Kit/UpdateKitDistribution";
     String AO_CONVEYANCE = "api/TimeLine/GetAOConveyance";
@@ -142,6 +144,8 @@ public interface CoreApi {
     String ADD_DISBANDMENT_SITE = "api/SiteDisbandment/AddRequests";
     //    String GET_CLIENT_LIST = "api/Customer/GetCustomerContactsV1";
     String GET_CLIENT_LIST = "api/Customer/GetCustomerContactsBySiteId";
+    String UPDATE_NUDGE_RESPONSE = "api/NudgeNotification/UpdatedResponse";
+    String GET_PENDING_NUDGES = "api/NudgeNotification/GetNudgeNotificationResponses";
 
     @POST(UPDATE_DEVICE_INFO)
     Single<JsonObject> updateDeviceInfo(@Body DeviceInfo item);
@@ -379,4 +383,10 @@ public interface CoreApi {
 
     @GET(GET_CLIENT_LIST)
     Single<ClientDetailsResponseMO> getClientDetails(@Query("siteId") int siteId);
+
+    @POST(UPDATE_NUDGE_RESPONSE)
+    Single<BaseNetworkResponse> updateNudgeResponse(@Body NudgeRequestBodyMO body);
+
+    @GET(GET_PENDING_NUDGES)
+    Single<PendingNudgesResponseMO> getPendingNudges(@Query("date") String date);
 }

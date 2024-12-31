@@ -88,7 +88,7 @@
                             android:paddingBottom="@dimen/_1sdp"
                             android:textColor="@color/colorWhite"
                             android:background="@drawable/border_green_body"
-                            android:text="99"/>
+                            android:text="@{vm.obsNotificationCount+``}"/>
 
                     </RelativeLayout>
 

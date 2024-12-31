@@ -65,6 +65,7 @@ public class GuardPhotoEvaluationResultFragment extends IopsBaseFragment {
     @Override
     protected void onCreated() {
         viewModel.initTurnOutAIDetector();
+//        viewModel.initObjectDetectorDetector();
 //        viewModel.fetchGuardTurnOutFromDB();
     }
 

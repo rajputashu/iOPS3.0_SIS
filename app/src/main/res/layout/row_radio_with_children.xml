@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.features.dynamictask.models.DynamicRadioWithChildMO" />
+
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:padding="@dimen/_8sdp"
+        android:background="@drawable/border_round_white_body"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            style="@style/BlackTitleTextColor16"
+            android:id="@+id/dynamicParentRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{model.isRadioSelected}"
+            android:text="@{model.radioButtonLabel}"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/dynamicChildSpinner"
+            style="@style/BlackTitleTextColor13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:pointerIcon="arrow"
+            android:visibility="gone"
+            android:popupBackground="@color/colorWhite"
+            tools:targetApi="n" />
+
+<!--        android:visibility="@{model.dependantController==`SPINNER` ? View.VISIBLE : View.GONE}"-->
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/dynamicChildET"
+            style="@style/BlackTitleTextColor13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@{model.dependantControllerHint}"
+            android:inputType="text"
+            android:visibility="gone"
+            android:text="@={model.enteredValue}"
+            tools:ignore="Autofill,TextFields" />
+
+    </LinearLayout>
+</layout>
