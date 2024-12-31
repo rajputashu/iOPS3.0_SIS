@@ -93,6 +93,7 @@ import com.sisindia.ai.android.features.units.registermap.MapRegistersAdapter
 import com.sisindia.ai.android.features.webviews.EventClickListener
 import com.sisindia.ai.android.features.webviews.EventsAdapter
 import org.threeten.bp.LocalDate
+import timber.log.Timber
 import java.text.DecimalFormat
 import kotlin.math.abs
 
@@ -108,7 +109,7 @@ fun bindBillCollectionAdapter(recyclerView: RecyclerView, adapter: BillCollectio
 @BindingAdapter(value = ["ccrClientItems", "ccrListener"])
 fun AppCompatSpinner.bindCCRSpinner(contactList: ArrayList<String>,
                                     listener: ClientCoordinationListener) {
-    if (!contactList.isNullOrEmpty()) {
+    if (contactList.isNotEmpty()) {
         contactList.apply {
             val ccrAdapter: ArrayAdapter<String> =
                 ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, contactList)
@@ -354,6 +355,14 @@ fun AppCompatTextView.bindStringToHtmlAdapter(@Nullable spannedValue: String?) {
 fun setRoundImageResourceFromUri(imageView: RoundedImageView?, uri: Uri?) {
     if (uri != null) {
         Glide.with(imageView!!).load(uri).into(imageView)
+    }
+}
+
+@BindingAdapter(value = ["glideUrl"])
+fun RoundedImageView.setRoundImageResourceFromUri(glideUrl: String?) {
+    glideUrl?.let {
+        Timber.e("coming here to load URL via glide")
+        Glide.with(this.context).load(glideUrl).into(this)
     }
 }
 

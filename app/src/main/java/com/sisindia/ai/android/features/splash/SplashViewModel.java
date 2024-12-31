@@ -17,12 +17,19 @@ import androidx.databinding.ObservableField;
 import com.droidcommons.preference.Prefs;
 import com.sisindia.ai.android.BuildConfig;
 import com.sisindia.ai.android.base.IopsBaseViewModel;
-import com.sisindia.ai.android.constants.NavigationConstants;
 import com.sisindia.ai.android.constants.PrefConstants;
-import com.sisindia.ai.android.models.AppVersionResponseMO;
 import com.sisindia.ai.android.models.AuthResponse;
 import com.sisindia.ai.android.models.AuthorizationValues;
 import com.sisindia.ai.android.models.DeviceInfo;
+import com.sisindia.ai.android.room.dao.NotificationsDao;
+import com.sisindia.ai.android.room.entities.NotificationDataEntity;
+import com.sisindia.ai.android.utils.TimeUtils;
+
+import org.threeten.bp.LocalDate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -36,6 +43,10 @@ public class SplashViewModel extends IopsBaseViewModel {
 
     @Inject
     DeviceInfo deviceInfo;
+
+    @Inject
+    NotificationsDao notificationsDao;
+
     private final Handler splashHandler = new Handler();
     private final Runnable loginRunnable = this::initViewModel;
 //    private Runnable dashBoardRunnable = this::refreshToken;
@@ -47,16 +58,30 @@ public class SplashViewModel extends IopsBaseViewModel {
 
     public void checkAppVersion() {
         setIsLoading(true);
-        addDisposable(coreApi.getCurrentVersion(1)
+       /* addDisposable(coreApi.getCurrentVersion(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onCurrentVersionResponse, e -> {
                     e.printStackTrace();
                     checkUserState();
+                }));*/
+
+        addDisposable(coreApi.getPendingNudges(TimeUtils.YYYY_MM_DD_FORMAT(LocalDate.now()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> {
+                    if (list.statusCode == 200 && !Objects.requireNonNull(list.getData()).isEmpty()) {
+                        validateDuplicateNotification(list.getData());
+                    } else {
+                        checkUserState();
+                    }
+                }, e -> {
+                    e.printStackTrace();
+                    checkUserState();
                 }));
     }
 
-    private void onCurrentVersionResponse(AppVersionResponseMO versionResponse) {
+    /*private void onCurrentVersionResponse(AppVersionResponseMO versionResponse) {
         if (versionResponse != null && versionResponse.getAppVersionData() != null) {
             if (versionResponse.getAppVersionData().isForcedUpdate()) {
                 if (BuildConfig.VERSION_CODE >= versionResponse.getAppVersionData().getVersionCode()) {
@@ -70,6 +95,47 @@ public class SplashViewModel extends IopsBaseViewModel {
                 checkUserState();
         } else
             checkUserState();
+    }*/
+
+    private void validateDuplicateNotification(List<NotificationDataEntity> serverList) {
+        addDisposable(notificationsDao.fetchAllNudges()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(localList -> {
+                    List<NotificationDataEntity> finalList = new ArrayList<>();
+
+                    if (!localList.isEmpty()) {
+                        for (NotificationDataEntity serverNotification : serverList) {
+                            boolean isDuplicate = false;
+                            for (NotificationDataEntity localNotification : localList) {
+                                if (serverNotification.getNotificationId().equals(localNotification.getNotificationId())) {
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+                            if (!isDuplicate) {
+                                finalList.add(serverNotification);
+                            }
+                        }
+                        insertAllNotificationToDB(finalList);
+                    } else {
+                        finalList.addAll(serverList);
+                    }
+                }, e -> {
+                    e.printStackTrace();
+                    checkUserState();
+                }));
+    }
+
+    private void insertAllNotificationToDB(List<NotificationDataEntity> notificationList) {
+        addDisposable(notificationsDao.insertAll(notificationList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> checkUserState(),
+                        e -> {
+                            e.printStackTrace();
+                            checkUserState();
+                        }));
     }
 
     void checkUserState() {
@@ -114,7 +180,7 @@ public class SplashViewModel extends IopsBaseViewModel {
     public void refreshToken() {
 //        Timber.e("Coming to refreshToken() Call API");
         addDisposable(authServerApi.refreshToken(GRANT_TYPE_REFRESH_TOKEN_VALUE, BuildConfig.CLIENT_ID_CC_VALUE,
-                AuthorizationValues.SECRETE_VALUE, Prefs.getString(PrefConstants.REFRESH_TOKEN_KEY))
+                        AuthorizationValues.SECRETE_VALUE, Prefs.getString(PrefConstants.REFRESH_TOKEN_KEY))
                 .compose(transformSingle()).subscribe((authResponse, throwable) -> {
                     if (authResponse != null) {
 //                        Timber.e("Coming to update Token in BG");

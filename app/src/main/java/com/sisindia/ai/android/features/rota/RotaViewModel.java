@@ -36,6 +36,7 @@ import com.sisindia.ai.android.models.TableSyncResponse;
 import com.sisindia.ai.android.models.performance.AOConveyanceSummaryData;
 import com.sisindia.ai.android.models.rota.RotaResponse;
 import com.sisindia.ai.android.room.dao.DayCheckDao;
+import com.sisindia.ai.android.room.dao.NotificationsDao;
 import com.sisindia.ai.android.room.dao.TaskDao;
 import com.sisindia.ai.android.room.entities.CheckInOutEntity;
 import com.sisindia.ai.android.room.entities.RotaTasksEntity;
@@ -65,6 +66,7 @@ public class RotaViewModel extends IopsBaseViewModel {
     public DashBoardRotaTaskRecyclerAdapter dashBoardAdapter = new DashBoardRotaTaskRecyclerAdapter();
     public ObservableInt noTasksVisibility = new ObservableInt(GONE);
     public ObservableInt pendingCount = new ObservableInt(0);
+    public ObservableInt obsNotificationCount = new ObservableInt(0);
     public ObservableField<LocalDate> selectedDateObs = new ObservableField<>(LocalDate.now());
     public ObservableField<String> billSubmissionCount = new ObservableField<>("");
     public ObservableField<String> monInputCount = new ObservableField<>("");
@@ -86,6 +88,9 @@ public class RotaViewModel extends IopsBaseViewModel {
     @Inject
     @Named("@NotificationHandler")
     NotificationHandler notificationHandler;
+
+    @Inject
+    NotificationsDao notificationDao;
 
     private final Handler refreshHandler = new Handler();
 
@@ -267,6 +272,20 @@ public class RotaViewModel extends IopsBaseViewModel {
                 .subscribe(rows -> pendingCount.set(rows), Timber::e));
     }
 
+    private void fetchPendingNotification() {
+        addDisposable(notificationDao.fetchNudge()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(list -> {
+                    if (!list.isEmpty()) {
+                        obsNotificationCount.set(list.size());
+                        message.what = NavigationConstants.OPEN_DYNAMIC_NUDGE_SCREEN;
+                        message.obj = list.get(0).getNotificationId();
+                        liveData.postValue(message);
+                    }
+                }, Timber::e));
+    }
+
     private void onFetchTasks(List<RotaTaskItemModel> list) {
         List<RotaTaskItemModel> displayList = new ArrayList<>();
         List<RotaTaskItemModel> mySISList = new ArrayList<>();
@@ -290,7 +309,7 @@ public class RotaViewModel extends IopsBaseViewModel {
             displayList.addAll(mySISList);
         }
 
-        noTasksVisibility.set(displayList.size() == 0 ? VISIBLE : GONE);
+        noTasksVisibility.set(displayList.isEmpty() ? VISIBLE : GONE);
         dashBoardAdapter.clearAndSetItems(displayList);
     }
 
@@ -349,6 +368,7 @@ public class RotaViewModel extends IopsBaseViewModel {
             fetchByDate(date);
             fetchPendingCount(date);
             fetchWeeklyCompliance();
+            fetchPendingNotification();
 //            checkDutyOffStatus();
 
             int currentDayNo = LocalDate.now().getDayOfMonth();
@@ -363,7 +383,7 @@ public class RotaViewModel extends IopsBaseViewModel {
         }
     }
 
-    public void getBillSubmissionCounts() {
+    private void getBillSubmissionCounts() {
         addDisposable(taskDao.fetchBillSubmissionCount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -371,7 +391,7 @@ public class RotaViewModel extends IopsBaseViewModel {
                         "" + (Integer.parseInt(model.getPendingCount()) + Integer.parseInt(model.getCompletedCount())))), Timber::e));
     }
 
-    public void getMonInputCounts() {
+    private void getMonInputCounts() {
         addDisposable(taskDao.fetchMonInputCount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -117,6 +117,40 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
         }
     }
 
+    /*public void initObjectDetectorDetector() {
+
+        isLoading.set(View.VISIBLE);
+
+        ObjectDetectionModel model = new ObjectDetectionModel(getApplication());
+        model.initializeModel();
+
+        if (attachment != null) {
+
+            fetchGuardTurnOutFromDB();
+
+            Uri uri = Uri.parse(attachment.localFilePath);
+            try {
+                InputStream inputStream = getApplication().getContentResolver().openInputStream(uri);
+                selectedImageBitmap = BitmapFactory.decodeStream(inputStream);
+                if (selectedImageBitmap != null) {
+                    List<ObjectDetectionModel.DetectionResult> detections = model.detectObjects(selectedImageBitmap);
+                    for (ObjectDetectionModel.DetectionResult result : detections) {
+
+                        Timber.e("Obj DetectionResult %s", result.getLabel());
+                    }
+
+//                    val resultBitmap = model.drawBoundingBoxes(inputBitmap, detections);
+                } else {
+//                    fetchGuardTurnOutFromDB();
+                    Timber.e("Attachment image is null");
+                }
+            } catch (IOException e) {
+//                fetchGuardTurnOutFromDB();
+                Timber.e(e, "Failed to open file stream");
+            }
+        }
+    }*/
+
     Detector.DetectorListener detectorListener = new Detector.DetectorListener() {
 
         @Override
@@ -233,7 +267,7 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
                     }
                 }
             }
-            Timber.e("Uniform and Badge DetectedScore %d, %d ", uniformDetectedScore,badgeDetectedScore);
+            Timber.e("Uniform and Badge DetectedScore %d, %d ", uniformDetectedScore, badgeDetectedScore);
 
             //Checking below condition for Complete Uniform wrt Uniform score
             if (uniformDetectedScore > 2) {
@@ -296,6 +330,7 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
             // Process each detection
             for (BoundingBox box : boundingBoxesList) {
                 String detectedClass = box.getClsName().trim().toUpperCase();
+                Timber.d("From Model detected class: %s", detectedClass);
 
                 // Check if the detected class has not been processed before
                 if (!uniqueDetectedClasses.containsKey(detectedClass) && classesToProcess.contains(detectedClass)) {

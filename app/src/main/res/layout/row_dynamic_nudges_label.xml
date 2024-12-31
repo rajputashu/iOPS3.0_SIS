@@ -9,12 +9,17 @@
     </data>
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/BlackTitleTextColor20"
+        style="@style/BlackTitleTextColor16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:gravity="center_horizontal"
         android:textStyle="bold"
+        android:padding="@dimen/_14sdp"
+        android:background="@drawable/border_round_white_body"
         android:text="@{model.label}" />
 
 </layout>

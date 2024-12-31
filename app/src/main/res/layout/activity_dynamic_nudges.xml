@@ -13,9 +13,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#DEDEDE"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <!--<androidx.appcompat.widget.Toolbar
             android:id="@+id/tbDynamicTasks"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -30,15 +31,64 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.obsDynamicTaskName}" />
 
-        </androidx.appcompat.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/tbDynamicTasks"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_12ssp"
+            android:background="@drawable/ic_nudges_bg">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:visibility="@{vm.obsHeaderUrl==`` ? View.VISIBLE : View.GONE }"
+                app:srcCompat="@drawable/logo_sis_splash"/>
+
+            <com.droidcommons.views.roundedimageview.RoundedImageView
+                android:layout_width="@dimen/_64sdp"
+                android:layout_height="@dimen/_64sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                app:borderWidth="2dp"
+                android:visibility="@{vm.obsHeaderUrl==`` ? View.GONE : View.VISIBLE }"
+                app:riv_border_color="@color/colorWhite"
+                app:riv_border_width="@dimen/_1sdp"
+                app:riv_oval="true"
+                app:glideUrl="@{vm.obsHeaderUrl}"
+                app:srcCompat="@drawable/ic_nudge_placeholder" />
+<!--            app:srcRoundImageFromUri="@{vm.photoImageUri}"-->
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:visibility="@{vm.obsHeaderUrl==`` ? View.GONE : View.VISIBLE }"
+                android:text="@{vm.obsHeaderName}"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:visibility="@{vm.obsHeaderUrl==`` ? View.GONE : View.VISIBLE }"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="@{vm.obsHeaderRank}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_120sdp"
             android:layout_marginBottom="@dimen/_42ssp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:background="@drawable/drawable_top_corner"
-            android:layout_below="@id/tbDynamicTasks"
             android:visibility="@{vm.noData ? View.GONE : View.VISIBLE}"
             app:dynamicNudgesAdapter="@{vm.dynamicTaskAdapter}"
             app:taskListener="@{vm.taskListener}" />

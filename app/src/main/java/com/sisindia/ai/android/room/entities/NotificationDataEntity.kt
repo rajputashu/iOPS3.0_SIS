@@ -15,26 +15,40 @@ data class NotificationDataEntity(
     @PrimaryKey(autoGenerate = true) var ids: Int = 0,
 
 //    @Ignore
-    @SerializedName("id") var notificationId: String? = null,
+    @SerializedName("id")
+    var notificationId: String? = null,
 
-    @SerializedName("mode") var mode: String? = null,
+    @SerializedName("mode")
+    var mode: String? = null,
 
-    @SerializedName("ishtml") var html: String? = null,
+    @SerializedName("ishtml")
+    var html: String? = null,
 
-    @SerializedName("priority") var priority: String? = null,
+    @SerializedName("priority")
+    var priority: String? = null,
 
-    @SerializedName("payload") var payload: String? = null,
+    @SerializedName("payload")
+    var payload: String? = null,
 
-    @SerializedName("message") var message: String? = null,
+    @SerializedName("message")
+    var message: String? = null,
 
-    @SerializedName("moduleName") var moduleName: String? = null,
+    @SerializedName("moduleName")
+    var moduleName: String? = null,
 
-    @SerializedName("jsonData") var jsonData: String? = null,
+    @SerializedName("jsonData")
+    var jsonData: String? = null,
 
-    @SerializedName("localsqlquery") var localSqlQuery: String? = null,
+    @SerializedName("localsqlquery")
+    var localSqlQuery: String? = null,
 
-    @SerializedName("callbackurl") var callBackUrl: String = "",
+    @SerializedName("callbackurl")
+    var callBackUrl: String = "",
 
-    @SerializedName("videourl") var videoUrl: String = "",
+    @SerializedName("videourl")
+    var videoUrl: String = "",
+
+    @SerializedName("createdDateTime")
+    var createdDateTime: String = "",
 
     var isSynced: Boolean = false)

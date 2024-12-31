@@ -50,27 +50,35 @@ class VideoCallActivity : IopsBaseActivity() {
     private fun openJitsiMeeting() {
         try {
 //            https://8x8.vc/vpaas-magic-cookie-32fa148572974b38bf9a8e1ad44689bb/SampleAppSubstantialStomachsGuessAccurately
-           /* val options = JitsiMeetConferenceOptions.Builder().setServerURL(URL("https://8x8.vc"))
-                .setRoom("vpaas-magic-cookie-32fa148572974b38bf9a8e1ad44689bb/SampleAppSubstantialStomachsGuessAccurately")
-                .setFeatureFlag("chat.enabled", false).setFeatureFlag("invite.enabled", false)
+//            val options = JitsiMeetConferenceOptions.Builder().setServerURL(URL("https://8x8.vc"))
+            val options = JitsiMeetConferenceOptions.Builder()
+                .setServerURL(URL("https://slvdesignstudio.com"))
+//                .setRoom("depak1")
+                .setRoom("TestVideo")
+                /*.setFeatureFlag("chat.enabled", false)
+                .setFeatureFlag("invite.enabled", false)
                 .setFeatureFlag("meeting-name.enabled", false)
-                .setFeatureFlag("meeting-password.enabled", false).setFeatureFlag("pip.enabled", false)
-                .setFeatureFlag("raise-hand.enabled", false).setFeatureFlag("recording.enabled", false)
-                .setFeatureFlag("tile-view.enabled", false).setFeatureFlag("toolbox.alwaysVisible", false)
-                .setFeatureFlag("welcomepage.enabled", false).build()
-            JitsiMeetActivity.launch(this, options)*/
-
-
-            val options = JitsiMeetConferenceOptions.Builder().setServerURL(URL("https://meet.jit.si"))
-                .setRoom("testRoom")
-                .setFeatureFlag("chat.enabled", false)
-                .setFeatureFlag("invite.enabled", false).setFeatureFlag("meeting-name.enabled", false)
-                .setFeatureFlag("meeting-password.enabled", false).setFeatureFlag("pip.enabled", false)
-                .setFeatureFlag("raise-hand.enabled", false).setFeatureFlag("recording.enabled", false)
-                .setFeatureFlag("tile-view.enabled", false).setFeatureFlag("toolbox.alwaysVisible", false)
-                .setFeatureFlag("welcomepage.enabled", false).build()
-
+                .setFeatureFlag("meeting-password.enabled", false)
+                .setFeatureFlag("pip.enabled", false)
+                .setFeatureFlag("raise-hand.enabled", false)
+                .setFeatureFlag("recording.enabled", false)
+                .setFeatureFlag("tile-view.enabled", false)
+                .setFeatureFlag("toolbox.alwaysVisible", false)
+                .setFeatureFlag("welcomepage.enabled", false)*/
+                .build()
             JitsiMeetActivity.launch(this, options)
+
+
+            /* val options = JitsiMeetConferenceOptions.Builder().setServerURL(URL("https://meet.jit.si"))
+                 .setRoom("testRoom")
+                 .setFeatureFlag("chat.enabled", false)
+                 .setFeatureFlag("invite.enabled", false).setFeatureFlag("meeting-name.enabled", false)
+                 .setFeatureFlag("meeting-password.enabled", false).setFeatureFlag("pip.enabled", false)
+                 .setFeatureFlag("raise-hand.enabled", false).setFeatureFlag("recording.enabled", false)
+                 .setFeatureFlag("tile-view.enabled", false).setFeatureFlag("toolbox.alwaysVisible", false)
+                 .setFeatureFlag("welcomepage.enabled", false).build()
+
+             JitsiMeetActivity.launch(this, options)*/
 
 
         } catch (e: Exception) {

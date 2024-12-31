@@ -28,8 +28,10 @@ class NudgesViewModel @Inject constructor(val app: Application) : IopsBaseViewMo
     }
 
     fun initNudgesDashboard() {
-        addDisposable(notificationDao.fetchAll().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+        addDisposable(notificationDao.fetchAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
                 if (!it.isNullOrEmpty()) {
                     isNudgesAvailable.set(true)
                     nudgesAdapter.clearAndSetItems(it)
@@ -45,8 +47,9 @@ class NudgesViewModel @Inject constructor(val app: Application) : IopsBaseViewMo
         if (view.id == R.id.headerNudgesDashboard) {
             message.what = NavigationConstants.OPEN_DASH_BOARD_DRAWER
             liveData.postValue(message)
-        } else if (view.id == R.id.nudgesFetchButton) {
-
-        }
+        }/* else if (view.id == R.id.nudgesFetchButton) {
+            message.what = NavigationConstants.OPEN_DASH_BOARD_DRAWER
+            liveData.postValue(message)
+        }*/
     }
 }

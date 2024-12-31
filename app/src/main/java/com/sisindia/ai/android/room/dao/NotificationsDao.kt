@@ -6,13 +6,30 @@ import com.sisindia.ai.android.room.BaseDao
 import com.sisindia.ai.android.room.entities.NotificationDataEntity
 import io.reactivex.Single
 
+
 /**
  * Created by Ashu Rajput on 1/18/2021.
  */
 @Dao
 abstract class NotificationsDao : BaseDao<NotificationDataEntity> {
 
-    @Query("SELECT * from NotificationDataEntity")
+    @Query("SELECT * from NotificationDataEntity where isSynced=0")
+//    @Query("SELECT * FROM NotificationDataEntity WHERE isSynced = 0 AND createdDateTime LIKE :datePattern")
+//    abstract fun fetchAll(datePattern: String): Single<List<NotificationDataEntity>>
     abstract fun fetchAll(): Single<List<NotificationDataEntity>>
+
+//    @Query("SELECT * FROM NotificationDataEntity WHERE isSynced = 0 AND createdDateTime LIKE :date")
+    @Query("SELECT * FROM NotificationDataEntity")
+    abstract fun fetchAllNudges(): Single<List<NotificationDataEntity>>
+
+    //    @Query("SELECT * from NotificationDataEntity order by ids DESC limit 1")
+    @Query("SELECT * from NotificationDataEntity where moduleName='NUDGES' and isSynced=0 order by ids DESC")
+    abstract fun fetchNudge(): Single<List<NotificationDataEntity>>
+
+    @Query("Update NotificationDataEntity set isSynced = 1 where notificationId=:notificationId")
+    abstract fun updateNudge(notificationId: String): Single<Int>
+
+    @Query("select isSynced from NotificationDataEntity where notificationId=:notificationId")
+    abstract fun isTaskAlreadyCompleted(notificationId: String?): Single<Int>
 
 }

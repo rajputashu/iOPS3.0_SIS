@@ -1,11 +1,14 @@
 package com.sisindia.ai.android.features.rota;
 
+import static com.sisindia.ai.android.constants.IntentConstants.DYNAMIC_FORM_ID;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_OPEN_REVIEW_INFORMATION;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_START_DAY_CHECK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_CONVEYANCE_SCREEN;
+import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DYNAMIC_NUDGE_SCREEN;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_REVIEW_INFORMATION;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
@@ -25,6 +30,7 @@ import com.sisindia.ai.android.constants.IntentConstants;
 import com.sisindia.ai.android.constants.IntentRequestCodes;
 import com.sisindia.ai.android.databinding.FragmentRotaBinding;
 import com.sisindia.ai.android.features.conveyance.ConveyanceActivity;
+import com.sisindia.ai.android.features.nudges.NudgesDynamicActivity;
 import com.sisindia.ai.android.features.reviewinformation.ReviewInformationActivity;
 import com.sisindia.ai.android.mlcore.ScanQRActivity;
 
@@ -73,6 +79,11 @@ public class RotaFragment extends IopsBaseFragment {
                     openReviewInformationOrDcNcScreen();
             } else if (message.what == ON_CONVEYANCE_SCREEN)
                 startActivity(ConveyanceActivity.newIntent(requireActivity()));
+            else if (message.what == OPEN_DYNAMIC_NUDGE_SCREEN) {
+                Intent intent = new Intent(getActivity(), NudgesDynamicActivity.class);
+                intent.putExtra(DYNAMIC_FORM_ID, String.valueOf(message.obj));
+                dynamicNudgesLauncher.launch(intent);
+            }
         });
     }
 
@@ -167,6 +178,18 @@ public class RotaFragment extends IopsBaseFragment {
             }
         }
     }
+
+    private final ActivityResultLauncher<Intent> dynamicNudgesLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent data = result.getData();
+                            if (data != null && data.getExtras() != null) {
+                                // Process extras here if needed
+                            }
+                        }
+                    });
+
 
     @Override
     public void onDestroy() {

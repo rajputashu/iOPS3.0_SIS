@@ -84,6 +84,7 @@
                 android:paddingStart="@dimen/_36ssp"
                 android:paddingTop="@dimen/_14ssp"
                 android:paddingEnd="@dimen/_36ssp"
+                android:visibility="invisible"
                 android:paddingBottom="@dimen/_14ssp"
                 android:text="@string/string_continue" />
 

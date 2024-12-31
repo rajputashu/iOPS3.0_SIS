@@ -861,6 +861,7 @@
     <string name="hint_select_date_time">Click to select</string>
     <string name="string_nudges">Notifications</string>
     <string name="no_notification_yet">No notification yet</string>
-    <string name="no_notification_msg">You have no notification right now.\nClick below butotn to check</string>
+<!--    <string name="no_notification_msg">You have no notification right now.\nClick continue to go back to dashboard</string>-->
+    <string name="no_notification_msg">You have no notification right now.\nYou may try later</string>
 
 </resources>
