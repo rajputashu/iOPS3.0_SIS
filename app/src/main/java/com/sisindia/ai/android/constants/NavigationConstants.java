@@ -247,4 +247,5 @@ public interface NavigationConstants {
     int OPEN_DATE_TIME_PICKER = 242;
     int OPEN_NUDGES_DASHBOARD = 243;
     int OPEN_DYNAMIC_NUDGE_SCREEN = 244;
+    int NO_JSON_DATA_FOUND = 245;
 }

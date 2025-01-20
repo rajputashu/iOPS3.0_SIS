@@ -26,6 +26,7 @@ public class ReviewInformationModel {
     public int checkInStatus;
 
     public String dutyPostCode = "";
+    public String taskDate = "";
 
     public ReviewInformationModel() {
     }

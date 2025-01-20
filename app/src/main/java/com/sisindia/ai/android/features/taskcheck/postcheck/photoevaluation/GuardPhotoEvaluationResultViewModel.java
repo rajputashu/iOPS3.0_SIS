@@ -203,22 +203,34 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
 
             //Hard code logic to test the ML functionality
             switch (originalClass) {
-                case "FACE":
+                case "SHOE":
                     matchFound = true;
-                    matchedPosition = 0;
-                    if (classificationText.contains("SHAVED"))
+                    matchedPosition = 6;
+                    if (!classificationText.contains("POOR") || !classificationText.contains("NON"))
+                        isProperTurnOut = true;
+                    break;
+                case "PANT":
+                    matchFound = true;
+                    matchedPosition = 14;
+                    if (!classificationText.contains("NON-SIS-PANT"))
+                        isProperTurnOut = true;
+                    break;
+                case "SHIRT":
+                    matchFound = true;
+                    matchedPosition = 15;
+                    if (!classificationText.contains("NON-SIS-SHIRT"))
                         isProperTurnOut = true;
                     break;
                 case "HAIR":
                     matchFound = true;
-                    matchedPosition = 1;
+                    matchedPosition = 21;
                     if (!classificationText.contains("IMPROPER"))
                         isProperTurnOut = true;
                     break;
-                case "SHOE":
+                case "FACE":
                     matchFound = true;
-                    matchedPosition = 3;
-                    if (!classificationText.contains("POOR") || !classificationText.contains("NON"))
+                    matchedPosition = 22;
+                    if (classificationText.contains("SHAVED"))
                         isProperTurnOut = true;
                     break;
             }
@@ -241,21 +253,79 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
         if (uniqueClassifierClasses.size() == finalClassifierList.size()) {
             Timber.e("COMING AFTER PROCESSING ALL CLASSIFIER AND UPDATING UI");
 
-            int uniformDetectedScore = 0;
+            //Commenting below variable and respective logic as Uniform and Badge detection not required
+            /*int uniformDetectedScore = 0;
             int badgeDetectedScore = 0;
             List<String> completeUniformSet = List.of("SHIRT", "PANT", "SHOE", "JACKET");
-            List<String> badgeSet = List.of("CAP BADGE", "SHIRT_BADGE", "JACKET_BADGE", "SWEATER_BADGE");
+            List<String> badgeSet = List.of("CAP BADGE", "SHIRT_BADGE", "JACKET_BADGE", "SWEATER_BADGE");*/
 
             //Further checking detection from DETECTED OBJECTS FROM final list aiTurnOutMOList
             if (!detectedBoundingBox.isEmpty()) {
                 for (BoundingBox detectedBox : detectedBoundingBox) {
                     String detectedLabel = detectedBox.getClsName().trim();
-                    if (detectedLabel.equalsIgnoreCase("PRINTED CARD")) {
+                    if (detectedLabel.equalsIgnoreCase("BELT BUCKLE STEEL")) {
                         mlTurnOutScore += 1;
-                        recyclerAdapter.getItem(4).isSelected = true; // Printed Card
+                        recyclerAdapter.getItem(0).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("CAP")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(1).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("CAP BADGE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(2).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("CARD HOLDER")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(3).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("LANYARD")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(4).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("BELT")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(5).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("SOCKS")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(7).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("PRINTED CARD")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(8).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("NAME PLATE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(9).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("SHOULDER BADGE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(10).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("TIE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(11).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("JACKET")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(12).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("SWEATER")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(13).isSelected = true;
+                    } /*else if (detectedLabel.equalsIgnoreCase("PANT")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(14).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("SHIRT")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(15).isSelected = true;
+                    }*/ else if (detectedLabel.equalsIgnoreCase("WHISTLE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(16).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("SHIRT_BADGE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(17).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("JACKET_BADGE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(18).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("SWEATER_BADGE")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(19).isSelected = true;
+                    } else if (detectedLabel.equalsIgnoreCase("HELMET")) {
+                        mlTurnOutScore += 1;
+                        recyclerAdapter.getItem(20).isSelected = true;
                     }
 
-                    Timber.e("Uniform Bounding Box Label %s", detectedLabel);
+                    /*Timber.e("Uniform Bounding Box Label %s", detectedLabel);
                     if (completeUniformSet.contains(detectedLabel)) {
                         Timber.e("Uniform : Detected Label %s", detectedLabel);
                         uniformDetectedScore = uniformDetectedScore + 1;
@@ -264,22 +334,22 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
                     if (badgeSet.contains(detectedLabel)) {
                         Timber.e("Badge : Detected Label %s", detectedLabel);
                         badgeDetectedScore = badgeDetectedScore + 1;
-                    }
+                    }*/
                 }
             }
-            Timber.e("Uniform and Badge DetectedScore %d, %d ", uniformDetectedScore, badgeDetectedScore);
+//            Timber.e("Uniform and Badge DetectedScore %d, %d ", uniformDetectedScore, badgeDetectedScore);
 
             //Checking below condition for Complete Uniform wrt Uniform score
-            if (uniformDetectedScore > 2) {
+            /*if (uniformDetectedScore > 2) {
                 mlTurnOutScore += 1;
                 recyclerAdapter.getItem(2).isSelected = true; // Uniform
-            }
+            }*/
 
             //Checking below condition for Badge wrt Badge score
-            if (badgeDetectedScore > 0) {
+            /*if (badgeDetectedScore > 0) {
                 mlTurnOutScore += 1;
                 recyclerAdapter.getItem(5).isSelected = true; // BADGE
-            }
+            }*/
 
             Handler mainHandler = new Handler(Looper.getMainLooper());
             mainHandler.post(() -> {

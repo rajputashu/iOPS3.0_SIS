@@ -21,6 +21,7 @@ import com.sisindia.ai.android.room.dao.SiteDao;
 import com.sisindia.ai.android.room.dao.TaskDao;
 import com.sisindia.ai.android.room.entities.DutyStatusEntity;
 import com.sisindia.ai.android.uimodels.ReviewInformationModel;
+import com.sisindia.ai.android.utils.TimeUtils;
 import com.sisindia.ai.android.workers.RotaTaskWorker;
 import com.sisindia.ai.android.workers.SiteConfigurationWorker;
 
@@ -68,28 +69,51 @@ public class ReviewInformationViewModel extends IopsBaseViewModel {
 
         if (model != null && model.taskTypeId == 2) {
             if (LocalTime.now().getHour() > 22)
-                openDcNCScreen();
+                validateTaskAlreadyStarted(model);
             else if (LocalTime.now().getHour() == 0 || LocalTime.now().getHour() < 6)
-                openDcNCScreen();
+                validateTaskAlreadyStarted(model);
             else
                 showToast("Night check is allowed between 11:00 PM to 5:00 AM");
         } else if (model != null && model.taskTypeId == 1) {
-            /*if (LocalTime.now().getHour() > 22)
-                showToast("Day check is not allowed between 11:00 PM to 5:00 AM");*/
             if (LocalTime.now().getHour() >= 22)
                 showToast("Day check task is allowed only between 5:00 AM to 10:00 PM");
             else if (LocalTime.now().getHour() == 0 || LocalTime.now().getHour() < 5)
                 showToast("Day check task is allowed only between 5:00 AM to 10:00 PM");
             else
-                openDcNCScreen();
+                validateTaskAlreadyStarted(model);
         }
     }
 
-    private void openDcNCScreen() {
+//    private void validateTaskAlreadyStarted(int taskTypId, int localTaskId) {
+    private void validateTaskAlreadyStarted(ReviewInformationModel model) {
+        if (Prefs.getInt(PrefConstants.ALREADY_STARTED_TASK_ID, 0) == 0) {
+            openDcNcTask(model.taskId);
+        } else {
+            String selectedDate= TimeUtils.formatServerDateToYYYYDDMM(model.taskDate);
+            addDisposable(taskDao.isAnyTaskAlreadyStarted(model.taskTypeId,selectedDate)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(taskIdReturned -> {
+                                if (taskIdReturned != model.taskId) {
+                                    showToast("Please complete your current task before proceeding to the next one");
+                                } else {
+                                    openDcNcTask(model.taskId);
+                                }
+                            }, e ->
+                            {
+                                showToast("Start task validation fail");
+                                openDcNcTask(model.taskId);
+                            }
+                    ));
+        }
+    }
+
+    private void openDcNcTask(int localTaskId) {
         //Introducing below method call : to sync DutyOn/Off data to server
         uploadDutyStatusToServer();
         message.what = OPEN_DAY_CHECK_SCREEN;
         liveData.postValue(message);
+        Prefs.putInt(PrefConstants.ALREADY_STARTED_TASK_ID, localTaskId);
     }
 
     public void initViewModel() {
@@ -101,17 +125,17 @@ public class ReviewInformationViewModel extends IopsBaseViewModel {
         int siteId = Prefs.getInt(PrefConstants.CURRENT_SITE);
 
         addDisposable(taskDao.getAllQRCodesAtSite(siteId)
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(qrList -> qrCodesList.set(qrList), Timber::e));
 
         addDisposable(taskDao.fetchReviewInformationByTaskId(taskId)
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onCurrentTaskFetch, Timber::e));
 
         addDisposable(siteDao.fetchSiteLastVisitDetail(siteId)
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onLastVisitFetch, Timber::e));
     }

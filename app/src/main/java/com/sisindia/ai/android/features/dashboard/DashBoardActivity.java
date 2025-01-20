@@ -73,7 +73,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.sisindia.ai.android.R;
 import com.sisindia.ai.android.base.IopsBaseActivity;
-import com.sisindia.ai.android.commons.CaptureSignatureBottomSheetFragment;
 import com.sisindia.ai.android.commons.YesNoDialogFragment;
 import com.sisindia.ai.android.constants.IntentRequestCodes;
 import com.sisindia.ai.android.constants.PrefConstants;
@@ -146,7 +145,7 @@ public class DashBoardActivity extends IopsBaseActivity {
 
             switch (message.what) {
 
-                case OPEN_NUDGES_DASHBOARD :
+                case OPEN_NUDGES_DASHBOARD:
                     loadFragment(R.id.flDashBoard, NudgesDashboardFragment.Companion.newInstance(),
                             FRAGMENT_REPLACE, false);
                     break;
@@ -443,7 +442,7 @@ public class DashBoardActivity extends IopsBaseActivity {
                         intent.putExtra("Task_ID", "" + model.taskTypeId);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             } else {
                 intent.putExtra("IOPSEmpNo", Prefs.getString(PrefConstants.AREA_INSPECTOR_CODE));

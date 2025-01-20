@@ -94,8 +94,8 @@ android {
 
         sisProd {
             applicationId "com.sisindia.ai.android.dev"
-            versionName "Ver-P(4.3)"
-            versionCode 43
+            versionName "Ver-P(4.4)"
+            versionCode 44
             buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'

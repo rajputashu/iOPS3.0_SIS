@@ -49,4 +49,5 @@ public interface PrefConstants {
     //    String LAST_VERSION = "app_last_version_tag";
     String TODAY_CONVEYANCE = "today_conveyance";
     String MONTH_CONVEYANCE = "month_conveyance";
+    String ALREADY_STARTED_TASK_ID = "alreadyStartedTaskId";
 }

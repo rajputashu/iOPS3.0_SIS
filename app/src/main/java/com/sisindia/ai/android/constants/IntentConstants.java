@@ -55,6 +55,7 @@ public interface IntentConstants {
     String IS_COMING_TO_ADD_SALES = "IS_COMING_TO_ADD_SALES";
     String SALES_MO = "SALES_MO";
     String DYNAMIC_FORM_ID = "DYNAMIC_FORM_ID";
+    String NOTIFICATION_MASTER_ID = "NOTIFICATION_MASTER_ID";
     String OTP_TYPE_ID = "OTP_TYPE_ID";
     String LOCATION_WORKER_TAG = "GeoLocationServiceWatcher";
     String IS_PRACTO_TASK = "IsPractoTask";

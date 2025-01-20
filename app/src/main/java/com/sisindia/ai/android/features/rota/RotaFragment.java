@@ -1,6 +1,7 @@
 package com.sisindia.ai.android.features.rota;
 
 import static com.sisindia.ai.android.constants.IntentConstants.DYNAMIC_FORM_ID;
+import static com.sisindia.ai.android.constants.IntentConstants.NOTIFICATION_MASTER_ID;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_OPEN_REVIEW_INFORMATION;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_START_DAY_CHECK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_CONVEYANCE_SCREEN;
@@ -33,6 +34,7 @@ import com.sisindia.ai.android.features.conveyance.ConveyanceActivity;
 import com.sisindia.ai.android.features.nudges.NudgesDynamicActivity;
 import com.sisindia.ai.android.features.reviewinformation.ReviewInformationActivity;
 import com.sisindia.ai.android.mlcore.ScanQRActivity;
+import com.sisindia.ai.android.room.entities.NotificationDataEntity;
 
 import java.util.Objects;
 
@@ -81,7 +83,10 @@ public class RotaFragment extends IopsBaseFragment {
                 startActivity(ConveyanceActivity.newIntent(requireActivity()));
             else if (message.what == OPEN_DYNAMIC_NUDGE_SCREEN) {
                 Intent intent = new Intent(getActivity(), NudgesDynamicActivity.class);
-                intent.putExtra(DYNAMIC_FORM_ID, String.valueOf(message.obj));
+                NotificationDataEntity entity = (NotificationDataEntity) message.obj;
+//                intent.putExtra(DYNAMIC_FORM_ID, String.valueOf(message.obj));
+                intent.putExtra(DYNAMIC_FORM_ID, entity.getNotificationId());
+                intent.putExtra(NOTIFICATION_MASTER_ID, entity.getNotificationMasterId());
                 dynamicNudgesLauncher.launch(intent);
             }
         });
@@ -183,10 +188,12 @@ public class RotaFragment extends IopsBaseFragment {
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            Intent data = result.getData();
+                            // Executing fetchPendingNotification to check if is there any pending notification?
+//                            viewModel.fetchPendingNotification();
+
+                            /*Intent data = result.getData();
                             if (data != null && data.getExtras() != null) {
-                                // Process extras here if needed
-                            }
+                            }*/
                         }
                     });
 

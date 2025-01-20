@@ -69,7 +69,7 @@ public abstract class TaskDao implements BaseDao<TaskEntity> {
 
     @Query("SELECT site.id AS siteId,type.name AS taskName, site.siteName,task.id AS taskId, task.tasktypeid, task.serverId AS serverId, task.taskStatus AS taskStatus, task.checkInStatus," +
             "(SELECT COUNT(id) FROM GrievanceEntity WHERE siteid=task.siteId AND grievanceStatus IN (1,2,3)) as pendingGrievances," +
-            "(SELECT COUNT(id) FROM ComplaintEntity WHERE siteid=task.siteId AND status IN (1,2)) as pendingComplaints " +
+            "(SELECT COUNT(id) FROM ComplaintEntity WHERE siteid=task.siteId AND status IN (1,2)) as pendingComplaints, task.estimatedTaskExecutionStartDatetime as taskDate " +
             "FROM TaskEntity AS task " +
             "INNER JOIN TaskTypeEntity AS type ON type.id = task.taskTypeId " +
             "INNER JOIN SiteEntity AS site ON site.id=task.siteId WHERE task.id=:taskId")
@@ -221,7 +221,7 @@ public abstract class TaskDao implements BaseDao<TaskEntity> {
             "INNER JOIN TaskTypeEntity AS type ON type.id=task.taskTypeId WHERE task.id= :taskId")
     public abstract Single<AttachmentModel> getAttachmentTypeForAddSecurityRisk(int sourceType, String guid, int taskId, int postId);
 
-    ///{global-container}/{zone}/{region}/{branch}/{site}/task/{taskId}/{attachmentSourceTypeId_siteId_taskId_uuid}.jpg
+    /// {global-container}/{zone}/{region}/{branch}/{site}/task/{taskId}/{attachmentSourceTypeId_siteId_taskId_uuid}.jpg
     @Query("SELECT task.serverId as serverId,(:sourceType||'_'||site.id||'_'||task.serverId||'_'||:guid) AS fileName, " +
             "(ai.zoneCode ||'/'||ai.regionCode||'/'||ai.branchCode||'/'||site.siteCode||'/'||type.name||'/'||task.serverId||'/'||:sourceType||'_'||site.id||'_'||task.serverId||'_'||:guid) AS storagePath " +
             "FROM TaskEntity as task LEFT JOIN AIProfileEntity as ai " +
@@ -288,4 +288,8 @@ public abstract class TaskDao implements BaseDao<TaskEntity> {
     //    @Query("select cg.employeeId,cg.employeeNo,cg.guardStatus,cg.siteId,cg.taskId, pqe.questionsjson from checkedGuardEntity cg inner join practoQuestionEntity pqe on cg.taskid=pqe.taskid where cg.taskid = :taskId group by cg.employeeId")
     @Query("select cg.employeeId,ese.employeeName,cg.employeeNo,cg.guardStatus,cg.siteId,cg.taskId, pqe.questionsjson from checkedGuardEntity cg inner join practoQuestionEntity pqe on cg.taskid=pqe.taskid and cg.employeeid=pqe.employeeid inner join EmployeeSiteEntity ese on ese.employeeId = cg.employeeId where cg.taskid = :taskId group by cg.employeeId")
     public abstract Single<List<PractoCheckedGuardsMO>> getAllPractoCheckedGuards(int taskId);
+
+    //    @Query("Select Id from TaskEntity where TasktypeId=:taskTypeId and taskStatus = 2")
+    @Query("Select Id from TaskEntity where TasktypeId=:taskTypeId and taskStatus = 2 and Date(estimatedTaskExecutionStartDateTime) = :date")
+    public abstract Single<Integer> isAnyTaskAlreadyStarted(int taskTypeId, String date);
 }

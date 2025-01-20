@@ -1,7 +1,6 @@
 package com.sisindia.ai.android.workers;
 
 import android.content.Context;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
@@ -23,6 +22,7 @@ import com.sisindia.ai.android.room.dao.IndustrySectorDao;
 import com.sisindia.ai.android.room.dao.KitItemDao;
 import com.sisindia.ai.android.room.dao.LanguageDao;
 import com.sisindia.ai.android.room.dao.LookUpDao;
+import com.sisindia.ai.android.room.dao.NotificationsDao;
 import com.sisindia.ai.android.room.dao.OrganizationDao;
 import com.sisindia.ai.android.room.dao.RankDao;
 import com.sisindia.ai.android.room.dao.RegionDao;
@@ -95,6 +95,9 @@ public class CommonMasterDataWorker extends BaseWorker {
     @Inject
     public TaskTypeDao taskTypeDao;
 
+    @Inject
+    public NotificationsDao notificationsDao;
+
 
     @Inject
     public CommonMasterDataWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -120,14 +123,15 @@ public class CommonMasterDataWorker extends BaseWorker {
             CommonMasterDataResponse.CommonMasterData data = response.commonMasterData;
 
             //Action Plan
-            if (data.actionPlans != null && data.actionPlans.size() != 0) {
+            if (data.actionPlans != null && !data.actionPlans.isEmpty()) {
                 addDisposable(actionPlanDao.deleteActionPlan()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("Action Plans deleted...");
                             addDisposable(actionPlanDao.insertAllActionPlan(data.actionPlans)
-                                    .compose(transformSingle()).subscribe((apRows, throwable) -> {
+                                    .compose(transformSingle())
+                                    .subscribe((apRows, throwable) -> {
                                         if (throwable != null) {
                                             Timber.e(throwable);
                                         }
@@ -135,7 +139,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (data.actionPlans != null && data.actionPlans.size() != 0) {
+            if (data.actionPlans != null && !data.actionPlans.isEmpty()) {
                 addDisposable(actionPlanDao.deleteActionPlanMap()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -147,7 +151,7 @@ public class CommonMasterDataWorker extends BaseWorker {
 
                                     addDisposable(actionPlanDao
                                             .insertActionPlanMaps(ap.actionPlanMaps)
-                                            .subscribeOn(Schedulers.computation())
+                                            .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe((apmRows, throwable1) -> {
 
@@ -163,7 +167,7 @@ public class CommonMasterDataWorker extends BaseWorker {
             }
 
             //branches
-            if (data.branches != null && data.branches.size() != 0) {
+            if (data.branches != null && !data.branches.isEmpty()) {
                 addDisposable(branchDao.deleteBranch()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -181,7 +185,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                                             data.currentBranch.isCurrentBranch = true;
                                             addDisposable(branchDao
                                                     .insert(data.currentBranch)
-                                                    .subscribeOn(Schedulers.computation())
+                                                    .subscribeOn(Schedulers.io())
                                                     .observeOn(AndroidSchedulers.mainThread())
                                                     .subscribe(brRow -> {
                                                     }, Timber::e));
@@ -200,7 +204,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                             Timber.i("clientHandshakeQuestions deleted...");
                             addDisposable(clientHandShakeQuestionDao
                                     .insertAllClientHandShakeQuestion(response.commonMasterData.clientHandshakeQuestions)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(chRows -> {
 //                                        Timber.i("clientHandshakeQuestions inserted... %s", chRows);
@@ -217,7 +221,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                                 if (model.clientHandshakeRatingMaps != null) {
                                     addDisposable(clientHandShakeQuestionDao
                                             .insertAllQuesRatingMap(model.clientHandshakeRatingMaps)
-                                            .subscribeOn(Schedulers.computation())
+                                            .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(ratingRows -> {
 //                                                Timber.i("clientHandshakeRatingMaps inserted... %s", ratingRows);
@@ -234,20 +238,20 @@ public class CommonMasterDataWorker extends BaseWorker {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> addDisposable(companyDao
                                 .insertCompany(response.commonMasterData.company)
-                                .subscribeOn(Schedulers.computation())
+                                .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(comRow -> {
                                 }, Timber::e)), Timber::e));
 
             //countries
-            if (response.commonMasterData.countries != null && response.commonMasterData.countries.size() != 0) {
+            if (response.commonMasterData.countries != null && !response.commonMasterData.countries.isEmpty()) {
                 addDisposable(countryDao.deleteCountry()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("countries deleted...");
                             addDisposable(countryDao.insertAllCountry(response.commonMasterData.countries)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(counRows -> {
 //                                        Timber.i("countries inserted... %s", counRows);
@@ -256,14 +260,14 @@ public class CommonMasterDataWorker extends BaseWorker {
             }
 
             //deploymentTypes
-            if (response.commonMasterData.deploymentTypes != null && response.commonMasterData.deploymentTypes.size() != 0) {
+            if (response.commonMasterData.deploymentTypes != null && !response.commonMasterData.deploymentTypes.isEmpty()) {
                 addDisposable(deploymentTypeDao.deleteDeploymentType()
                         .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             //deploymentTypes
                             addDisposable(deploymentTypeDao
                                     .insertAllDeploymentType(response.commonMasterData.deploymentTypes)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("Deployment Types inserted...");
@@ -272,14 +276,14 @@ public class CommonMasterDataWorker extends BaseWorker {
             }
 
             //holidayDao
-            if (response.commonMasterData.holidays != null && response.commonMasterData.holidays.size() != 0) {
+            if (response.commonMasterData.holidays != null && !response.commonMasterData.holidays.isEmpty()) {
                 addDisposable(holidayDao.deleteHoliday().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("holidays deleted...");
                             addDisposable(holidayDao
                                     .insertAllHoliday(response.commonMasterData.holidays)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("holidays  inserted...");
@@ -287,20 +291,20 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.industrySectors != null && response.commonMasterData.industrySectors.size() != 0) {
+            if (response.commonMasterData.industrySectors != null && !response.commonMasterData.industrySectors.isEmpty()) {
                 addDisposable(industrySectorDao.deleteIndustrySector()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> addDisposable(industrySectorDao
                                 .insertAllIndustrySector(response.commonMasterData.industrySectors)
-                                .subscribeOn(Schedulers.computation())
+                                .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(rows -> {
 //                                        Timber.i("industrySectors  inserted...");
                                 }, Timber::e)), Timber::e));
             }
 
-            if (response.commonMasterData.kitItems != null && response.commonMasterData.kitItems.size() != 0) {
+            if (response.commonMasterData.kitItems != null && !response.commonMasterData.kitItems.isEmpty()) {
                 addDisposable(kitItemDao.deleteKitItem()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -309,7 +313,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                             //kitItems
                             addDisposable(kitItemDao
                                     .insertAllKitItems(response.commonMasterData.kitItems)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("kitItems inserted..." + rows);
@@ -318,17 +322,18 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.kitItems != null && response.commonMasterData.kitItems.size() != 0) {
+            if (response.commonMasterData.kitItems != null && !response.commonMasterData.kitItems.isEmpty()) {
                 List<KitItemEntity> kitItems = response.commonMasterData.kitItems;
-                addDisposable(kitItemDao.deleteKitItemSize().subscribeOn(Schedulers.newThread())
+                addDisposable(kitItemDao.deleteKitItemSize()
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("kitItemSizes deleted...");
                             for (KitItemEntity item : kitItems) {
-                                if (item != null && item.kitItemSizes != null && item.kitItemSizes.size() != 0) {
+                                if (item != null && item.kitItemSizes != null && !item.kitItemSizes.isEmpty()) {
                                     addDisposable(kitItemDao
                                             .insertAllKitItemSizes(item.kitItemSizes)
-                                            .subscribeOn(Schedulers.computation())
+                                            .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(sizes -> {
 //                                                Timber.i("kitItemSizes inserted..." + sizes);
@@ -338,7 +343,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.languages != null && response.commonMasterData.languages.size() != 0) {
+            if (response.commonMasterData.languages != null && !response.commonMasterData.languages.isEmpty()) {
                 addDisposable(languageDao.deleteLanguage()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -346,7 +351,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                             Timber.i("languages deleted...");
                             addDisposable(languageDao
                                     .insertAllLanguage(response.commonMasterData.languages)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("languages inserted...");
@@ -354,7 +359,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.lookups != null && response.commonMasterData.lookups.size() != 0) {
+            if (response.commonMasterData.lookups != null && !response.commonMasterData.lookups.isEmpty()) {
                 addDisposable(lookUpDao.deleteLookUp().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
@@ -362,7 +367,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                             //lookups
                             addDisposable(lookUpDao
                                     .insertAllLookUp(response.commonMasterData.lookups)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("lookups inserted...");
@@ -370,7 +375,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.metadataDefinition != null && response.commonMasterData.metadataDefinition.size() != 0) {
+            if (response.commonMasterData.metadataDefinition != null && !response.commonMasterData.metadataDefinition.isEmpty()) {
                 addDisposable(metadataDefinitionDao.deleteAttachmentMetadataDefinition().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
@@ -378,7 +383,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                             //ATTACHMENT METADATA DEFINITIONS
                             addDisposable(metadataDefinitionDao
                                     .insertAllMetadataDefinitions(response.commonMasterData.metadataDefinition)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("metadataDefinition inserted...");
@@ -387,13 +392,14 @@ public class CommonMasterDataWorker extends BaseWorker {
             }
 
             if (response.commonMasterData.organization != null) {
-                addDisposable(organizationDao.deleteOrganization().subscribeOn(Schedulers.newThread())
+                addDisposable(organizationDao.deleteOrganization()
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("organization deleted...");
                             addDisposable(organizationDao
                                     .insertOrganization(response.commonMasterData.organization)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(row -> {
 //                                        Timber.i("organization inserted...");
@@ -401,14 +407,14 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.ranks != null && response.commonMasterData.ranks.size() != 0) {
+            if (response.commonMasterData.ranks != null && !response.commonMasterData.ranks.isEmpty()) {
                 addDisposable(rankDao.deleteRank().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("ranks deleted...");
                             addDisposable(rankDao
                                     .insertAllRanks(response.commonMasterData.ranks)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("ranks inserted...");
@@ -416,14 +422,14 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.regions != null && response.commonMasterData.regions.size() != 0) {
+            if (response.commonMasterData.regions != null && !response.commonMasterData.regions.isEmpty()) {
                 addDisposable(regionDao.deleteRegion().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("regions deleted...");
                             addDisposable(regionDao
                                     .insertAllRegion(response.commonMasterData.regions)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("regions inserted...");
@@ -431,7 +437,7 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.siteTypes != null && response.commonMasterData.siteTypes.size() != 0) {
+            if (response.commonMasterData.siteTypes != null && !response.commonMasterData.siteTypes.isEmpty()) {
                 addDisposable(siteTypeDao.deleteSiteType().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
@@ -446,14 +452,14 @@ public class CommonMasterDataWorker extends BaseWorker {
                         }, Timber::e));
             }
 
-            if (response.commonMasterData.taskTypes != null && response.commonMasterData.taskTypes.size() != 0) {
+            if (response.commonMasterData.taskTypes != null && !response.commonMasterData.taskTypes.isEmpty()) {
                 addDisposable(taskTypeDao.deleteTaskType().subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             Timber.i("taskTypes deleted...");
                             addDisposable(taskTypeDao
                                     .insertAllTaskTypes(response.commonMasterData.taskTypes)
-                                    .subscribeOn(Schedulers.computation())
+                                    .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(rows -> {
 //                                        Timber.i("taskTypes inserted...");
@@ -462,26 +468,40 @@ public class CommonMasterDataWorker extends BaseWorker {
             }
 
             //INSERTING DYNAMIC FORM AGAINST TASK TYPE
-            if (response.commonMasterData.taskTypes != null && response.commonMasterData.taskTypes.size() != 0) {
+            if (response.commonMasterData.taskTypes != null && !response.commonMasterData.taskTypes.isEmpty()) {
                 addDisposable(taskTypeDao.deleteDynamicForm()
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(() -> {
                             ArrayList<DynamicFormEntity> formList = new ArrayList<>();
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                response.commonMasterData.taskTypes.forEach(taskMO -> {
-                                    if (taskMO.taskTypeConfig != null)
-                                        formList.add(new DynamicFormEntity(taskMO.id, taskMO.taskTypeConfig));
-                                });
+                            response.commonMasterData.taskTypes.forEach(taskMO -> {
+                                if (taskMO.taskTypeConfig != null)
+                                    formList.add(new DynamicFormEntity(taskMO.id, taskMO.taskTypeConfig));
+                            });
 
-                                if (!formList.isEmpty()) {
-                                    addDisposable(taskTypeDao.insertAllDynamicForms(formList)
-                                            .subscribeOn(Schedulers.io())
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe(rows -> {
-                                            }, Timber::e));
-                                }
+                            if (!formList.isEmpty()) {
+                                addDisposable(taskTypeDao.insertAllDynamicForms(formList)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(rows -> {
+                                        }, Timber::e));
                             }
+                        }, Timber::e));
+            }
+
+            if (response.commonMasterData.nudgeNotificationMasters != null && !response.commonMasterData.nudgeNotificationMasters.isEmpty()) {
+                addDisposable(notificationsDao.deleteNudgesMaster()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                            Timber.i("Nudges Master Table Deleted...");
+                            addDisposable(notificationsDao
+                                    .insertAllNudgesMaster(response.commonMasterData.nudgeNotificationMasters)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(rows -> {
+//                                        Timber.i("taskTypes inserted...");
+                                    }, Timber::e));
                         }, Timber::e));
             }
 

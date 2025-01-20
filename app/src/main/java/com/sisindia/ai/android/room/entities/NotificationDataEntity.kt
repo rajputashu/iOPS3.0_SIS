@@ -18,6 +18,10 @@ data class NotificationDataEntity(
     @SerializedName("id")
     var notificationId: String? = null,
 
+//    @Ignore
+    @SerializedName("notificationMasterId")
+    var notificationMasterId: String? = null,
+
     @SerializedName("mode")
     var mode: String? = null,
 
