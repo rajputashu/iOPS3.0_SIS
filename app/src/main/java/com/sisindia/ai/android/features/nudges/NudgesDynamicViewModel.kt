@@ -78,6 +78,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 
     //    val obsTaskTypeId = ObservableInt(1)
     val obsNotificationId = ObservableField("1")
+    val obsNotificationMasterId = ObservableField("1")
     val obsHeaderUrl = ObservableField("")
     val obsHeaderName = ObservableField("")
     val obsHeaderRank = ObservableField("")
@@ -187,23 +188,34 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
     }
 
     private fun fetchJsonFormViaId() {
-        Timber.e("Notification IN vm Id : ${obsNotificationId.get()}")
-        addDisposable(dynamicTaskDao.fetchDynamicNudgesForm(obsNotificationId.get())
-            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        Timber.e("Notification Master Id : ${obsNotificationMasterId.get()}")
+        addDisposable(dynamicTaskDao.fetchDynamicNudgesForm(obsNotificationMasterId.get())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ dynamicTaskForm ->
                 dynamicTaskForm?.apply {
 //                    obsDynamicTaskName.set(this.moduleName)
                     noData.set(false)
-                    if (!this.jsonData.isNullOrEmpty()) {
+//                    if (!this.jsonData.isNullOrEmpty()) {
+                    if (this.isNotEmpty()) {
                         val listIntroType = object : TypeToken<List<DynamicTaskParserV2>>() {}.type
                         val taskParser: List<DynamicTaskParserV2> =
-                            Gson().fromJson(this.jsonData, listIntroType)
+                            Gson().fromJson(this, listIntroType)
                         createDynamicTaskViewsV2(taskParser)
+                    } else {
+                        handleNotificationJsonException()
                     }
                 }
             }, { throwable: Throwable? ->
                 throwable!!.printStackTrace()
+                handleNotificationJsonException()
             }))
+    }
+
+    private fun handleNotificationJsonException() {
+        showToast("Notification JSON not found")
+        message.what = NavigationConstants.NO_JSON_DATA_FOUND
+        liveData.postValue(message)
     }
 
     private fun createDynamicTaskViewsV2(entryList: List<DynamicTaskParserV2>) {

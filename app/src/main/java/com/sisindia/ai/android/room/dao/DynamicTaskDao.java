@@ -5,7 +5,6 @@ import androidx.room.Query;
 
 import com.sisindia.ai.android.room.BaseDao;
 import com.sisindia.ai.android.room.entities.DynamicFormEntity;
-import com.sisindia.ai.android.room.entities.NotificationDataEntity;
 import com.sisindia.ai.android.uimodels.DynamicFormMO;
 
 import io.reactivex.Maybe;
@@ -37,7 +36,8 @@ public abstract class DynamicTaskDao implements BaseDao<DynamicFormEntity> {
     /*@Query("SELECT * from NotificationDataEntity where ids=:notificationId")
     public abstract Maybe<NotificationDataEntity> fetchDynamicNudgesForm(int notificationId);*/
 
-//    @Query("SELECT * from NotificationDataEntity where notificationId =:id")
-    @Query("SELECT * from NotificationDataEntity where notificationId =:id ORDER BY ids DESC LIMIT 1")
-    public abstract Maybe<NotificationDataEntity> fetchDynamicNudgesForm(String id);
+    //    @Query("SELECT * from NotificationDataEntity where notificationId =:id ORDER BY ids DESC LIMIT 1")
+//    @Query("SELECT nme.jsonData from NotificationDataEntity nde join NudgesMasterEntity nme on nde.notificationMasterId=nme.id where notificationId = :id ORDER BY ids DESC LIMIT 1")
+    @Query("SELECT jsonData from NudgesMasterEntity where id = :id")
+    public abstract Maybe<String> fetchDynamicNudgesForm(String id);
 }

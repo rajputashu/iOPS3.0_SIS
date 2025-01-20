@@ -108,76 +108,18 @@ public class RotaViewModel extends IopsBaseViewModel {
             if (Prefs.getBoolean(PrefConstants.IS_ON_DUTY)) {
                 if (item.taskTypeId != 0) {
 
+                    if (!(item.taskTypeId == 1 || item.taskTypeId == 2) && item.taskStatus == TaskEntity.TaskStatus.COMPLETED.getTaskStatus()) {
+                        showMessage("Task already completed");
+                        return;
+                    }
+
                     //Checking if Task is not NightTask and User is not of UNIQ and SLV
                     if (Prefs.getInt(PrefConstants.COMPANY_ID) == 1 &&
                             item.taskTypeId != 2 && (!item.isAutoCreation && item.approvedDateTime == null)) {
                         showMessage("Current Adhoc task is not approved, please contact BH");
                         return;
                     }
-
-                    Prefs.putInt(PrefConstants.CURRENT_TASK, item.taskId);
-                    Prefs.putInt(PrefConstants.CURRENT_SITE, item.siteId);
-                    switch (item.taskTypeId) {
-                        case 1:
-                        case 2:
-                            fetchAllQRAtSite(item.siteId);
-                            checkInStatus.set(item.checkInStatus);
-                            selectedPostCode.set(item.dutyPostCode);
-                            selectedGeoString = item.siteGeoPointString;
-                            message.what = NavigationConstants.OPEN_REVIEW_INFORMATION;
-                            break;
-                        case 3:
-                            Prefs.putInt(PrefConstants.CURRENT_BARRACK_ID, item.barrackId);
-                            message.what = NavigationConstants.OPEN_BARRACK_INSPECTION;
-                            break;
-
-                        case 4:
-                            message.what = NavigationConstants.OPEN_CLIENT_COORDINATION;
-                            break;
-
-                        case 5:
-                            message.what = NavigationConstants.OPEN_BILL_SUBMISSION_TASK;
-                            break;
-
-                        case 6:
-                            message.what = NavigationConstants.OPEN_BILL_COLLECTION_TASK;
-                            break;
-
-                        case 7:
-                        case 8:
-                        case 9:
-                            message.what = NavigationConstants.OPEN_OTHER_TASK;
-                            break;
-                        case 14:
-                        case 15:
-                        case 16:
-                        case 17:
-                        case 18:
-                        case 19:
-                        case 20:
-                        case 21:
-                        case 22:
-                            message.what = NavigationConstants.OPEN_MYSIS_TASKS;
-                            message.obj = item;
-                            break;
-                        case 24:
-                            Prefs.putInt(PrefConstants.TASK_SERVER_ID, item.serverId);
-                            message.what = NavigationConstants.OPEN_PRACTO_APP_LOGIN;
-                            break;
-
-                        /*case 13:
-                            message.what = NavigationConstants.OPEN_CHAT_BOT_TASK;
-                            break;*/
-                    }
-
-                    /*if ((item.taskTypeId == 1 || item.taskTypeId == 2) && Prefs.getInt(PrefConstants.COUNTRY_ID) != 1
-                            && item.taskStatus == TaskEntity.TaskStatus.COMPLETED.getTaskStatus())
-                        showMessage("Task already completed");
-                    else */
-                    if (!(item.taskTypeId == 1 || item.taskTypeId == 2) && item.taskStatus == TaskEntity.TaskStatus.COMPLETED.getTaskStatus())
-                        showMessage("Task already completed");
-                    else
-                        liveData.postValue(message);
+                    startClickedRotaTask(item);
                 }
             } else {
                 showToast(R.string.please_turn_on_duty);
@@ -186,10 +128,66 @@ public class RotaViewModel extends IopsBaseViewModel {
 
         @Override
         public void onWeeklyComplianceItemClick() {
-//            message.what = NavigationConstants.OPEN_ROTA_COMPLIANCE_ACTIVITY;
-//            liveData.postValue(message);
         }
     };
+
+    private void startClickedRotaTask(RotaTaskItemModel item) {
+
+        Prefs.putInt(PrefConstants.CURRENT_TASK, item.taskId);
+        Prefs.putInt(PrefConstants.CURRENT_SITE, item.siteId);
+        switch (item.taskTypeId) {
+            case 1:
+            case 2:
+                fetchAllQRAtSite(item.siteId);
+                checkInStatus.set(item.checkInStatus);
+                selectedPostCode.set(item.dutyPostCode);
+                selectedGeoString = item.siteGeoPointString;
+                message.what = NavigationConstants.OPEN_REVIEW_INFORMATION;
+                break;
+            case 3:
+                Prefs.putInt(PrefConstants.CURRENT_BARRACK_ID, item.barrackId);
+                message.what = NavigationConstants.OPEN_BARRACK_INSPECTION;
+                break;
+
+            case 4:
+                message.what = NavigationConstants.OPEN_CLIENT_COORDINATION;
+                break;
+
+            case 5:
+                message.what = NavigationConstants.OPEN_BILL_SUBMISSION_TASK;
+                break;
+
+            case 6:
+                message.what = NavigationConstants.OPEN_BILL_COLLECTION_TASK;
+                break;
+
+            case 7:
+            case 8:
+            case 9:
+                message.what = NavigationConstants.OPEN_OTHER_TASK;
+                break;
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+            case 21:
+            case 22:
+                message.what = NavigationConstants.OPEN_MYSIS_TASKS;
+                message.obj = item;
+                break;
+            case 24:
+                Prefs.putInt(PrefConstants.TASK_SERVER_ID, item.serverId);
+                message.what = NavigationConstants.OPEN_PRACTO_APP_LOGIN;
+                break;
+        }
+//                    if (!(item.taskTypeId == 1 || item.taskTypeId == 2) && item.taskStatus == TaskEntity.TaskStatus.COMPLETED.getTaskStatus())
+//                        showMessage("Task already completed");
+//                    else
+        liveData.postValue(message);
+    }
 
     @Inject
     public RotaViewModel(@NonNull Application application) {
@@ -272,7 +270,7 @@ public class RotaViewModel extends IopsBaseViewModel {
                 .subscribe(rows -> pendingCount.set(rows), Timber::e));
     }
 
-    private void fetchPendingNotification() {
+    public void fetchPendingNotification() {
         addDisposable(notificationDao.fetchNudge()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -280,7 +278,8 @@ public class RotaViewModel extends IopsBaseViewModel {
                     if (!list.isEmpty()) {
                         obsNotificationCount.set(list.size());
                         message.what = NavigationConstants.OPEN_DYNAMIC_NUDGE_SCREEN;
-                        message.obj = list.get(0).getNotificationId();
+//                        message.obj = list.get(0).getNotificationId();
+                        message.obj = list.get(0);
                         liveData.postValue(message);
                     }
                 }, Timber::e));

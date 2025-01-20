@@ -128,6 +128,7 @@ import com.sisindia.ai.android.room.entities.LanguageEntity;
 import com.sisindia.ai.android.room.entities.LookUpEntity;
 import com.sisindia.ai.android.room.entities.MappedRegistersEntity;
 import com.sisindia.ai.android.room.entities.NotificationDataEntity;
+import com.sisindia.ai.android.room.entities.NudgesMasterEntity;
 import com.sisindia.ai.android.room.entities.OrganizationEntity;
 import com.sisindia.ai.android.room.entities.PostCheckListEntity;
 import com.sisindia.ai.android.room.entities.PostCheckListOptionEntity;
@@ -237,6 +238,7 @@ import com.sisindia.ai.android.utils.MetaDataConverter;
         DynamicFormEntity.class,
         PractoQuestionEntity.class,
         CheckInOutEntity.class,
+        NudgesMasterEntity.class,
 }, version = 1, exportSchema = false)
 @TypeConverters({MetaDataConverter.class, GeoLocationConverter.class})
 public abstract class IopsDatabase extends RoomDatabase {

@@ -9,6 +9,7 @@ import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseActivity
 import com.sisindia.ai.android.commons.audiorecord.AudioRecordingBottomSheetFragment
 import com.sisindia.ai.android.constants.IntentConstants
+import com.sisindia.ai.android.constants.NavigationConstants.NO_JSON_DATA_FOUND
 import com.sisindia.ai.android.constants.NavigationConstants.ON_ADD_AUDIO_CLIP_CLICK
 import com.sisindia.ai.android.constants.NavigationConstants.ON_AUDIO_RECORDED_FOR_GRIEVANCE
 import com.sisindia.ai.android.constants.NavigationConstants.ON_DYNAMIC_TASK_COMPLETE
@@ -41,8 +42,12 @@ class NudgesDynamicActivity : IopsBaseActivity() {
 
     override fun extractBundle() {
 //        viewModel?.obsTaskTypeId?.set(intent.extras?.getInt(IntentConstants.DYNAMIC_FORM_ID, 1)!!)
-        val notificationId = intent.extras?.getString(IntentConstants.DYNAMIC_FORM_ID, "00")!!
-        viewModel?.obsNotificationId?.set(notificationId)
+        val notificationId = intent.extras?.getString(IntentConstants.DYNAMIC_FORM_ID, "1")!!
+        val notificationMasterId = intent.extras?.getString(IntentConstants.NOTIFICATION_MASTER_ID, "1")!!
+        viewModel?.let {
+            it.obsNotificationId.set(notificationId)
+            it.obsNotificationMasterId.set(notificationMasterId)
+        }
     }
 
     override fun initViewState() {
@@ -74,6 +79,10 @@ class NudgesDynamicActivity : IopsBaseActivity() {
 
                 ON_DYNAMIC_TASK_COMPLETE -> {
                     setResult(RESULT_OK)
+                    finish()
+                }
+
+                NO_JSON_DATA_FOUND -> {
                     finish()
                 }
             }

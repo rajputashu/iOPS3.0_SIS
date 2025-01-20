@@ -1,14 +1,19 @@
 package com.sisindia.ai.android.room.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sisindia.ai.android.room.BaseDao
 import com.sisindia.ai.android.room.entities.NotificationDataEntity
+import com.sisindia.ai.android.room.entities.NudgesMasterEntity
+import com.sisindia.ai.android.room.entities.TaskTypeEntity
+import io.reactivex.Completable
 import io.reactivex.Single
 
 
 /**
- * Created by Ashu Rajput on 1/18/2021.
+ * Created by Ashu Rajput on 1/18/2021.z
  */
 @Dao
 abstract class NotificationsDao : BaseDao<NotificationDataEntity> {
@@ -31,5 +36,11 @@ abstract class NotificationsDao : BaseDao<NotificationDataEntity> {
 
     @Query("select isSynced from NotificationDataEntity where notificationId=:notificationId")
     abstract fun isTaskAlreadyCompleted(notificationId: String?): Single<Int>
+
+    @Query("DELETE FROM NudgesMasterEntity")
+    abstract fun deleteNudgesMaster(): Completable
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertAllNudgesMaster(list: List<NudgesMasterEntity>): Single<List<Long>>
 
 }

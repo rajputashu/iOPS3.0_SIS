@@ -14,6 +14,7 @@ import com.sisindia.ai.android.room.entities.IndustrySectorEntity;
 import com.sisindia.ai.android.room.entities.KitItemEntity;
 import com.sisindia.ai.android.room.entities.LanguageEntity;
 import com.sisindia.ai.android.room.entities.LookUpEntity;
+import com.sisindia.ai.android.room.entities.NudgesMasterEntity;
 import com.sisindia.ai.android.room.entities.OrganizationEntity;
 import com.sisindia.ai.android.room.entities.RankEntity;
 import com.sisindia.ai.android.room.entities.RegionEntity;
@@ -90,6 +91,9 @@ public class CommonMasterDataResponse extends BaseNetworkResponse {
 
         @SerializedName("attachmentMetadataDefinition")
         public List<AttachmentMetadataDefinitionEntity> metadataDefinition;
+
+        @SerializedName("nudgeNotificationMasters")
+        public List<NudgesMasterEntity> nudgeNotificationMasters;
 
         //db insert response
         public List<Long> lookupRows;

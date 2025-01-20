@@ -374,7 +374,7 @@ public class DayNightCheckViewModel extends IopsBaseViewModel {
                     data.clientHandShakeData = clientHandShakeData;
                     String location = Prefs.getDouble(PrefConstants.LATITUDE) + ", " + Prefs.getDouble(PrefConstants.LONGITUDE);
                     addDisposable(taskDao.updateTaskOnFinish(taskId, LocalDateTime.now().toString(), new Gson().toJson(data), location)
-                            .subscribeOn(Schedulers.computation())
+                            .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(rowId -> {
                                 setIsLoading(false);
@@ -382,7 +382,10 @@ public class DayNightCheckViewModel extends IopsBaseViewModel {
                                 Data inputData = new Data.Builder().putInt(RotaTaskWorker.class.getSimpleName(),
                                         RotaTaskWorker.RotaTaskWorkerType.SYNC_TO_SERVER.getWorkerType()).build();
                                 oneTimeWorkerWithInputData(RotaTaskWorker.class, inputData);
-                                showToast("Success");
+                                showToast("Task Completed");
+
+                                Prefs.putInt(PrefConstants.ALREADY_STARTED_TASK_ID, 0);
+
                                 message.what = NavigationConstants.ON_DAY_NIGHT_CHECK_DONE;
                                 liveData.postValue(message);
 

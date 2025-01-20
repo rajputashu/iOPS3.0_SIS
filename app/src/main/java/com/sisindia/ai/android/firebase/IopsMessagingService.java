@@ -1,5 +1,7 @@
 package com.sisindia.ai.android.firebase;
 
+import static com.sisindia.ai.android.constants.IntentConstants.DYNAMIC_FORM_ID;
+import static com.sisindia.ai.android.constants.IntentConstants.NOTIFICATION_MASTER_ID;
 import static com.sisindia.ai.android.constants.PrefConstants.FCM_TOKEN;
 
 import android.annotation.SuppressLint;
@@ -177,7 +179,8 @@ public class IopsMessagingService extends FirebaseMessagingService {
                 case "NUDGES":
 //                    Timber.e("NotificationId selected %s",notificationMO.getNotificationId());
                     intent = new Intent(this, NudgesDynamicActivity.class)
-                            .putExtra(IntentConstants.DYNAMIC_FORM_ID, notificationMO.getNotificationId());
+                            .putExtra(DYNAMIC_FORM_ID, notificationMO.getNotificationId())
+                            .putExtra(NOTIFICATION_MASTER_ID, notificationMO.getNotificationMasterId());
                     break;
                 case "VIDEO_CALL":
                     intent = new Intent(this, VideoCallActivity.class);

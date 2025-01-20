@@ -35,6 +35,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SplashViewModel extends IopsBaseViewModel {
 
@@ -72,6 +73,7 @@ public class SplashViewModel extends IopsBaseViewModel {
                 .subscribe(list -> {
                     if (list.statusCode == 200 && !Objects.requireNonNull(list.getData()).isEmpty()) {
                         validateDuplicateNotification(list.getData());
+                        Timber.e("Coming in area 0000");
                     } else {
                         checkUserState();
                     }
@@ -119,7 +121,8 @@ public class SplashViewModel extends IopsBaseViewModel {
                         }
                         insertAllNotificationToDB(finalList);
                     } else {
-                        finalList.addAll(serverList);
+//                        finalList.addAll(serverList);
+                        insertAllNotificationToDB(serverList);
                     }
                 }, e -> {
                     e.printStackTrace();
