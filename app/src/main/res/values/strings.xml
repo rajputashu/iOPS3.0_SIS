@@ -857,7 +857,7 @@
     <string name="warning_msg_no_guard">Warning! No guard found in the picture.\nTake a picture of a guard</string>
     <string name="want_to_submit_photo">Sure you want to submit photo?</string>
     <string name="string_retake">Retake</string>
-    <string name="json_not_found">Nudges question not found</string>
+    <string name="json_not_found">Notification already expired</string>
     <string name="hint_select_date_time">Click to select</string>
     <string name="string_nudges">Notifications</string>
     <string name="no_notification_yet">No notification yet</string>

@@ -12,36 +12,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_38sdp"
-        android:layout_marginStart="@dimen/_8sdp"
         android:background="@color/colorWhite"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/editTurnOutCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-5dp"
+            android:layout_marginEnd="-10dp"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/TitleBig"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:drawableStart="@drawable/ic_round_circle_8dp"
-                android:drawablePadding="@dimen/_5sdp"
-                android:drawableTint="@color/colorStatusDone"
-                android:padding="@dimen/_5sdp"
-                android:text="@{item.displayName}" />
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TitleBig"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_round_circle_8dp"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableTint="@color/colorStatusDone"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:paddingStart="0dp"
+            android:text="@{item.displayName}" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/scGuardTurnOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:buttonTint="@color/radio_button_color"
-                android:padding="@dimen/_5sdp" />
-
-        </RelativeLayout>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/scGuardTurnOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/radio_button_color"
+            android:padding="@dimen/_5sdp" />
 
     </LinearLayout>
 

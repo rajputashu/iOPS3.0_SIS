@@ -282,6 +282,9 @@ public class RotaViewModel extends IopsBaseViewModel {
                         message.obj = list.get(0);
                         liveData.postValue(message);
                     }
+                    else{
+                        obsNotificationCount.set(0);
+                    }
                 }, Timber::e));
     }
 

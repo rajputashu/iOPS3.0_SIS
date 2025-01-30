@@ -179,11 +179,13 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ isSynced ->
-                if (isSynced == 0) {
+                if (isSynced == 0)
                     fetchJsonFormViaId()
-                }
+                else
+                    handleNotificationJsonException()
             }, { throwable: Throwable? ->
                 throwable!!.printStackTrace()
+                handleNotificationJsonException()
             }))
     }
 
@@ -213,7 +215,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
     }
 
     private fun handleNotificationJsonException() {
-        showToast("Notification JSON not found")
+        showToast("Notification expired for id : ${obsNotificationId.get()}")
         message.what = NavigationConstants.NO_JSON_DATA_FOUND
         liveData.postValue(message)
     }

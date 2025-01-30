@@ -32,7 +32,7 @@ public class GuardTurnOutEditRecyclerAdapter extends BaseRecyclerAdapter<GuardTu
         viewHolder.onBind(getItem(position));
     }
 
-    static class GuardTurnOutEditViewHolder extends BaseViewHolder<GuardTurnOutResult.GuardTurnoutModel> {
+    class GuardTurnOutEditViewHolder extends BaseViewHolder<GuardTurnOutResult.GuardTurnoutModel> {
 
         private final RecyclerAdapterItemGuardTurnOutEditBinding binding;
 
@@ -55,7 +55,16 @@ public class GuardTurnOutEditRecyclerAdapter extends BaseRecyclerAdapter<GuardTu
                 item.isSelected = isChecked;
             });
 
+            binding.editTurnOutCB.setChecked(item.isCBSelected);
+            binding.editTurnOutCB.setOnClickListener((view) -> {
+                item.isCBSelected = !item.isCBSelected;
+                if (item.isCBSelected) {
+                    binding.scGuardTurnOut.setChecked(false);
+                }
+                notifyItemChanged(getLayoutPosition());
+            });
 
+            binding.scGuardTurnOut.setEnabled(!item.isCBSelected);
         }
     }
 }
