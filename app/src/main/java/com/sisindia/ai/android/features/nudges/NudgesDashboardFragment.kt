@@ -63,7 +63,8 @@ class NudgesDashboardFragment : IopsBaseFragment() {
     private var dynamicNudgesLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.extras.apply {}
+                viewModel.initNudgesDashboard()
+//                result.data?.extras.apply {}
             }
         }
 }

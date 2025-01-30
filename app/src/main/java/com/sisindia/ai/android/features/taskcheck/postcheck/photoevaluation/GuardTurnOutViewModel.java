@@ -109,9 +109,13 @@ public class GuardTurnOutViewModel extends IopsBaseViewModel {
         mlResult.mlTurnOutResult = receivedMLTurnOutList;
 
         int turnOut = 0;
+        int totalTurnOutExcludingNA = 0;
         for (GuardTurnOutResult.GuardTurnoutModel model : result.turnOutResult) {
             if (model.isSelected) {
                 turnOut += 1;
+            }
+            if (!model.isCBSelected) {
+                totalTurnOutExcludingNA += 1;
             }
         }
 
@@ -122,6 +126,7 @@ public class GuardTurnOutViewModel extends IopsBaseViewModel {
                 return;
             }
             item.turnOutScore = turnOut;
+            item.totalTurnOut = totalTurnOutExcludingNA;
             item.guardEvaluationResult = GsonUtils.toJsonWithoutExopse().toJson(result);
             item.mlGuardEvaluationResult = GsonUtils.toJsonWithoutExopse().toJson(mlResult);
             item.currentState = CheckedGuardEntity.CurrentState.EVALUATION.getGuardStatus();

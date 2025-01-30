@@ -189,7 +189,7 @@ public class RotaFragment extends IopsBaseFragment {
                     result -> {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             // Executing fetchPendingNotification to check if is there any pending notification?
-//                            viewModel.fetchPendingNotification();
+                            viewModel.fetchPendingNotification();
 
                             /*Intent data = result.getData();
                             if (data != null && data.getExtras() != null) {

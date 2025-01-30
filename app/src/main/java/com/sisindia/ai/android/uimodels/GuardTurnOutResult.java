@@ -38,6 +38,10 @@ public class GuardTurnOutResult implements Serializable {
         @Expose
         public boolean isSelected = false;
 
+        @Ignore
+        @Expose
+        public boolean isCBSelected = false;
+
 
         public GuardTurnoutModel() {
         }
