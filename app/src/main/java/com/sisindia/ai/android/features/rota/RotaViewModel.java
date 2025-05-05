@@ -602,6 +602,6 @@ public class RotaViewModel extends IopsBaseViewModel {
         Location.distanceBetween(startLat, startLong, endLat, endLong, results);
 //        showToast("Distance : ${results[0]} meter")
 //        Timber.e("Google Distance in Meter " + results[0]);
-        return results[0] < 300;
+        return results[0] < 150;
     }
 }

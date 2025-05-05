@@ -45,6 +45,7 @@ import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_ROTA_MO
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_SIS_EVENTS;
 import static com.sisindia.ai.android.constants.NavigationConstants.SHOW_PROGRESS_DIALOG;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -53,6 +54,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -761,10 +763,16 @@ public class DashBoardActivity extends IopsBaseActivity {
                     openRotaScreen();
             });
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private void registerMySISReceiver() {
         receiver = new MySISReceiver();
         IntentFilter intentFilter = new IntentFilter("com.sisindia.ai.android.dev.mysisrota");
-        registerReceiver(receiver, intentFilter);
+//        registerReceiver(receiver, intentFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(receiver, intentFilter);
+        }
     }
 
     @Override

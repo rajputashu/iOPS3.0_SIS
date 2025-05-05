@@ -524,6 +524,10 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
         int postId = Prefs.getInt(PrefConstants.CURRENT_POST);
         int siteId = Prefs.getInt(PrefConstants.CURRENT_SITE);
         int employeeId = Prefs.getInt(PrefConstants.SELECTED_EMPLOYEE_ID);
+        /*Timber.e("fetchGuardTurnOutFromDB taskId :%d",taskId);
+        Timber.e("fetchGuardTurnOutFromDB postId :%d",postId);
+        Timber.e("fetchGuardTurnOutFromDB siteId :%d",siteId);
+        Timber.e("fetchGuardTurnOutFromDB employeeId :%d",employeeId);*/
 
         addDisposable(dayCheckDao.fetchCheckedGuard(taskId, siteId, postId, employeeId)
                 .subscribeOn(Schedulers.newThread())
@@ -624,12 +628,19 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
                 item.mlGuardEvaluationResult = GsonUtils.toJsonWithoutExopse().toJson(mlResult);
                 item.currentState = CheckedGuardEntity.CurrentState.EVALUATION.getGuardStatus();
                 item.updatedDateTime = LocalDateTime.now().toString();
-                Timber.e("ITEM ID PRINT %d", entityRowId);
+
+                //Adding these 2 lines
+//                item.isFakeGuardImage = isFakeGuardPic;
+//                item.guardEvaluationGuid = attachment.attachmentGuid;
+
+//                Timber.e("ITEM ID PRINT %d", entityRowId);
 
                 addDisposable(dayCheckDao.updateCheckedGuardV2(turnOut, item.totalTurnOut,
                                 item.guardEvaluationResult,
                                 item.mlGuardEvaluationResult,
-                                item.updatedDateTime, entityRowId, item.currentState)
+                                item.updatedDateTime, entityRowId, item.currentState,
+                                attachment.attachmentGuid,
+                                attachment.isFakeGuardImage)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(rowId -> {
@@ -649,6 +660,9 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
 
     private void onAttachmentDone(Long guardEvaluationAttachmentId) {
 
+        /*Timber.e(" guardEvaluationAttachmentId -->>> %d",guardEvaluationAttachmentId);
+        Timber.e(" guardEvaluationAttachmentId -->>> %s",attachment.attachmentGuid);
+
         CheckedGuardEntity guard = checkedGuard.get();
         if (guard == null) {
             showToast("Unable to save guard..");
@@ -662,7 +676,11 @@ public class GuardPhotoEvaluationResultViewModel extends IopsBaseViewModel {
         addDisposable(dayCheckDao.updateCheckedGuard(guard)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onGuardUpdated, Timber::e));
+                .subscribe(this::onGuardUpdated, Timber::e));*/
+
+
+        message.what = NavigationConstants.ON_PHOTO_EVALUATION_DONE;
+        liveData.postValue(message);
     }
 
     private void onGuardUpdated(Integer row) {

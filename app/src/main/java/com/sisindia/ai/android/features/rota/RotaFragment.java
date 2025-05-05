@@ -144,8 +144,6 @@ public class RotaFragment extends IopsBaseFragment {
             if (data != null) {
                 Bundle bundle = data.getExtras();
                 if (bundle != null && bundle.containsKey(IntentConstants.ON_SKIP_QR_SCANNED)) {
-//                    viewModel.updateCheckInOutStatus(CheckInStatus.SKIPPED.getStatus());
-//                    openReviewInformationOrDcNcScreen();
                     if (viewModel.validateLocationDistance()) {
                         viewModel.updateCheckInOutStatus(CheckInStatus.SKIPPED.getStatus());
                         if (bundle.containsKey(IntentConstants.ON_SKIP_QR_REASON))
