@@ -15,12 +15,10 @@ import timber.log.Timber;
 /**
  * Created by Ashu Rajput on 12/28/2020.
  */
-//public class ActivityTransitionReceiver extends DaggerBroadcastReceiver {
 public class ActivityTransitionReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Timber.e("ActivityDetection Coming in ActivityTransitionReceiver ");
         if (ActivityTransitionResult.hasResult(intent)) {
             ActivityTransitionResult result = ActivityTransitionResult.extractResult(intent);
             for (ActivityTransitionEvent event : Objects.requireNonNull(result).getTransitionEvents()) {

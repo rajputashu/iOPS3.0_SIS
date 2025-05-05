@@ -1,7 +1,6 @@
 package com.sisindia.ai.android.di.modules;
 
 import com.droidcommons.dagger.qualifier.ReceiverScope;
-import com.sisindia.ai.android.receivers.ActivityTransitionReceiver;
 import com.sisindia.ai.android.receivers.MySISReceiver;
 import com.sisindia.ai.android.receivers.OtpSmsReceiver;
 
@@ -15,9 +14,9 @@ public abstract class BroadcastReceiverBindingModule {
     @ContributesAndroidInjector
     abstract OtpSmsReceiver bindOtpSmsReceiver();
 
-    @ReceiverScope
+    /*@ReceiverScope
     @ContributesAndroidInjector
-    abstract ActivityTransitionReceiver bindTransitionReceiver();
+    abstract ActivityTransitionReceiver bindTransitionReceiver();*/
 
     @ReceiverScope
     @ContributesAndroidInjector

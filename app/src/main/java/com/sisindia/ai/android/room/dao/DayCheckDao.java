@@ -63,8 +63,8 @@ public abstract class DayCheckDao {
     public abstract Maybe<Integer> updateCheckedGuard(CheckedGuardEntity obj);
 
     @Transaction
-    @Query("UPDATE CheckedGuardEntity SET turnOutScore = :turnOutScore, totalTurnOut = :totalScore ,guardEvaluationResult = :evaluationRes, mlGuardEvaluationResult= :mlGuardEvaluationRes ,updatedDateTime = :updateDateTime, currentState =:currentState WHERE id = :id")
-    public abstract Maybe<Integer> updateCheckedGuardV2(int turnOutScore, int totalScore,String evaluationRes,String mlGuardEvaluationRes,String updateDateTime, int id, int currentState);
+    @Query("UPDATE CheckedGuardEntity SET turnOutScore = :turnOutScore, totalTurnOut = :totalScore ,guardEvaluationResult = :evaluationRes, mlGuardEvaluationResult= :mlGuardEvaluationRes ,updatedDateTime = :updateDateTime, currentState =:currentState, guardEvaluationGuid =:guardGuid, isFakeGuardImage=:isFakeImage WHERE id = :id")
+    public abstract Maybe<Integer> updateCheckedGuardV2(int turnOutScore, int totalScore, String evaluationRes, String mlGuardEvaluationRes, String updateDateTime, int id, int currentState, String guardGuid, boolean isFakeImage);
 
     /*@Transaction
     @Update(onConflict = OnConflictStrategy.REPLACE)

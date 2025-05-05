@@ -76,7 +76,6 @@ public final class GeoLocationService extends IopsBaseService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        // Uncomment this line
         if (intent != null)
             WakefulBroadcastReceiver.completeWakefulIntent(intent);
 
@@ -149,7 +148,7 @@ public final class GeoLocationService extends IopsBaseService {
     }
 
     private void deletingUploadedGeoPingsToServer(ArrayList<Integer> ids) {
-        if (ids.size() > 0) {
+        if (!ids.isEmpty()) {
             addDisposable(geoLocationDao.deleteUploadedPings(ids)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
