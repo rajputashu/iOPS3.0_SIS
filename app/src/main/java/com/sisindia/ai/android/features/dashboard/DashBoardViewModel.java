@@ -2,6 +2,7 @@ package com.sisindia.ai.android.features.dashboard;
 
 import static com.sisindia.ai.android.constants.IntentConstants.LOCATION_WORKER_TAG;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_BARRACKS_CLICK;
+import static com.sisindia.ai.android.constants.NavigationConstants.ON_CIVIL_DEFENCE_CLICK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_DISBANDMENT_MENU_CLICK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_LAUNCHING_MY_SIS_APP;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_MANUAL_SYNC;
@@ -96,8 +97,8 @@ public class DashBoardViewModel extends IopsBaseViewModel implements NavigationV
             message.what = NavigationConstants.ON_ISSUE_MANAGEMENT_CLICK;
         else if (id == R.id.actionAnnualKitReplacement)
             message.what = NavigationConstants.ON_ANNUAL_KIT_REPLACEMENT_CLICK;
-        /*else if (id == R.id.actionMaskDistribution)
-            message.what = ON_MASK_DISTRIBUTION_CLICK;*/
+        else if (id == R.id.actionCivilDefence)
+            message.what = ON_CIVIL_DEFENCE_CLICK;
         else if (id == R.id.actionSISEvents)
             message.what = NavigationConstants.OPEN_SIS_EVENTS;
         else if (id == R.id.actionRecruit)

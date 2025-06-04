@@ -9,6 +9,7 @@ import static com.sisindia.ai.android.constants.NavigationConstants.HIDE_PROGRES
 import static com.sisindia.ai.android.constants.NavigationConstants.HIDE_PROGRESS_DIALOG_SHOW_POPUP;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_ANNUAL_KIT_REPLACEMENT_CLICK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_BARRACKS_CLICK;
+import static com.sisindia.ai.android.constants.NavigationConstants.ON_CIVIL_DEFENCE_CLICK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_CONVEYANCE_CLICK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_DASHBOARD_ROTA_CLICK;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_DISBANDMENT_MENU_CLICK;
@@ -88,6 +89,7 @@ import com.sisindia.ai.android.features.barracks.listing.BarrackListingFragment;
 import com.sisindia.ai.android.features.billcollection.BillCollectionDetailsOnSites;
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionActivity;
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionCardsActivity;
+import com.sisindia.ai.android.features.civil.CivilDefenceFragment;
 import com.sisindia.ai.android.features.clientcoordination.ClientCoordinationActivity;
 import com.sisindia.ai.android.features.conveyance.ConveyanceActivity;
 import com.sisindia.ai.android.features.disband.DisbandmentFragment;
@@ -201,6 +203,11 @@ public class DashBoardActivity extends IopsBaseActivity {
                 case ON_ANNUAL_KIT_REPLACEMENT_CLICK:
                     binding.dlDashBoard.closeDrawer(GravityCompat.START);
                     openAnnualKitReplacementScreen();
+                    break;
+
+                case ON_CIVIL_DEFENCE_CLICK:
+                    binding.dlDashBoard.closeDrawer(GravityCompat.START);
+                    openCivilDefenceScreen();
                     break;
 
                 /*case ON_MASK_DISTRIBUTION_CLICK:
@@ -496,6 +503,10 @@ public class DashBoardActivity extends IopsBaseActivity {
 
     private void openAnnualKitReplacementScreen() {
         loadFragment(R.id.flDashBoard, AKRFragment.Companion.newInstance(), FRAGMENT_REPLACE, false);
+    }
+
+    private void openCivilDefenceScreen() {
+        loadFragment(R.id.flDashBoard, CivilDefenceFragment.Companion.newInstance(), FRAGMENT_REPLACE, false);
     }
 
     /*private void openWinterKitScreen() {

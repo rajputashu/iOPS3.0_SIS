@@ -16,6 +16,7 @@ import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackSpaceFr
 import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackStrengthFragment;
 import com.sisindia.ai.android.features.barracks.listing.BarrackListingFragment;
 import com.sisindia.ai.android.features.billsubmit.sheet.BillChecklistBottomSheet;
+import com.sisindia.ai.android.features.civil.CivilDefenceFragment;
 import com.sisindia.ai.android.features.conveyance.ConveyanceFragment;
 import com.sisindia.ai.android.features.conveyance.ConveyanceMonthlyFragment;
 import com.sisindia.ai.android.features.disband.DisbandmentFragment;
@@ -399,4 +400,8 @@ public abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     @FragmentScoped
     abstract NudgesDashboardFragment bindNudgesDashFragment();
+
+    @ContributesAndroidInjector
+    @FragmentScoped
+    abstract CivilDefenceFragment bindCivilDefFragment();
 }

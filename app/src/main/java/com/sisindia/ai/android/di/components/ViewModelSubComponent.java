@@ -29,6 +29,7 @@ import com.sisindia.ai.android.features.barracks.listing.BarrackTaggingViewModel
 import com.sisindia.ai.android.features.billcollection.BillCollectionViewModel;
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionViewModel;
 import com.sisindia.ai.android.features.billsubmit.sheet.BillChecklistViewModel;
+import com.sisindia.ai.android.features.civil.CivilDefenceViewModel;
 import com.sisindia.ai.android.features.clientcoordination.ClientCoordinationViewModel;
 import com.sisindia.ai.android.features.conveyance.ConveyanceViewModel;
 import com.sisindia.ai.android.features.dashboard.DashBoardViewModel;
@@ -395,6 +396,8 @@ public interface ViewModelSubComponent {
     @NotNull NudgesViewModel vmNudges();
 
     @NotNull NudgesDynamicViewModel vmDynamicNudges();
+
+    @NotNull CivilDefenceViewModel vmCivilDef();
 
     @Subcomponent.Builder
     interface Builder {
