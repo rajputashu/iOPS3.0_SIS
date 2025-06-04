@@ -11,6 +11,7 @@ import com.sisindia.ai.android.features.addtask.SelectReasonBottomSheetFragment;
 import com.sisindia.ai.android.features.addtask.SelectSiteBottomSheetFragment;
 import com.sisindia.ai.android.features.addtask.SelectSubTaskTypeBottomSheetFragment;
 import com.sisindia.ai.android.features.akr.details.KitOtpBottomSheet;
+import com.sisindia.ai.android.features.civil.AddCivilNominationBottomSheet;
 import com.sisindia.ai.android.features.disband.AddDisbandmentBottomSheet;
 import com.sisindia.ai.android.features.mask.AddMaskBottomSheet;
 import com.sisindia.ai.android.features.practo.PractoQuestionsBottomSheet;
@@ -119,4 +120,8 @@ public abstract class BottomSheetDialogFragmentModule {
     @ContributesAndroidInjector
     @FragmentScoped
     abstract SkipReasonBottomSheet bindSkipReasonSheet();
+
+    @ContributesAndroidInjector
+    @FragmentScoped
+    abstract AddCivilNominationBottomSheet bindNominationSheet();
 }

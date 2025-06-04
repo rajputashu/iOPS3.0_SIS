@@ -47,6 +47,7 @@ import com.sisindia.ai.android.features.billsubmit.BillSubmissionListener
 import com.sisindia.ai.android.features.billsubmit.RadioCheckedListener
 import com.sisindia.ai.android.features.billsubmit.adapter.BillSubmissionCardsAdapter
 import com.sisindia.ai.android.features.billsubmit.sheet.BillCheckListAdapter
+import com.sisindia.ai.android.features.civil.CivilNominationAdapter
 import com.sisindia.ai.android.features.clientcoordination.ClientCoordinationListener
 import com.sisindia.ai.android.features.clientcoordination.adapters.CCRPerformanceRatingAdapter
 import com.sisindia.ai.android.features.conveyance.ConveyanceListener
@@ -216,7 +217,7 @@ fun bindEquipmentTypeSpinner(spinner: AppCompatSpinner,
 @BindingAdapter(value = ["rewardFineReasons", "listener"])
 fun AppCompatSpinner.bindFindRewardReasonSpinner(reasonList: ArrayList<String>,
                                                  listener: SpinnersListener) {
-    if (!reasonList.isNullOrEmpty()) {
+    if (reasonList.isNotEmpty()) {
         reasonList.apply {
             val reasonAdapter: SpinnerAdapter =
                 ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, reasonList)
@@ -518,6 +519,12 @@ fun RecyclerView.bindEventsAdapter(eventAdapter: EventsAdapter, listener: EventC
     layoutManager = LinearLayoutManager(context)
     eventAdapter.initListener(listener)
     adapter = eventAdapter
+}
+
+@BindingAdapter(value = ["nominationAdapter"])
+fun RecyclerView.bindCivilNomination(nominationAdapter: CivilNominationAdapter) {
+    layoutManager = LinearLayoutManager(context)
+    adapter = nominationAdapter
 }
 
 @BindingAdapter(value = ["recruitStatus"])

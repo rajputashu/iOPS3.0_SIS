@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sisindia.ai.android.features.civil.CivilDefenceViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/drawable_top_corner"
+            android:minHeight="@dimen/_600sdp"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_16sdp">
+
+            <View
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorTextGrey" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@string/add_nomination"
+                android:textStyle="bold" />
+
+            <!-- State Spinner LAYOUT-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/stateSpinner"
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:pointerIcon="arrow"
+                        android:popupBackground="@color/colorWhite"
+                        app:listener="@{vm.stateSpinnerListener}"
+                        app:rewardFineReasons="@{vm.obsStateSpinnerList}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:text="@string/string_state" />
+
+            </RelativeLayout>
+
+            <!-- District Spinner LAYOUT-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/districtSpinner"
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:pointerIcon="arrow"
+                        android:popupBackground="@color/colorWhite"
+                        app:listener="@{vm.listener}"
+                        app:rewardFineReasons="@{vm.obsDistrictSpinnerList}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:text="@string/string_district" />
+
+            </RelativeLayout>
+
+            <!-- Site Spinner LAYOUT-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sectorOrStatusSpinner"
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:pointerIcon="arrow"
+                        android:popupBackground="@color/colorWhite"
+                        app:listener="@{vm.siteSpinnerListener}"
+                        app:rewardFineReasons="@{vm.obsSitesSpinnerList}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:text="@string/string_sites" />
+
+            </RelativeLayout>
+
+            <!-- CIVIL DEFENCE NOMINATION-->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@string/select_employee_for_nomination" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_enter_here"
+                        android:inputType="text"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@={vm.obsRegNo}"
+                        tools:ignore="Autofill,TextFields" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/regNoButton"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:onClick="@{vm::onViewClicks}"
+                        android:tint="@color/colorDarkBlack"
+                        app:srcCompat="@drawable/ic_send_chat" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:text="@string/string_reg_no" />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@string/string_employee_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackSubTitleTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:paddingStart="@dimen/_16sdp"
+                android:paddingEnd="@dimen/_16sdp"
+                android:text="@{vm.obsEmployeeName}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/addNominationButton"
+                style="@style/BlackTitleTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_42sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/border_round_red_body"
+                android:gravity="center"
+                android:onClick="@{vm::onViewClicks}"
+                android:text="@string/string_add"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{vm.isLoading}" />
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.models.civil.CivilNominationMO" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_5sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="@{model.district}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="@{``+model.nomination}" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

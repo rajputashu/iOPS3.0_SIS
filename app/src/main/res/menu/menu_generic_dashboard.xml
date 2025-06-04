@@ -24,6 +24,12 @@
             android:title="@string/action_menu_performance"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/actionCivilDefence"
+            android:icon="@drawable/ic_my_sis"
+            android:title="@string/civil_defence_nomination"
+            app:showAsAction="never" />
+
     </group>
 
     <group

@@ -23,6 +23,7 @@ import com.sisindia.ai.android.features.barracks.listing.BarrackTaggingViewModel
 import com.sisindia.ai.android.features.billcollection.BillCollectionViewModel
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionViewModel
 import com.sisindia.ai.android.features.billsubmit.sheet.BillChecklistViewModel
+import com.sisindia.ai.android.features.civil.CivilDefenceViewModel
 //import com.sisindia.ai.android.features.chatbot.ChatBotViewModel
 import com.sisindia.ai.android.features.clientcoordination.ClientCoordinationViewModel
 import com.sisindia.ai.android.features.conveyance.ConveyanceViewModel
@@ -523,6 +524,9 @@ constructor(viewModelSubComponent: ViewModelSubComponent) : ViewModelProvider.Fa
 
         creators[NudgesDynamicViewModel::class.java] =
             Callable<ViewModel> { viewModelSubComponent.vmDynamicNudges() }
+
+        creators[CivilDefenceViewModel::class.java] =
+            Callable<ViewModel> { viewModelSubComponent.vmCivilDef() }
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
