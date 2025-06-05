@@ -23,6 +23,7 @@ import com.sisindia.ai.android.workers.LocationWorker;
 import com.sisindia.ai.android.workers.RotaTaskWorker;
 import com.sisindia.ai.android.workers.SiteConfigurationWorker;
 import com.sisindia.ai.android.workers.SitePostsWorker;
+import com.sisindia.ai.android.workers.StateDistrictWorker;
 import com.sisindia.ai.android.workers.SyncPoaWorker;
 import com.sisindia.ai.android.workers.UpdateBillCollectionWorker;
 import com.sisindia.ai.android.workers.UserMasterDataWorkerV2;
@@ -133,4 +134,8 @@ public abstract class WorkerModule {
     @WorkerScoped
     @ContributesAndroidInjector
     abstract EmployeesRewardFineWorker empRewardFineWorker();
+
+    @WorkerScoped
+    @ContributesAndroidInjector
+    abstract StateDistrictWorker stateDistrictWorker();
 }

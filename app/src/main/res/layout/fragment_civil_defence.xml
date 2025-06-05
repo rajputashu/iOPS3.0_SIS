@@ -74,7 +74,7 @@
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_19ssp"
-                    app:htmlText="@{@string/dyn_today(`10`)}" />
+                    app:htmlText="@{@string/dyn_today(vm.obsTodayCount)}" />
 
                 <View
                     android:layout_width="@dimen/_1sdp"
@@ -89,7 +89,7 @@
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_19ssp"
-                    app:htmlText="@{@string/dyn_till_date(`30`)}" />
+                    app:htmlText="@{@string/dyn_till_date(vm.obsTillDateCount)}" />
 
             </LinearLayout>
 

@@ -67,6 +67,7 @@ import com.sisindia.ai.android.room.dao.SiteRiskPoaDao;
 import com.sisindia.ai.android.room.dao.SiteShiftDao;
 import com.sisindia.ai.android.room.dao.SiteStrengthDao;
 import com.sisindia.ai.android.room.dao.SiteTypeDao;
+import com.sisindia.ai.android.room.dao.StateDistrictDao;
 import com.sisindia.ai.android.room.dao.TaskDao;
 import com.sisindia.ai.android.room.dao.TaskTypeDao;
 import com.sisindia.ai.android.room.dao.UserMasterDataDao;
@@ -108,6 +109,7 @@ import com.sisindia.ai.android.room.entities.CustomerEntity;
 import com.sisindia.ai.android.room.entities.CustomerSiteContactEntity;
 import com.sisindia.ai.android.room.entities.DailyTimeLineEntity;
 import com.sisindia.ai.android.room.entities.DeploymentTypeEntity;
+import com.sisindia.ai.android.room.entities.DistrictsEntity;
 import com.sisindia.ai.android.room.entities.DutyStatusEntity;
 import com.sisindia.ai.android.room.entities.DynamicFormEntity;
 import com.sisindia.ai.android.room.entities.EmployeeFineRewardEntity;
@@ -150,6 +152,7 @@ import com.sisindia.ai.android.room.entities.SiteRiskPoaEntity;
 import com.sisindia.ai.android.room.entities.SiteShiftEntity;
 import com.sisindia.ai.android.room.entities.SiteStrengthEntity;
 import com.sisindia.ai.android.room.entities.SiteTypeEntity;
+import com.sisindia.ai.android.room.entities.StatesEntity;
 import com.sisindia.ai.android.room.entities.TaskEntity;
 import com.sisindia.ai.android.room.entities.TaskTypeEntity;
 import com.sisindia.ai.android.room.entities.WageCenterEntity;
@@ -239,6 +242,8 @@ import com.sisindia.ai.android.utils.MetaDataConverter;
         PractoQuestionEntity.class,
         CheckInOutEntity.class,
         NudgesMasterEntity.class,
+        DistrictsEntity.class,
+        StatesEntity.class,
 }, version = 1, exportSchema = false)
 @TypeConverters({MetaDataConverter.class, GeoLocationConverter.class})
 public abstract class IopsDatabase extends RoomDatabase {
@@ -376,4 +381,6 @@ public abstract class IopsDatabase extends RoomDatabase {
     public abstract NotificationsDao notificationsDao();
 
     public abstract DynamicTaskDao dynamicTaskDao();
+
+    public abstract StateDistrictDao stateDistrictDao();
 }

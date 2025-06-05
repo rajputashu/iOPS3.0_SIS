@@ -69,6 +69,7 @@ import com.sisindia.ai.android.room.dao.SiteRiskPoaDao;
 import com.sisindia.ai.android.room.dao.SiteShiftDao;
 import com.sisindia.ai.android.room.dao.SiteStrengthDao;
 import com.sisindia.ai.android.room.dao.SiteTypeDao;
+import com.sisindia.ai.android.room.dao.StateDistrictDao;
 import com.sisindia.ai.android.room.dao.TaskDao;
 import com.sisindia.ai.android.room.dao.TaskTypeDao;
 import com.sisindia.ai.android.room.dao.UserMasterDataDao;
@@ -494,5 +495,11 @@ public class IopsDatabaseModule {
     @Provides
     DynamicTaskDao provideDynamicTaskDao(IopsDatabase iopsDatabase) {
         return iopsDatabase.dynamicTaskDao();
+    }
+
+    @Singleton
+    @Provides
+    StateDistrictDao provideStateDistrictDao(IopsDatabase iopsDatabase) {
+        return iopsDatabase.stateDistrictDao();
     }
 }

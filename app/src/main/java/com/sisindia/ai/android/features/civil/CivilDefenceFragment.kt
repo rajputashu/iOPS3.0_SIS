@@ -50,7 +50,7 @@ class CivilDefenceFragment : IopsBaseFragment() {
     }
 
     override fun onCreated() {
-        viewModel.initUI()
+        viewModel.initDashboardUi()
     }
 
     private fun openAddNominationBottomSheet() {
@@ -61,17 +61,4 @@ class CivilDefenceFragment : IopsBaseFragment() {
                     AddCivilNominationBottomSheet::class.java.simpleName)
         }
     }
-
-    /*private fun getCurrentMonthSalesRefFromAPI() {
-        viewModel.getSalesReferenceFromAPI(LocalDate.now().monthValue)
-    }
-
-    private fun openUpdateSalesReferenceBottomSheet(salesMO: SalesReferenceMO) {
-        if (requireActivity().supportFragmentManager.findFragmentByTag(
-                AddCivilNominationBottomSheet::class.java.simpleName) == null) {
-            AddCivilNominationBottomSheet.newInstanceWithData(false, salesMO)
-                .show(requireActivity().supportFragmentManager,
-                    AddCivilNominationBottomSheet::class.java.simpleName)
-        }
-    }*/
 }

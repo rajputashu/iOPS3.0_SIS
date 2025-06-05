@@ -20,6 +20,9 @@ import com.sisindia.ai.android.models.GrievanceResponse;
 import com.sisindia.ai.android.models.ReviewInformationResponse;
 import com.sisindia.ai.android.models.TableSyncResponse;
 import com.sisindia.ai.android.models.UserOnBoardModel;
+import com.sisindia.ai.android.models.civil.AddNominationBodyMO;
+import com.sisindia.ai.android.models.civil.CivilNominationResponseMO;
+import com.sisindia.ai.android.models.civil.NominationSummaryResponseMO;
 import com.sisindia.ai.android.models.kits.KitDistributionApiBodyMO;
 import com.sisindia.ai.android.models.kits.KitDistributionResponseMO;
 import com.sisindia.ai.android.models.mask.AddMaskRequestBodyMO;
@@ -146,6 +149,9 @@ public interface CoreApi {
     String GET_CLIENT_LIST = "api/Customer/GetCustomerContactsBySiteId";
     String UPDATE_NUDGE_RESPONSE = "api/NudgeNotification/UpdatedResponse";
     String GET_PENDING_NUDGES = "api/NudgeNotification/GetNudgeNotificationResponses";
+    String GET_STATE_DISTRICT = "api/DefenceNomination/GetCDNDropDown";
+    String GET_NOMINATION_SUMMARY = "api/DefenceNomination/NomanitionSummary";
+    String ADD_UPDATE_NOMINATION = "api/DefenceNomination/AddUpdate";
 
     @POST(UPDATE_DEVICE_INFO)
     Single<JsonObject> updateDeviceInfo(@Body DeviceInfo item);
@@ -389,4 +395,13 @@ public interface CoreApi {
 
     @GET(GET_PENDING_NUDGES)
     Single<PendingNudgesResponseMO> getPendingNudges(@Query("date") String date);
+
+    @GET(GET_STATE_DISTRICT)
+    Single<CivilNominationResponseMO> getStateDistrict();
+
+    @GET(GET_NOMINATION_SUMMARY)
+    Single<NominationSummaryResponseMO> getNominationSummary();
+
+    @POST(ADD_UPDATE_NOMINATION)
+    Single<BaseNetworkResponse> addUpdateNomination(@Body AddNominationBodyMO body);
 }

@@ -114,7 +114,7 @@
                         android:layout_gravity="center"
                         android:pointerIcon="arrow"
                         android:popupBackground="@color/colorWhite"
-                        app:listener="@{vm.listener}"
+                        app:listener="@{vm.districtSpinnerListener}"
                         app:rewardFineReasons="@{vm.obsDistrictSpinnerList}" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -259,6 +259,29 @@
                 android:paddingStart="@dimen/_16sdp"
                 android:paddingEnd="@dimen/_16sdp"
                 android:text="@{vm.obsEmployeeName}" />
+
+            <RelativeLayout
+                android:id="@+id/takeEmployeePicLayout"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:background="@drawable/border_round_greystroke_whitebody"
+                android:onClick="@{vm::onViewClicks}"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    app:setImagePreview="@{vm.photoAttachmentObs.localFilePath}" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_add_photo" />
+
+            </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/addNominationButton"
