@@ -38,6 +38,7 @@ class CivilDefenceFragment : IopsBaseFragment() {
         liveData.observe(this) { message: Message ->
             when (message.what) {
                 NavigationConstants.ON_ADD_CIVIL_NOMINATION -> openAddNominationBottomSheet()
+                NavigationConstants.ON_REFRESH_NOMINATION -> viewModel.initDashboardUi()
             }
         }
     }

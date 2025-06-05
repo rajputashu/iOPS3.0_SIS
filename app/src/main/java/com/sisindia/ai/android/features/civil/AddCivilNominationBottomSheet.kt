@@ -50,6 +50,8 @@ class AddCivilNominationBottomSheet : IopsBaseBottomSheetDialogFragment() {
                     nominationPicLauncher.launch(intent)
                 }
                 NavigationConstants.ON_SUCCESSFUL_ADD_NOMINATION -> {
+                    message.what = NavigationConstants.ON_REFRESH_NOMINATION
+                    liveData.postValue(message)
                     dismissAllowingStateLoss()
                 }
             }

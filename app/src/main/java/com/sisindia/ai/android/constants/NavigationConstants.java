@@ -249,4 +249,5 @@ public interface NavigationConstants {
     int NO_JSON_DATA_FOUND = 245;
     int ON_ADD_CIVIL_NOMINATION = 246;
     int ON_SUCCESSFUL_ADD_NOMINATION = 247;
+    int ON_REFRESH_NOMINATION = 248;
 }
