@@ -248,4 +248,5 @@ public interface NavigationConstants {
     int OPEN_DYNAMIC_NUDGE_SCREEN = 244;
     int NO_JSON_DATA_FOUND = 245;
     int ON_ADD_CIVIL_NOMINATION = 246;
+    int ON_SUCCESSFUL_ADD_NOMINATION = 247;
 }

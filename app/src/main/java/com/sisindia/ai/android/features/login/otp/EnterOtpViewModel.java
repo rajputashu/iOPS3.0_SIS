@@ -35,6 +35,7 @@ import com.sisindia.ai.android.workers.ComplaintWorker;
 import com.sisindia.ai.android.workers.EmployeesRewardFineWorker;
 import com.sisindia.ai.android.workers.GrievanceWorker;
 import com.sisindia.ai.android.workers.RotaTaskWorker;
+import com.sisindia.ai.android.workers.StateDistrictWorker;
 import com.sisindia.ai.android.workers.SyncPoaWorker;
 import com.sisindia.ai.android.workers.UserMasterDataWorkerV2;
 import com.sisindia.ai.android.workers.WeekRotaTaskWorker;
@@ -91,17 +92,17 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
     private void onOtpSubmitSuccess(AuthResponse authResponse) {
         if (authResponse != null) {
 
-            long delayTime = 32000;
+            long delayTime = 50000;
             setIsLoading(false);
             isDataSyncing.set(true);
             calculateLoadingPercentage(delayTime);
+//            calculateLoadingPercentage();
 
             //Delete AI profile from database
             addDisposable(aiProfileDao.deleteAiProfile()
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(rows -> {
-
                     }, Timber::e));
 
             Prefs.putBoolean(PrefConstants.IS_LOGGED_IN, true);
@@ -139,34 +140,6 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
                         }, this::onApiError));
             });
 
-            //update device info
-            /*FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-
-                Prefs.putString(PrefConstants.FCM_TOKEN, instanceIdResult.getToken());
-                deviceInfo.appToken = instanceIdResult.getToken();
-                deviceInfo.phoneNumber = Prefs.getString(PrefConstants.COUNTRY_CODE).concat("-").concat(Prefs.getString(PrefConstants.USER_MOBILE_NUMBER));
-
-                addDisposable(coreApi.updateDeviceInfo((deviceInfo))
-                        .compose(transformSingle())
-                        .subscribe(jsonObject -> Timber.i("Device Info update success"), this::onApiError));
-
-                addDisposable(coreApi.fetchAIProfile()
-                        .compose(transformSingle())
-                        .subscribe(response -> {
-                            if (response != null && response.getAiProfileData() != null) {
-                                Prefs.putInt(PrefConstants.AREA_INSPECTOR_ID, response.getAiProfileData().id);
-                                Prefs.putString(PrefConstants.AREA_INSPECTOR_NAME, response.getAiProfileData().employeeName);
-                                Prefs.putString(PrefConstants.AREA_INSPECTOR_CODE, response.getAiProfileData().employeeNo);
-                                addDisposable(aiProfileDao.insertMasterAIDetails(response.getAiProfileData())
-                                        .subscribeOn(Schedulers.newThread())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(row -> Timber.i("Ai Profile inserted"), Timber::e));
-                            } else {
-                                showToast("Unable to get Profile");
-                            }
-                        }, this::onApiError));
-            });*/
-
             oneTimeWorkerWithNetwork(CommonMasterDataWorker.class);
             oneTimeWorkerWithNetwork(UserMasterDataWorkerV2.class);
 
@@ -186,6 +159,8 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
 
             /*SYNCING EMPLOYEES AND FINE-REWARD DATA*/
             oneTimeWorkerWithNetwork(EmployeesRewardFineWorker.class);
+            //Syncing State and District Data
+            oneTimeWorkerWithNetwork(StateDistrictWorker.class);
 
             handler.postDelayed(this::syncAtRiskAndIpPoaFromServer, delayTime);
 
@@ -193,11 +168,6 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
             Toast.makeText(getApplication(), "Invalid Authentication", Toast.LENGTH_SHORT).show();
         }
     }
-
-    /*public void onEditNumberClick(View view) {
-        message.what = OPEN_LOGIN;
-        liveData.postValue(message);
-    }*/
 
     public void onResendOtpClick(View view) {
         setIsLoading(true);
@@ -234,13 +204,13 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
             oneTimeWorkerWithInputData(SyncPoaWorker.class, improvementData);
             message.what = OPEN_DASH_BOARD;
             liveData.postValue(message);
-        }, 5000);
+        }, 3000);
     }
 
     private CountDownTimer cTimer = null;
     public ObservableInt percentageTime = new ObservableInt(0);
 
-    private void calculateLoadingPercentage(long loaderTime) {
+    /*private void calculateLoadingPercentage(long loaderTime) {
         long finalTime = loaderTime + 4000;
         cTimer = new CountDownTimer(finalTime, 2000) {
             public void onTick(long tickTime) {
@@ -256,7 +226,32 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
             }
         };
         cTimer.start();
+    }*/
+
+    private void calculateLoadingPercentage(long finalTime) {
+//        long finalTime = 60000;
+
+        cTimer = new CountDownTimer(finalTime, 2000) {
+            public void onTick(long tickTime) {
+                int percentage = (int) ((tickTime * 100) / finalTime);
+                int updatedPercentage = 100 - percentage;
+                percentageTime.set(updatedPercentage);
+
+                message.what = ON_UPDATING_LOADING_TIME;
+                message.arg1 = updatedPercentage;
+                liveData.postValue(message);
+            }
+
+            public void onFinish() {
+                percentageTime.set(100);
+                message.what = ON_UPDATING_LOADING_TIME;
+                message.arg1 = 100;
+                liveData.postValue(message);
+            }
+        };
+        cTimer.start();
     }
+
 
     public void cancelTimer() {
         if (cTimer != null)

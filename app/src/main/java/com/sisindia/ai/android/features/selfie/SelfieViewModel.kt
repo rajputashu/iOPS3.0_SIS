@@ -91,10 +91,6 @@ class SelfieViewModel @Inject constructor(val app: Application) : IopsBaseViewMo
             liveData.postValue(message)
         } else if (view.id == R.id.selfieConfirmButton) {
             val item: AttachmentEntity = photoAttachmentObs.get()!!
-            if (item == null) {
-                showToast("Error in image capture")
-                return
-            }
             item.isFileSaved = true
             message.obj = item
             message.what = NavigationConstants.ON_IMAGE_CONFIRM_V2

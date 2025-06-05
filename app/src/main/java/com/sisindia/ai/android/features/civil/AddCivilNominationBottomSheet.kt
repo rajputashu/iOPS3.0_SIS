@@ -1,17 +1,22 @@
 package com.sisindia.ai.android.features.civil
 
+import android.app.Activity
 import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
 import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseBottomSheetDialogFragment
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.databinding.BottomSheetAddNominationBinding
+import com.sisindia.ai.android.features.imagecapture.CaptureImageActivityV2.Companion.newIntent
+import com.sisindia.ai.android.room.entities.AttachmentEntity
+import org.parceler.Parcels.unwrap
 
 /**
- * Created by Ashu Rajput on 5/1/2021.
+ * Created by Ashu Rajput on 5/06/2025.
  */
 class AddCivilNominationBottomSheet : IopsBaseBottomSheetDialogFragment() {
 
@@ -40,12 +45,11 @@ class AddCivilNominationBottomSheet : IopsBaseBottomSheetDialogFragment() {
     override fun initViewState() {
         liveData.observe(this) { message: Message ->
             when (message.what) {
-                NavigationConstants.ON_UPDATING_SPINNER_POSITION -> {
-                    binding.sectorOrStatusSpinner.setSelection(message.arg1)
+                NavigationConstants.ON_TAKE_PICTURE -> {
+                    val intent = newIntent(requireActivity(), message.obj as AttachmentEntity)
+                    nominationPicLauncher.launch(intent)
                 }
-                NavigationConstants.ON_SALES_REF_ADDED_UPDATED_SUCCESSFULLY -> {
-                    message.what = NavigationConstants.ON_REFRESHING_SALES_REFERENCE
-                    liveData.postValue(message)
+                NavigationConstants.ON_SUCCESSFUL_ADD_NOMINATION -> {
                     dismissAllowingStateLoss()
                 }
             }
@@ -65,4 +69,16 @@ class AddCivilNominationBottomSheet : IopsBaseBottomSheetDialogFragment() {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme)
     }
 
+    private var nominationPicLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.extras.apply {
+                    if (this!!.containsKey(AttachmentEntity::class.java.simpleName)) {
+                        viewModel.apply {
+                            photoAttachmentObs.set(unwrap(getParcelable(AttachmentEntity::class.java.simpleName)))
+                        }
+                    }
+                }
+            }
+        }
 }
