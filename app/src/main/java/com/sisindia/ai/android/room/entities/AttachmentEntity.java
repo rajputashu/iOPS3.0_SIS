@@ -142,7 +142,7 @@ public class AttachmentEntity {
         DISBANDMENT_IMAGE(111, "DISBANDMENT"),
         PRACTO_APP_INSTALL(112, "PRACTO_APP"),
         PRACTO_APP_NOT_INSTALL(113, "PRACTO_APP"),
-        CD_NOMINATION(114, "CIVIL_DEF_NOMINATION"),
+        CD_NOMINATION(114, "NOMINATION"),
         UNKNOWN(0, "sourceName");
 
         private final int sourceType;

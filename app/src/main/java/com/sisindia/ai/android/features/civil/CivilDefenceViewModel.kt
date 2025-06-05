@@ -86,7 +86,7 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
             selectedStatePos = pos
             if (pos > 0) {
                 if (::stateListFromDB.isInitialized && stateListFromDB.isNotEmpty()) {
-                    fetchDistrictsViaState(stateListFromDB[pos].id!!)
+                    fetchDistrictsViaState(stateListFromDB[pos-1].id!!)
                 }
             } else {
                 obsDistrictSpinnerList.set(arrayListOf("Select District"))
