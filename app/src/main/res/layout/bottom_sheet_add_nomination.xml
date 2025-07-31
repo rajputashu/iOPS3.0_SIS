@@ -9,7 +9,9 @@
             name="vm"
             type="com.sisindia.ai.android.features.civil.CivilDefenceViewModel" />
 
-        <import type="android.view.View" />
+        <import type="android.text.TextUtils"/>
+
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
@@ -246,9 +248,10 @@
                 style="@style/BlackTitleTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingStart="@dimen/_18sdp"
+                android:paddingEnd="@dimen/_1sdp"
+                android:visibility="@{TextUtils.isEmpty(vm.obsEmployeeName) ? View.GONE : View.VISIBLE}"
                 android:text="@string/string_employee_name" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -256,9 +259,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
+                android:paddingStart="@dimen/_18sdp"
+                android:paddingEnd="@dimen/_1sdp"
+                android:visibility="@{TextUtils.isEmpty(vm.obsEmployeeName) ? View.GONE : View.VISIBLE}"
                 android:text="@{vm.obsEmployeeName}" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_enter_here"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@={vm.obsTempRegNo}"
+                        tools:ignore="Autofill,TextFields" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:text="@string/temp_reg_num_id" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/takeEmployeePicLayout"
@@ -266,7 +316,7 @@
                 android:layout_height="@dimen/_60sdp"
                 android:background="@drawable/border_round_greystroke_whitebody"
                 android:onClick="@{vm::onViewClicks}"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginStart="@dimen/_16sdp">
 
                 <androidx.appcompat.widget.AppCompatImageView

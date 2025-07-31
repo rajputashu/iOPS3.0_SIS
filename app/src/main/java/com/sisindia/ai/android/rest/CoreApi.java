@@ -21,6 +21,7 @@ import com.sisindia.ai.android.models.ReviewInformationResponse;
 import com.sisindia.ai.android.models.TableSyncResponse;
 import com.sisindia.ai.android.models.UserOnBoardModel;
 import com.sisindia.ai.android.models.civil.AddNominationBodyMO;
+import com.sisindia.ai.android.models.civil.CivilEmpResponseMO;
 import com.sisindia.ai.android.models.civil.CivilNominationResponseMO;
 import com.sisindia.ai.android.models.civil.NominationSummaryResponseMO;
 import com.sisindia.ai.android.models.kits.KitDistributionApiBodyMO;
@@ -150,8 +151,9 @@ public interface CoreApi {
     String UPDATE_NUDGE_RESPONSE = "api/NudgeNotification/UpdatedResponse";
     String GET_PENDING_NUDGES = "api/NudgeNotification/GetNudgeNotificationResponses";
     String GET_STATE_DISTRICT = "api/DefenceNomination/GetCDNDropDown";
-    String GET_NOMINATION_SUMMARY = "api/DefenceNomination/NomanitionSummary";
+    String GET_NOMINATION_SUMMARY = "api/DefenceNomination/NominationSummary";
     String ADD_UPDATE_NOMINATION = "api/DefenceNomination/AddUpdate";
+    String CIVIL_EMP_VALIDATION = "api/DefenceNomination/EmployeeValidation";
 
     @POST(UPDATE_DEVICE_INFO)
     Single<JsonObject> updateDeviceInfo(@Body DeviceInfo item);
@@ -167,6 +169,9 @@ public interface CoreApi {
 
     @GET(GET_EMPLOYEE_DETAIL)
     Single<EmployeeResponse> getEmployeeByEmployeeNo(@Query("employeeNo") String employeeNo);
+
+    @GET(CIVIL_EMP_VALIDATION)
+    Single<CivilEmpResponseMO> getCivilEmpInformation(@Query("employeeNo") String employeeNo);
 
     /*@GET(GET_EMPLOYEE_REWARD_SUMMARY)
     Single<EmployeeRewardSummaryResponse> getEmployeeRewardSummary(@Query("employeeNo") String employeeNo);*/

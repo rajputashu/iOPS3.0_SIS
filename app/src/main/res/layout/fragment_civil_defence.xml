@@ -89,7 +89,7 @@
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/_19ssp"
-                    app:htmlText="@{@string/dyn_till_date(vm.obsTillDateCount)}" />
+                    app:htmlText="@{@string/dyn_till_date(vm.obsTillDateCount,vm.obsTargetCount)}" />
 
             </LinearLayout>
 
