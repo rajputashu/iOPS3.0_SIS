@@ -46,6 +46,7 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
 
     val obsTodayCount = ObservableField("0")
     val obsTillDateCount = ObservableField("0")
+    val obsTargetCount = ObservableField("0")
     val obsIsDataAvailable = ObservableBoolean(true)
     val nominationAdapter = CivilNominationAdapter()
 
@@ -56,6 +57,7 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
     var selectedDistrictPos = 0
     var selectedSitePos = 0
     val obsRegNo = ObservableField("")
+    val obsTempRegNo = ObservableField("")
     val obsEmployeeName = ObservableField("")
     private lateinit var siteListFromDB: List<SiteEntity>
     private lateinit var stateListFromDB: List<StatesEntity>
@@ -86,7 +88,7 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
             selectedStatePos = pos
             if (pos > 0) {
                 if (::stateListFromDB.isInitialized && stateListFromDB.isNotEmpty()) {
-                    fetchDistrictsViaState(stateListFromDB[pos-1].id!!)
+                    fetchDistrictsViaState(stateListFromDB[pos - 1].id!!)
                 }
             } else {
                 obsDistrictSpinnerList.set(arrayListOf("Select District"))
@@ -136,23 +138,26 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
                     val summaryList = arrayListOf<CivilNominationMO>()
                     var todayCount = 0
                     var tillDateCount = 0
+                    var totalTarget = 0
                     it.dataList.forEach { mo ->
                         summaryList.add(CivilNominationMO(district = mo.districtName,
                             nomination = mo.tillDateCount))
                         todayCount += mo.todayCount
                         tillDateCount += mo.tillDateCount
+                        totalTarget += mo.target
                     }
                     if (summaryList.isNotEmpty()) {
                         nominationAdapter.clearAndSetItems(summaryList)
                         obsTodayCount.set("" + todayCount)
                         obsTillDateCount.set("" + tillDateCount)
+                        obsTargetCount.set("" + totalTarget)
                     }
 
                 } else
                     showToast(it?.statusMessage)
             }, {
                 isLoading.set(View.GONE)
-                showToast("Internet not available, please try again...")
+                showToast("Internal server error, please try later...")
             }))
     }
 
@@ -222,17 +227,18 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
         }
 
         isLoading.set(View.VISIBLE)
-        addDisposable(coreApi.getEmployeeByEmployeeNo(obsRegNo.get().toString())
+        addDisposable(coreApi.getCivilEmpInformation(obsRegNo.get().toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 isLoading.set(View.GONE)
                 if (it.statusCode == 200) {
-                    if (it.emp != null) {
-                        selectedEmployeeId = it.emp.employeeId
-                        obsEmployeeName.set(it.emp.employeeName)
+                    if (it.data?.empData != null) {
+                        selectedEmployeeId = it.data.empData.employeeId
+                        obsEmployeeName.set(it.data.empData.employeeName)
+                    } else {
+                        showToast(it.data?.msg)
                     }
-
                 } else
                     showToast(it?.statusMessage)
             }, {
@@ -252,6 +258,8 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
             showToast("Please enter valid registration number")
         else if (obsEmployeeName.get().isNullOrEmpty())
             showToast("Please get employee information by pressing arrow button")
+        else if (obsTempRegNo.get().isNullOrEmpty())
+            showToast("Please enter valid temporary registration number id")
         else if (photoAttachmentObs.get() == null || TextUtils.isEmpty(photoAttachmentObs.get()!!.localFilePath)) {
             showToast("Its mandatory to take photo of employee")
         } else {
@@ -267,6 +275,7 @@ class CivilDefenceViewModel @Inject constructor(val app: Application) : IopsBase
         body.districtId = districtListFromDB[selectedDistrictPos - 1].id
         body.siteId = siteListFromDB[selectedSitePos - 1].id
         body.employeeId = selectedEmployeeId
+        body.tempRegNoId = obsTempRegNo.get()
         body.image = imagePath
 
         addDisposable(coreApi.addUpdateNomination(body).subscribeOn(Schedulers.io())

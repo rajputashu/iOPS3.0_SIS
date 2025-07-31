@@ -17,6 +17,8 @@ data class NominationSummaryDataMO(
     val tillDateCount: Int = 0,
     @SerializedName("todayCount")
     val todayCount: Int = 0,
+    @SerializedName("target")
+    val target: Int = 0,
     @SerializedName("districtName")
     val districtName: String? = null
 )

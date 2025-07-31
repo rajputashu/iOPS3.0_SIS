@@ -866,12 +866,13 @@
     <string name="civil_defence_nomination">Civil Defence Nomination</string>
 
     <string name="dyn_today"><b>%1s</b><![CDATA[<small><small><font color=#eda6ab><br>Today</font></small></small>]]></string>
-    <string name="dyn_till_date"><b>%1s</b><![CDATA[<small><small><font color=#eda6ab><br>Till Date</font></small></small>]]></string>
+    <string name="dyn_till_date"><b>%1s/%2s</b><![CDATA[<small><small><font color=#eda6ab><br>Till Date</font></small></small>]]></string>
     <string name="string_district">District</string>
     <string name="string_nomination">Nomination</string>
     <string name="add_nomination">Add Nomination</string>
     <string name="select_employee_for_nomination">Select employee for civil defence nomination</string>
     <string name="string_employee_name">Employee Name</string>
     <string name="string_state">State</string>
+    <string name="temp_reg_num_id">Temporary RegNo Id-Civil Defence</string>
 
 </resources>

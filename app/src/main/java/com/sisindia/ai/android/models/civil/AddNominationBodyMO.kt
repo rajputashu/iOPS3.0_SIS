@@ -21,6 +21,9 @@ data class AddNominationBodyMO(
     @SerializedName("image")
     var image: String? = null,
 
+    @SerializedName("tempRegNoId")
+    var tempRegNoId: String? = null,
+
     @SerializedName("lat")
     var lat: Double = Prefs.getDouble(PrefConstants.LATITUDE),
 
