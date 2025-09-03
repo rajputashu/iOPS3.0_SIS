@@ -1,5 +1,6 @@
 package com.sisindia.ai.android.di.factories
 
+//import com.sisindia.ai.android.features.chatbot.ChatBotViewModel
 import androidx.collection.ArrayMap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,20 +12,29 @@ import com.sisindia.ai.android.features.addgrievances.AddedGrievanceViewModel
 import com.sisindia.ai.android.features.addgrievances.GuardGrievanceDetailsViewModel
 import com.sisindia.ai.android.features.addkitrequest.AddKitRequestViewModel
 import com.sisindia.ai.android.features.addkitrequest.AddedKitRequestViewModel
-import com.sisindia.ai.android.features.addtask.*
+import com.sisindia.ai.android.features.addtask.AddTaskViewModel
+import com.sisindia.ai.android.features.addtask.CreateTaskViewModel
+import com.sisindia.ai.android.features.addtask.SelectBarrackViewModel
+import com.sisindia.ai.android.features.addtask.SelectReasonViewModel
+import com.sisindia.ai.android.features.addtask.SelectSiteViewModel
+import com.sisindia.ai.android.features.addtask.SelectSubTaskTypeViewModel
+import com.sisindia.ai.android.features.addtask.SelectTaskTypeViewModel
 import com.sisindia.ai.android.features.ailocation.AILocationViewModel
 import com.sisindia.ai.android.features.akr.AKRViewModel
 import com.sisindia.ai.android.features.akr.details.KitAssignedDistributedViewModel
 import com.sisindia.ai.android.features.akr.details.KitReplaceViewModel
 import com.sisindia.ai.android.features.barracks.inspection.BarrackInspectionViewModel
-import com.sisindia.ai.android.features.barracks.inspection.frags.*
+import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackInspectionHomeViewModel
+import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackMetLandlordViewModel
+import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackOthersViewModel
+import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackSpaceViewModel
+import com.sisindia.ai.android.features.barracks.inspection.frags.BarrackStrengthViewModel
 import com.sisindia.ai.android.features.barracks.listing.BarrackListingViewModel
 import com.sisindia.ai.android.features.barracks.listing.BarrackTaggingViewModel
 import com.sisindia.ai.android.features.billcollection.BillCollectionViewModel
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionViewModel
 import com.sisindia.ai.android.features.billsubmit.sheet.BillChecklistViewModel
 import com.sisindia.ai.android.features.civil.CivilDefenceViewModel
-//import com.sisindia.ai.android.features.chatbot.ChatBotViewModel
 import com.sisindia.ai.android.features.clientcoordination.ClientCoordinationViewModel
 import com.sisindia.ai.android.features.conveyance.ConveyanceViewModel
 import com.sisindia.ai.android.features.dashboard.DashBoardViewModel
@@ -109,6 +119,7 @@ import com.sisindia.ai.android.features.timline.TimeLineViewModel
 import com.sisindia.ai.android.features.timline.TodayTimeLineViewModel
 import com.sisindia.ai.android.features.timline.YesterDayTimeLineViewModel
 import com.sisindia.ai.android.features.uar.UnitAtRiskViewModel
+import com.sisindia.ai.android.features.uar.add.AddPoaAndIpViewModel
 import com.sisindia.ai.android.features.uar.closepoa.ClosePOAViewModel
 import com.sisindia.ai.android.features.uar.poa.POAViewModel
 import com.sisindia.ai.android.features.units.DashBoardUnitsViewModel
@@ -527,6 +538,9 @@ constructor(viewModelSubComponent: ViewModelSubComponent) : ViewModelProvider.Fa
 
         creators[CivilDefenceViewModel::class.java] =
             Callable<ViewModel> { viewModelSubComponent.vmCivilDef() }
+
+        creators[AddPoaAndIpViewModel::class.java] =
+            Callable<ViewModel> { viewModelSubComponent.vmAddPoaIP() }
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

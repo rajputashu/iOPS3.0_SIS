@@ -65,6 +65,10 @@ public class GuardAddRewardFineViewModel extends IopsBaseViewModel {
 
     public SpinnersListener listener = new SpinnersListener() {
         @Override
+        public void onSpinnerItemAndTypeSelected(int pos, int typeId) {
+        }
+
+        @Override
         public void onSpinnerOptionSelected(int pos) {
             selectedPos = pos;
         }

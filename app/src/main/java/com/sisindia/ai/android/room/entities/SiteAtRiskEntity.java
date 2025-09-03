@@ -43,6 +43,10 @@ public class SiteAtRiskEntity {
     @SerializedName("siteRiskPos")
     public List<SiteRiskPoaEntity> siteRiskPos;
 
+    @Ignore
+    @SerializedName("siteRiskReasons")
+    public List<SiteRiskReasonsEntity> siteRiskReasons;
+
     public SiteAtRiskEntity() {
     }
 }

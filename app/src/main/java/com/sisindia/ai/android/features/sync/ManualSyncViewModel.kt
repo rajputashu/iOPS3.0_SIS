@@ -3,7 +3,9 @@ package com.sisindia.ai.android.features.sync
 import android.app.Application
 import android.os.Handler
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
@@ -19,7 +21,11 @@ import com.sisindia.ai.android.models.DeviceInfo
 import com.sisindia.ai.android.models.TableSyncResponse
 import com.sisindia.ai.android.models.TableSyncResponse.TableSyncData
 import com.sisindia.ai.android.rest.AttachmentUploadAPI
-import com.sisindia.ai.android.room.dao.*
+import com.sisindia.ai.android.room.dao.AIProfileDao
+import com.sisindia.ai.android.room.dao.AttachmentDao
+import com.sisindia.ai.android.room.dao.SiteAtRiskDao
+import com.sisindia.ai.android.room.dao.SiteRiskPoaDao
+import com.sisindia.ai.android.room.dao.TaskDao
 import com.sisindia.ai.android.room.entities.AIProfileEntity
 import com.sisindia.ai.android.room.entities.AttachmentEntity
 import com.sisindia.ai.android.room.entities.DutyStatusEntity
@@ -27,7 +33,14 @@ import com.sisindia.ai.android.room.entities.TaskEntity
 import com.sisindia.ai.android.uimodels.attachments.SelfieAttachmentMetadata
 import com.sisindia.ai.android.utils.FileUtils
 import com.sisindia.ai.android.utils.TimeUtils
-import com.sisindia.ai.android.workers.*
+import com.sisindia.ai.android.workers.AtRiskPoaWorker
+import com.sisindia.ai.android.workers.AttachmentsUploadWorker
+import com.sisindia.ai.android.workers.CommonMasterDataWorker
+import com.sisindia.ai.android.workers.ComplaintWorker
+import com.sisindia.ai.android.workers.GrievanceWorker
+import com.sisindia.ai.android.workers.KitDistributionWorker
+import com.sisindia.ai.android.workers.UpdateBillCollectionWorker
+import com.sisindia.ai.android.workers.UserMasterDataWorkerV2
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -421,6 +434,24 @@ class ManualSyncViewModel @Inject constructor(val app: Application) : IopsBaseVi
                                     }
                                 }, { t: Throwable? -> Timber.e(t) })
                         )
+
+                        addDisposable(siteRiskPoaDao.deleteSiteRiskReasons()
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                Timber.i("ManualSync class SiteRiskReasons deleted")
+                                for (risk in atRiskResponse.siteRisks) {
+                                    if (risk.siteRiskReasons != null && risk.siteRiskReasons.isNotEmpty()) {
+                                        addDisposable(siteRiskPoaDao.insertAllAtRiskReasons(risk.siteRiskReasons)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe({
+                                                Timber.i("siteRiskPos inserted")
+                                            }) { t: Throwable? -> Timber.e(t) })
+                                    }
+                                }
+                            }) { t: Throwable? -> Timber.e(t) })
+
                     } else deleteAtRiskAndPoaDataFromTable()
                 } else {
                     setDefaultStatus()

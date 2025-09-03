@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sisindia.ai.android.room.BaseDao
 import com.sisindia.ai.android.room.entities.SiteAtRiskEntity
+import com.sisindia.ai.android.room.entities.SiteRiskReasonsEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
 
@@ -23,4 +24,7 @@ abstract class SiteAtRiskDao : BaseDao<SiteAtRiskEntity> {
 
     @Query("DELETE FROM SiteAtRiskEntity")
     abstract fun deleteSiteAtRisk(): Completable
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertSiteRiskReason(entity: SiteRiskReasonsEntity): Maybe<Long>
 }

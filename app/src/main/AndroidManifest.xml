@@ -70,10 +70,6 @@
         </activity>
 
         <activity
-            android:name=".features.videocall.VideoCallActivity"
-            android:theme="@style/AppTheme" />
-
-        <activity
             android:name=".features.dashboard.DashBoardActivity"
             android:theme="@style/AppTheme" />
 
@@ -293,6 +289,10 @@
 
         <activity
             android:name=".features.nudges.NudgesDynamicActivity"
+            android:theme="@style/ActivityTheme" />
+
+        <activity
+            android:name=".features.uar.add.AddRiskPoaAndIpActivity"
             android:theme="@style/ActivityTheme" />
 
         <service

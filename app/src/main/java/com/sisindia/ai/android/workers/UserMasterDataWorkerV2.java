@@ -387,6 +387,22 @@ public class UserMasterDataWorkerV2 extends BaseWorker {
                                 }
                             }
                         }, Timber::e));
+
+                addDisposable(siteRiskPoaDao.deleteSiteRiskReasons()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                            Timber.i("SiteRiskReasons deleted");
+                            for (SiteAtRiskEntity risk : data.siteRisks) {
+                                if (risk != null && risk.siteRiskReasons != null && !risk.siteRiskReasons.isEmpty()) {
+                                    addDisposable(siteRiskPoaDao.insertAllAtRiskReasons(risk.siteRiskReasons)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(rows -> Timber.i("siteRiskPos inserted"),
+                                                    Timber::e));
+                                }
+                            }
+                        }, Timber::e));
             }
 
             if (data.siteBillingChecklists != null && data.siteBillingChecklists.size() != 0) {

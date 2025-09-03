@@ -8,6 +8,8 @@
         <variable
             name="vm"
             type="com.sisindia.ai.android.features.issues.IssueManagementViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <RelativeLayout
@@ -57,6 +59,57 @@
                     tools:ignore="RelativeOverlap" />
 
             </RelativeLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_12sdp"
+                android:background="@{vm.isUAR ? @drawable/border_red_body :@drawable/border_round_green}">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/uarStatusLabel"
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:drawableEnd="@{vm.isUAR ? @drawable/ic_uar : @drawable/ic_not_uar}"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@{vm.isUAR ? @string/pre_dashboard_units_at_risks : @string/unit_not_at_risk}"
+                    android:textColor="@color/colorWhite"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--<androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/reasonLabel"
+                    style="@style/BlackSubTitleTextColor10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/site_name"
+                    android:visibility="@{vm.isUAR ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/uarStatusLabel" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_white_body"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="@{vm.siteName}"
+                    android:visibility="@{vm.isUAR ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reasonLabel" />-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tlPlanOfActions"

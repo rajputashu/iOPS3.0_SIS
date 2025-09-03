@@ -7,4 +7,5 @@ package com.sisindia.ai.android.commons
 interface SpinnersListener {
     fun onSpinnerOptionSelected(pos: Int)
     fun onSpinnerOptionSelected(item: Any)
+    fun onSpinnerItemAndTypeSelected(pos: Int, typeId: Int) {}
 }

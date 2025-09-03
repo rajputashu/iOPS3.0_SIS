@@ -6,14 +6,15 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseFragment
 import com.sisindia.ai.android.constants.IntentConstants
 import com.sisindia.ai.android.constants.IntentRequestCodes
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.databinding.FragmentUarPoaBinding
+import com.sisindia.ai.android.features.uar.add.AddRiskPoaAndIpActivity
 import com.sisindia.ai.android.features.uar.poa.POAActivity
 import com.sisindia.ai.android.uimodels.uarpoa.AtRiskAndPoaDetailsMO
 
@@ -48,12 +49,16 @@ class UnitAtRiskFragment : IopsBaseFragment() {
     }
 
     override fun initViewState() {
-        liveData.observe(this,
-            Observer { message: Message ->
-                when (message.what) {
-                    NavigationConstants.OPEN_POA_SCREEN -> openPOAScreen(message.obj as AtRiskAndPoaDetailsMO)
+        liveData.observe(this) { message: Message ->
+            when (message.what) {
+                NavigationConstants.OPEN_POA_SCREEN -> openPOAScreen(message.obj as AtRiskAndPoaDetailsMO)
+
+                NavigationConstants.ON_ADDING_NEW_POA -> {
+                    commonLauncher.launch(Intent(activity, AddRiskPoaAndIpActivity::class.java)
+                        .putExtra(IntentConstants.IS_ADDING_POA, true))
                 }
-            })
+            }
+        }
     }
 
     override fun onCreated() {
@@ -81,4 +86,11 @@ class UnitAtRiskFragment : IopsBaseFragment() {
     fun refreshUarUI() {
         viewModel.onPOAsSyncClick()
     }
+
+    private var commonLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK)
+//                viewModel.initPoaDashboard()
+                updateUarUI()
+        }
 }

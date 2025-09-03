@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.sisindia.ai.android.features.uar.PoaAndImprovePlansMO" />
+
+        <import type="com.sisindia.ai.android.utils.TimeUtils" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:orientation="vertical">
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_top_round_grey_body">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_12sdp"
+                android:text="@{model.planType}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/border_green_body"
+                android:gravity="center"
+                android:padding="@dimen/_3sdp"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:uarStatusCode="@{model.status}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/_12sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/assignedToIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_uc_profile_grey" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/assignedToValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                app:htmlText="@{@string/dynamic_string_assigned_to(model.assignedToEmployeeName)}"
+                app:layout_constraintBottom_toBottomOf="@+id/assignedToIcon"
+                app:layout_constraintStart_toEndOf="@+id/assignedToIcon"
+                app:layout_constraintTop_toTopOf="@+id/assignedToIcon" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/categoryIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/assignedToIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_category" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                app:htmlText="@{@string/dynamic_string_category(model.category)}"
+                app:layout_constraintBottom_toBottomOf="@+id/categoryIcon"
+                app:layout_constraintStart_toEndOf="@+id/categoryIcon"
+                app:layout_constraintTop_toTopOf="@+id/categoryIcon" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/assignedDateIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/assignedToIcon"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/assignedDateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                app:htmlText="@{@string/dynamic_assigned_date(TimeUtils.formatServerDateToDDMMYYYY(model.assignedDateTime))}"
+                app:layout_constraintBottom_toBottomOf="@+id/assignedDateIcon"
+                app:layout_constraintStart_toEndOf="@+id/assignedDateIcon"
+                app:layout_constraintTop_toTopOf="@+id/assignedDateIcon" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/closingDateIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/assignedDateIcon"
+                app:layout_constraintTop_toBottomOf="@+id/categoryIcon"
+                app:srcCompat="@drawable/ic_calendar" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                app:htmlText="@{model.closedDateTime == null ? `-`:@string/dynamic_closing_date(model.closedDateTime)}"
+                app:layout_constraintBottom_toBottomOf="@+id/closingDateIcon"
+                app:layout_constraintStart_toEndOf="@+id/closingDateIcon"
+                app:layout_constraintTop_toTopOf="@+id/closingDateIcon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include layout="@layout/include_horizontal_divider_line" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:text="@string/remarks" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackTitleTextColor12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bottom_white_body"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:text="@{model.description}" />-->
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -127,8 +127,9 @@ class HandshakeFragViewModel @Inject constructor(val app: Application) : IopsBas
             isInformationAvailable.set(VISIBLE)
         detailLayoutVisibility.set(VISIBLE)
         isYesBtnEnabled.set(true)
-        if (companyId != 1)
-            showEditButton.set(VISIBLE)
+        /*if (companyId != 1)
+            showEditButton.set(VISIBLE)*/
+        showEditButton.set(VISIBLE)
         updateSelectedTV(view)
     }
 
@@ -139,12 +140,17 @@ class HandshakeFragViewModel @Inject constructor(val app: Application) : IopsBas
         callToOpenReasonBottomSheet()
         isInformationAvailable.set(GONE)
 
-        if (companyId != 1) {
+        /*if (companyId != 1) {
             if (reasonNotMetClient.get().toString().isEmpty())
                 showEditButton.set(GONE)
             else
                 showEditButton.set(VISIBLE)
-        }
+        }*/
+
+        if (reasonNotMetClient.get().toString().isEmpty())
+            showEditButton.set(GONE)
+        else
+            showEditButton.set(VISIBLE)
     }
 
     fun onAddEditClient(view: View) {

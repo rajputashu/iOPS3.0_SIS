@@ -90,3 +90,8 @@ enum class GroupCompany(val companyId: Int) {
 enum class KitOTP(val kitOtpType: Int) {
     OTP_NOT_REQUIRED(1), VERIFY_SKIP_OTP(2), MANDATORY_OTP(3);
 }
+
+enum class SpinnerTypes(val typeId: Int) {
+    RISK_CATEGORY(1), REASON_FOR_RISK(2), POA_TYPE(3), ACTION_POINT(4),
+    IP_PLAN_TYPE(5), IP_CATEGORY(6), IP_ACTION_POINT(7), ASSIGNED_TO(8);
+}
