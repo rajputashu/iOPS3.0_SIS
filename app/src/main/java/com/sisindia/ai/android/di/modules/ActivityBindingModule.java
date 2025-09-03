@@ -50,12 +50,12 @@ import com.sisindia.ai.android.features.taskcheck.postcheck.guardcheck.ScanGuard
 import com.sisindia.ai.android.features.taskcheck.postcheck.postguardscan.PostGuardScanActivity;
 import com.sisindia.ai.android.features.taskcheck.postcheck.summary.GuardSummaryActivity;
 import com.sisindia.ai.android.features.taskcheck.strengthcheck.StrengthCheckActivity;
+import com.sisindia.ai.android.features.uar.add.AddRiskPoaAndIpActivity;
 import com.sisindia.ai.android.features.uar.closepoa.ClosePOAActivity;
 import com.sisindia.ai.android.features.uar.poa.POAActivity;
 import com.sisindia.ai.android.features.units.addedit.AddEditPostActivity;
 import com.sisindia.ai.android.features.units.details.UnitDetailActivity;
 import com.sisindia.ai.android.features.units.registermap.MapRegistersActivity;
-import com.sisindia.ai.android.features.videocall.VideoCallActivity;
 import com.sisindia.ai.android.mlcore.ScanQRActivity;
 
 import dagger.Binds;
@@ -276,9 +276,13 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract NudgesDynamicActivity bindNudgesDynamic();
 
+    /*@ActivityScoped
+    @ContributesAndroidInjector
+    abstract VideoCallActivity bindVideoCall();*/
+
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract VideoCallActivity bindVideoCall();
+    abstract AddRiskPoaAndIpActivity bindAddRiskPoaIpActivity();
 
     @Binds
     abstract Application bindApplication(IopsApplication application);

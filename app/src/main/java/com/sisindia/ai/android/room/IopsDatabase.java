@@ -149,6 +149,7 @@ import com.sisindia.ai.android.room.entities.SiteEntity;
 import com.sisindia.ai.android.room.entities.SiteExtensionEntity;
 import com.sisindia.ai.android.room.entities.SitePostEntity;
 import com.sisindia.ai.android.room.entities.SiteRiskPoaEntity;
+import com.sisindia.ai.android.room.entities.SiteRiskReasonsEntity;
 import com.sisindia.ai.android.room.entities.SiteShiftEntity;
 import com.sisindia.ai.android.room.entities.SiteStrengthEntity;
 import com.sisindia.ai.android.room.entities.SiteTypeEntity;
@@ -244,6 +245,7 @@ import com.sisindia.ai.android.utils.MetaDataConverter;
         NudgesMasterEntity.class,
         DistrictsEntity.class,
         StatesEntity.class,
+        SiteRiskReasonsEntity.class,
 }, version = 1, exportSchema = false)
 @TypeConverters({MetaDataConverter.class, GeoLocationConverter.class})
 public abstract class IopsDatabase extends RoomDatabase {

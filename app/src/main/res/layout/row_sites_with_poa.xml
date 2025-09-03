@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_12sdp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/uarUnitName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/uarUnitName">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_6sdp"
@@ -86,7 +86,7 @@
                         android:textSize="@dimen/_13ssp"
                         app:drawableEndCompat="@drawable/ic_small_circle_orange" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/string_label_pending"
@@ -106,7 +106,7 @@
                     app:layout_constraintStart_toEndOf="@id/uarPendingLayout"
                     app:layout_constraintTop_toBottomOf="@id/uarUnitName">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_6sdp"
@@ -115,7 +115,7 @@
                         android:textSize="@dimen/_13ssp"
                         app:drawableEndCompat="@drawable/ic_small_circle_green" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/string_label_completed"
@@ -135,7 +135,7 @@
                     app:layout_constraintStart_toEndOf="@id/uarCompletedLayout"
                     app:layout_constraintTop_toBottomOf="@id/uarUnitName">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/_6sdp"
@@ -143,7 +143,7 @@
                         android:textColor="@color/textColorBlackBold"
                         android:textSize="@dimen/_13ssp" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/string_label_total_poa"

@@ -28,9 +28,9 @@ import javax.inject.Inject
  */
 class ImprovementPlansViewModel @Inject constructor(val app: Application) : IopsBaseViewModel(app) {
 
-    val sitesWithPoaCount = ObservableField(getUpdatedSitesWithPoaCount("0"))
+    /*val sitesWithPoaCount = ObservableField(getUpdatedSitesWithPoaCount("0"))
     var planOfActionCount = ObservableField(getUpdatedOpenPoas("0/0"))
-    var labelPendingIPCounts = ObservableField(getUpdatedUARLabelCount("0"))
+    var labelPendingIPCounts = ObservableField(getUpdatedUARLabelCount("0"))*/
     val sitesWithPoaAdapter = SitesWithPoaAdapter()
     val isAtRiskDataAvailable = ObservableBoolean(false)
 
@@ -75,6 +75,11 @@ class ImprovementPlansViewModel @Inject constructor(val app: Application) : Iops
          }
      }*/
 
+    fun onAddImprovementPlans(view: View) {
+        message.what = NavigationConstants.ON_ADDING_NEW_IMPROVE_PLAN
+        liveData.postValue(message)
+    }
+
     fun getHeaderUnitsAndPOAsCount() {
         setIsLoading(true)
         addDisposable(improvementPoaDao.fetchIPSiteAndPoaCount()
@@ -82,9 +87,9 @@ class ImprovementPlansViewModel @Inject constructor(val app: Application) : Iops
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ model ->
                 setIsLoading(false)
-                sitesWithPoaCount.set(getUpdatedSitesWithPoaCount("${model.sitesWithPoa}"))
-                planOfActionCount.set(getUpdatedOpenPoas("${model.pendingPlanPoa}/${model.pendingPlanPoa + model.completedPlanPoa}"))
-                labelPendingIPCounts.set(getUpdatedUARLabelCount("${model.pendingPlanPoa}"))
+//                sitesWithPoaCount.set(getUpdatedSitesWithPoaCount("${model.sitesWithPoa}"))
+//                planOfActionCount.set(getUpdatedOpenPoas("${model.pendingPlanPoa}/${model.pendingPlanPoa + model.completedPlanPoa}"))
+//                labelPendingIPCounts.set(getUpdatedUARLabelCount("${model.pendingPlanPoa}"))
             }, { throwable: Throwable? ->
                 this.onError(throwable!!)
             }))

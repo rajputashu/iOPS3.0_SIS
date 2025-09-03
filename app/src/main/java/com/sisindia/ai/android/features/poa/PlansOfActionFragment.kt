@@ -54,12 +54,12 @@ class PlansOfActionFragment : IopsBaseFragment() {
     }
 
     override fun initViewState() {
-        liveData.observe(this, Observer { message: Message ->
+        liveData.observe(this) { message: Message ->
             when (message.what) {
                 NavigationConstants.ON_IMPROVEMENT_POA_CLICK -> getFragmentFromViewPager(1)
                 NavigationConstants.ON_UNITS_RISK_POA_CLICK -> getFragmentFromViewPager(0)
             }
-        })
+        }
     }
 
     override fun onCreated() {

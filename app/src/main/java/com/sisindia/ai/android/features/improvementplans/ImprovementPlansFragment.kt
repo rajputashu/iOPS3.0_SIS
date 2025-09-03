@@ -6,14 +6,15 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseFragment
 import com.sisindia.ai.android.constants.IntentConstants
 import com.sisindia.ai.android.constants.IntentRequestCodes
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.databinding.FragmentImprovementPlansBinding
+import com.sisindia.ai.android.features.uar.add.AddRiskPoaAndIpActivity
 import com.sisindia.ai.android.uimodels.uarpoa.SitesWithImprovePlansMO
 
 /**
@@ -33,7 +34,8 @@ class ImprovementPlansFragment : IopsBaseFragment() {
     }
 
     override fun initViewModel() {
-        viewModel = getAndroidViewModel(ImprovementPlansViewModel::class.java) as ImprovementPlansViewModel
+        viewModel =
+            getAndroidViewModel(ImprovementPlansViewModel::class.java) as ImprovementPlansViewModel
     }
 
     override fun initViewBinding(inflater: LayoutInflater?, container: ViewGroup?): View {
@@ -47,12 +49,16 @@ class ImprovementPlansFragment : IopsBaseFragment() {
     }
 
     override fun initViewState() {
-        liveData.observe(this,
-            Observer { message: Message ->
-                when (message.what) {
-                    NavigationConstants.OPEN_IMPROVEMENT_PLAN_POA -> openPOAScreen(message.obj as SitesWithImprovePlansMO)
+        liveData.observe(this) { message: Message ->
+            when (message.what) {
+                NavigationConstants.OPEN_IMPROVEMENT_PLAN_POA -> openPOAScreen(message.obj as SitesWithImprovePlansMO)
+
+                NavigationConstants.ON_ADDING_NEW_IMPROVE_PLAN -> {
+                    commonLauncher.launch(Intent(activity, AddRiskPoaAndIpActivity::class.java)
+                        .putExtra(IntentConstants.IS_ADDING_POA, false))
                 }
-            })
+            }
+        }
     }
 
     override fun onCreated() {
@@ -99,4 +105,12 @@ class ImprovementPlansFragment : IopsBaseFragment() {
             }
         })*/
     }
+
+
+    private var commonLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK)
+//                viewModel.initPoaDashboard()
+                updateUarUI()
+        }
 }

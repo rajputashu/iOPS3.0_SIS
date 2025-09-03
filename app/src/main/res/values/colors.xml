@@ -129,5 +129,14 @@
     <color name="colorGradient2">#FFC1272D</color>
     <color name="colorGradient3">#FF7D191D</color>
     <color name="colorAOBg">#951721</color>
+    <color name="rating_color_red">#FF0000</color>
+    <color name="rating_color_green">#04A41A</color>
+    <color name="light_yellow">#FAECCC</color>
+    <color name="green">#04A41A</color>
+    <color name="light_green">#E0F1E2</color>
+    <color name="red_color">#FF0000</color>
+    <color name="light_red_color">#FFE5E5</color>
+    <color name="colorYellowGold">#E5A101</color>
+    <color name="colorLightYellowGold">#20E5A101</color>
 
 </resources>

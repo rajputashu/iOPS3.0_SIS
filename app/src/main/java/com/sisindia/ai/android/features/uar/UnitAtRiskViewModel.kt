@@ -69,12 +69,15 @@ class UnitAtRiskViewModel @Inject constructor(val app: Application) : IopsBaseVi
     }
 
     fun onClickDelegate(view: View) {
-        when (view.id) {
+        /*when (view.id) {
             R.id.headerUAR -> {
                 message.what = NavigationConstants.OPEN_DASH_BOARD_DRAWER
                 liveData.postValue(message)
             }
-        }
+        }*/
+
+        message.what = NavigationConstants.ON_ADDING_NEW_POA
+        liveData.postValue(message)
     }
 
     fun getHeaderUnitsAndPOAsCount() {
@@ -156,7 +159,7 @@ class UnitAtRiskViewModel @Inject constructor(val app: Application) : IopsBaseVi
                         .subscribe({
                             addDisposable(siteAtRiskDao
                                 .insertAllSiteAtRisk(atRiskResponse.siteRisks)
-                                .subscribeOn(Schedulers.computation())
+                                .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe({ rows: List<Long?>? ->
                                     Timber.i("siteRisks inserted")
@@ -178,6 +181,23 @@ class UnitAtRiskViewModel @Inject constructor(val app: Application) : IopsBaseVi
                                 }
                             }
                         }, { t: Throwable? -> Timber.e(t) }))
+
+                    addDisposable(siteRiskPoaDao.deleteSiteRiskReasons()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            Timber.i("ManualSync class SiteRiskReasons deleted")
+                            for (risk in atRiskResponse.siteRisks) {
+                                if (risk.siteRiskReasons != null && risk.siteRiskReasons.isNotEmpty()) {
+                                    addDisposable(siteRiskPoaDao.insertAllAtRiskReasons(risk.siteRiskReasons)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe({
+                                            Timber.i("siteRiskPos inserted")
+                                        }) { t: Throwable? -> Timber.e(t) })
+                                }
+                            }
+                        }) { t: Throwable? -> Timber.e(t) })
 
                     //Updating UI after {syncing data from API and operating on DB}
                     updateUIAfterSync()

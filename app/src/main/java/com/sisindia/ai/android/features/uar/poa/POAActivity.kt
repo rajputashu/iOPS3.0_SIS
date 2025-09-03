@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Message
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseActivity
 import com.sisindia.ai.android.constants.IntentConstants
@@ -53,25 +52,24 @@ class POAActivity : IopsBaseActivity() {
     }
 
     override fun initViewState() {
-        liveData.observe(this,
-            Observer { message: Message ->
-                when (message.what) {
-                    NavigationConstants.OPEN_CLOSE_POA_SCREEN -> {
-                        val poaDataToClose = message.obj as POADetailsMO
-                        poaDataToClose.UnitName = poaHeaderDetails.SiteName
-                        poaDataToClose.pendingPoaCount = poaHeaderDetails.Pending
-                        poaDataToClose.totalPoaCount = poaHeaderDetails.TotalPOAs
-                        startActivity(Intent(this@POAActivity, ClosePOAActivity::class.java)
-                            .putExtra(IntentConstants.POA_DATA, poaDataToClose))
-                    }
-                    NavigationConstants.ON_VIEW_ALL_POA -> {
-                        isSelectedPOAClosed = true
-                        viewModel!!.apply {
-                            getUpdatedPOACountAfterClose()
-                        }
+        liveData.observe(this) { message: Message ->
+            when (message.what) {
+                NavigationConstants.OPEN_CLOSE_POA_SCREEN -> {
+                    val poaDataToClose = message.obj as POADetailsMO
+                    poaDataToClose.UnitName = poaHeaderDetails.SiteName
+                    poaDataToClose.pendingPoaCount = poaHeaderDetails.Pending
+                    poaDataToClose.totalPoaCount = poaHeaderDetails.TotalPOAs
+                    startActivity(Intent(this@POAActivity, ClosePOAActivity::class.java)
+                        .putExtra(IntentConstants.POA_DATA, poaDataToClose))
+                }
+                NavigationConstants.ON_VIEW_ALL_POA -> {
+                    isSelectedPOAClosed = true
+                    viewModel!!.apply {
+                        getUpdatedPOACountAfterClose()
                     }
                 }
-            })
+            }
+        }
     }
 
     override fun onBackPressed() {

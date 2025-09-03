@@ -62,4 +62,5 @@ public interface IntentConstants {
     String IS_COMING_FROM_SITE_CHECK_IN = "IsComingFromSiteCheckIn";
     String TURN_OUT_LIST = "TurnOutList";
     String TURN_OUT_RESULT = "TurnOutResult";
+    String IS_ADDING_POA = "IsAddingPOA";
 }

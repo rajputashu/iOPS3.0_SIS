@@ -1,16 +1,21 @@
 package com.sisindia.ai.android.features.issues
 
 import android.view.View
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import com.droidcommons.preference.Prefs
 import com.sisindia.ai.android.IopsApplication
 import com.sisindia.ai.android.base.IopsBaseViewModel
 import com.sisindia.ai.android.constants.NavigationConstants
+import com.sisindia.ai.android.constants.PrefConstants
 import javax.inject.Inject
 
 // BELOW VIEW MODEL IS USED FOR ISSUES(GRIEVANCE, COMPLAINTS) AND POA (UAR, IMPROVEMENTS)
 class IssueManagementViewModel @Inject constructor(private val appl: IopsApplication) : IopsBaseViewModel(appl) {
 
     val issueType = ObservableField(IssueType.GRIEVANCE)
+    val isUAR = ObservableBoolean(false)
+//    val siteName = ObservableField(Prefs.getString(PrefConstants.UC_SITE_NAME, "-"))
 
     fun ivRotaDrawerClick(view: View) {
         message.what = NavigationConstants.OPEN_DASH_BOARD_DRAWER

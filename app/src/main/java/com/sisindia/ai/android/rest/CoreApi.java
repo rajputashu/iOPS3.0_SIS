@@ -34,9 +34,15 @@ import com.sisindia.ai.android.models.performance.ConveyanceReportResponseMO;
 import com.sisindia.ai.android.models.performance.IncentiveResponseMO;
 import com.sisindia.ai.android.models.performance.PerformanceEffortsApiResponseMO;
 import com.sisindia.ai.android.models.performance.PerformanceResultApiResponseMO;
+import com.sisindia.ai.android.models.poa.AddImprovementPlanBodyMO;
+import com.sisindia.ai.android.models.poa.AddPoaBodyMO;
+import com.sisindia.ai.android.models.poa.AddSiteAtRiskBodyMO;
+import com.sisindia.ai.android.models.poa.AddedImprovePlanResponseMO;
+import com.sisindia.ai.android.models.poa.AddedSiteAtRiskResponseMO;
 import com.sisindia.ai.android.models.poa.ClosePoaApiBodyMO;
 import com.sisindia.ai.android.models.poa.ImprovementPoaResponseMO;
 import com.sisindia.ai.android.models.poa.MonthlyAtRiskPoaResponseMO;
+import com.sisindia.ai.android.models.poa.UarEmployeeResponseMO;
 import com.sisindia.ai.android.models.profile.AIProfileDataResponse;
 import com.sisindia.ai.android.models.profile.AIProfileUpdateBodyMO;
 import com.sisindia.ai.android.models.recruit.AddedRecruitmentApiResponse;
@@ -154,6 +160,10 @@ public interface CoreApi {
     String GET_NOMINATION_SUMMARY = "api/DefenceNomination/NominationSummary";
     String ADD_UPDATE_NOMINATION = "api/DefenceNomination/AddUpdate";
     String CIVIL_EMP_VALIDATION = "api/DefenceNomination/EmployeeValidation";
+    String ADD_SITE_AT_RISK = "api/SiteRisk/Add";
+    String ADD_POA = "api/SiteRisk/AddPoA";
+    String ADD_IMPROVEMENT_PLAN = "api/ImprovementPlan/Add";
+    String GET_SITE_RISK_AO = "api/Branch/GetSiteRiskAssignmentOfficers";
 
     @POST(UPDATE_DEVICE_INFO)
     Single<JsonObject> updateDeviceInfo(@Body DeviceInfo item);
@@ -409,4 +419,17 @@ public interface CoreApi {
 
     @POST(ADD_UPDATE_NOMINATION)
     Single<BaseNetworkResponse> addUpdateNomination(@Body AddNominationBodyMO body);
+
+    @POST(ADD_SITE_AT_RISK)
+    Single<AddedSiteAtRiskResponseMO> addSiteAtRisk(@Body AddSiteAtRiskBodyMO body);
+
+    @POST(ADD_POA)
+    Single<AddedSiteAtRiskResponseMO> addPOA(@Body AddPoaBodyMO body);
+
+    @POST(ADD_IMPROVEMENT_PLAN)
+    Single<AddedImprovePlanResponseMO> addImprovementPlan(@Body AddImprovementPlanBodyMO body);
+
+    @GET(GET_SITE_RISK_AO)
+    Single<UarEmployeeResponseMO> getSiteRiskAO();
+
 }

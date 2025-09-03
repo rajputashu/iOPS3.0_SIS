@@ -531,6 +531,7 @@
     <string name="pre_dashboard_mon_input">Mon Input</string>
     <string name="pre_dashboard_bill_collections">Bill Collections</string>
     <string name="pre_dashboard_units_at_risks">Units at Risk</string>
+    <string name="unit_not_at_risk">Unit not at risk</string>
     <string name="pre_dashboard_poa">PoA</string>
     <string name="pre_dashboard_units">Units</string>
     <string name="pre_dashboard_team">Team</string>
@@ -874,5 +875,14 @@
     <string name="string_employee_name">Employee Name</string>
     <string name="string_state">State</string>
     <string name="temp_reg_num_id">Temporary RegNo Id-Civil Defence</string>
-
+    <string name="mark_site_at_risk">Mark site at risk</string>
+    <string name="risk_category">Risk Category</string>
+    <string name="reason_for_risk">Reason for risk</string>
+    <string name="string_plan_type">Plan Type</string>
+    <string name="string_action_point">Action Point</string>
+    <string name="string_work_assigned_to">Work Assigned To</string>
+    <string name="hint_select_target_date">Select target date</string>
+    <string name="string_poa_type">POA Type</string>
+    <string name="string_add_poa">Add POA</string>
+    <string name="string_status_closed">Closed</string>
 </resources>

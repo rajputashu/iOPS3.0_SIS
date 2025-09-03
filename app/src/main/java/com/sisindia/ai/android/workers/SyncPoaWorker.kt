@@ -80,6 +80,24 @@ class SyncPoaWorker @Inject constructor(context: Context, workerParameters: Work
                                 }
                             }
                         }, { t: Throwable? -> Timber.e(t) }))
+
+                    addDisposable(siteRiskPoaDao.deleteSiteRiskReasons()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            Timber.i("ManualSync class SiteRiskReasons deleted")
+                            for (risk in atRiskResponse.siteRisks) {
+                                if (risk.siteRiskReasons != null && risk.siteRiskReasons.isNotEmpty()) {
+                                    addDisposable(siteRiskPoaDao.insertAllAtRiskReasons(risk.siteRiskReasons)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe({
+                                            Timber.i("siteRiskPos inserted")
+                                        }) { t: Throwable? -> Timber.e(t) })
+                                }
+                            }
+                        }) { t: Throwable? -> Timber.e(t) })
+
                 } else {
                     deleteAtRiskAndPoaDataFromTable()
                 }

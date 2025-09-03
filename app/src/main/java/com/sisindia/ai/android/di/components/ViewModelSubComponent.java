@@ -114,6 +114,7 @@ import com.sisindia.ai.android.features.timline.TimeLineViewModel;
 import com.sisindia.ai.android.features.timline.TodayTimeLineViewModel;
 import com.sisindia.ai.android.features.timline.YesterDayTimeLineViewModel;
 import com.sisindia.ai.android.features.uar.UnitAtRiskViewModel;
+import com.sisindia.ai.android.features.uar.add.AddPoaAndIpViewModel;
 import com.sisindia.ai.android.features.uar.closepoa.ClosePOAViewModel;
 import com.sisindia.ai.android.features.uar.poa.POAViewModel;
 import com.sisindia.ai.android.features.units.DashBoardUnitsViewModel;
@@ -398,6 +399,8 @@ public interface ViewModelSubComponent {
     @NotNull NudgesDynamicViewModel vmDynamicNudges();
 
     @NotNull CivilDefenceViewModel vmCivilDef();
+
+    @NotNull AddPoaAndIpViewModel vmAddPoaIP();
 
     @Subcomponent.Builder
     interface Builder {

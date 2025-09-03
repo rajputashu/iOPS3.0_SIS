@@ -23,13 +23,11 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.sisindia.ai.android.R;
 import com.sisindia.ai.android.commons.NotificationMode;
-import com.sisindia.ai.android.constants.IntentConstants;
 import com.sisindia.ai.android.features.billsubmit.BillSubmissionCardsActivity;
 import com.sisindia.ai.android.features.dashboard.DashBoardActivity;
 import com.sisindia.ai.android.features.notification.CustomWebPage;
 import com.sisindia.ai.android.features.nudges.NudgesDynamicActivity;
 import com.sisindia.ai.android.features.splash.SplashFragment;
-import com.sisindia.ai.android.features.videocall.VideoCallActivity;
 import com.sisindia.ai.android.room.dao.NotificationsDao;
 import com.sisindia.ai.android.room.entities.NotificationDataEntity;
 
@@ -182,9 +180,9 @@ public class IopsMessagingService extends FirebaseMessagingService {
                             .putExtra(DYNAMIC_FORM_ID, notificationMO.getNotificationId())
                             .putExtra(NOTIFICATION_MASTER_ID, notificationMO.getNotificationMasterId());
                     break;
-                case "VIDEO_CALL":
+                /*case "VIDEO_CALL":
                     intent = new Intent(this, VideoCallActivity.class);
-                    break;
+                    break;*/
                 default:
                     intent = new Intent(this, SplashFragment.class);
                     break;

@@ -68,6 +68,9 @@ import com.sisindia.ai.android.features.timline.TimeLineFragment;
 import com.sisindia.ai.android.features.timline.TodayTimeLineFragment;
 import com.sisindia.ai.android.features.timline.YesterDayTimeLineFragment;
 import com.sisindia.ai.android.features.uar.UnitAtRiskFragment;
+import com.sisindia.ai.android.features.uar.add.AddImprovementPlanFragment;
+import com.sisindia.ai.android.features.uar.add.AddPoaFragment;
+import com.sisindia.ai.android.features.uar.add.AddSiteAtRiskFragment;
 import com.sisindia.ai.android.features.units.DashBoardUnitsFragment;
 import com.sisindia.ai.android.features.units.details.general.UnitGeneralFragment;
 import com.sisindia.ai.android.features.units.details.posts.UnitPostsFragment;
@@ -404,4 +407,16 @@ public abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     @FragmentScoped
     abstract CivilDefenceFragment bindCivilDefFragment();
+
+    @ContributesAndroidInjector
+    @FragmentScoped
+    abstract AddPoaFragment bindAddPoaFragment();
+
+    @ContributesAndroidInjector
+    @FragmentScoped
+    abstract AddSiteAtRiskFragment bindAddSiteRiskFragment();
+
+    @ContributesAndroidInjector
+    @FragmentScoped
+    abstract AddImprovementPlanFragment bindAddIpFragment();
 }
