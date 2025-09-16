@@ -256,4 +256,5 @@ public interface NavigationConstants {
     int OPEN_MARK_SITE_AT_RISK = 252;
     int OPEN_TO_ADD_IMPROVEMENT_PLAN = 253;
     int ON_ADDING_POA_OR_IP_SUCCESSFULLY = 254;
+    int OPEN_DYNAMIC_TASKS = 255;
 }

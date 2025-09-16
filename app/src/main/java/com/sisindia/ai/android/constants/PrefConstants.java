@@ -50,4 +50,5 @@ public interface PrefConstants {
     String TODAY_CONVEYANCE = "today_conveyance";
     String MONTH_CONVEYANCE = "month_conveyance";
     String ALREADY_STARTED_TASK_ID = "alreadyStartedTaskId";
+//    String CURRENT_TASK_TYPE_ID = "alreadyStartedTaskId";
 }

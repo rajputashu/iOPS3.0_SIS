@@ -67,6 +67,8 @@ public class RotaTaskItemModel {
 
     public Boolean isAutoCreation;
 
+    public String taskDescription;
+
     public RotaTaskItemModel() {
     }
 }

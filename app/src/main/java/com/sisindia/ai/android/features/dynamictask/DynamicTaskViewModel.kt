@@ -11,10 +11,29 @@ import com.droidcommons.preference.Prefs
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sisindia.ai.android.base.IopsBaseViewModel
-import com.sisindia.ai.android.commons.TaskControllerType.*
+import com.sisindia.ai.android.commons.TaskControllerType.AUDIO
+import com.sisindia.ai.android.commons.TaskControllerType.CHECKBOX
+import com.sisindia.ai.android.commons.TaskControllerType.DATETIMEPICKER
+import com.sisindia.ai.android.commons.TaskControllerType.LABEL
+import com.sisindia.ai.android.commons.TaskControllerType.PICTURE
+import com.sisindia.ai.android.commons.TaskControllerType.QRCODE
+import com.sisindia.ai.android.commons.TaskControllerType.SPINNER
+import com.sisindia.ai.android.commons.TaskControllerType.STATICSPINNER
+import com.sisindia.ai.android.commons.TaskControllerType.TEXT
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.constants.PrefConstants
-import com.sisindia.ai.android.features.dynamictask.models.*
+import com.sisindia.ai.android.features.dynamictask.models.DynamicAudioMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicCheckBoxMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicDateTimePickerMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicEditTextMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicLabel
+import com.sisindia.ai.android.features.dynamictask.models.DynamicPictureMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicScanQrMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicSpinnerMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicStaticSpinnerMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicTaskResultMO
+import com.sisindia.ai.android.features.dynamictask.models.QuestionsMO
+import com.sisindia.ai.android.features.nudges.DynamicTaskParserV2
 import com.sisindia.ai.android.models.AudioRecordState
 import com.sisindia.ai.android.room.dao.AttachmentDao
 import com.sisindia.ai.android.room.dao.DynamicTaskDao
@@ -125,7 +144,7 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
         }
     }
 
-    fun fetchJsonFormViaId() {
+    /*fun fetchJsonFormViaId() {
         addDisposable(dynamicTaskDao.fetchDynamicForm(obsTaskTypeId.get())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -142,9 +161,28 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
             }, { throwable: Throwable? ->
                 throwable!!.printStackTrace()
             }))
+    }*/
+
+    fun fetchJsonFormViaId() {
+        addDisposable(dynamicTaskDao.fetchDynamicForm(obsTaskTypeId.get())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ dynamicTaskForm ->
+                dynamicTaskForm?.apply {
+                    obsDynamicTaskName.set(this.taskName)
+                    if (!this.form.isNullOrEmpty()) {
+                        val listIntroType = object : TypeToken<List<DynamicTaskParserV2>>() {}.type
+                        val taskParser: List<DynamicTaskParserV2> =
+                            Gson().fromJson(this.form, listIntroType)
+                        createDynamicTaskViewsV2(taskParser)
+                    }
+                }
+            }, { throwable: Throwable? ->
+                throwable!!.printStackTrace()
+            }))
     }
 
-    private fun createDynamicTaskViews(entryList: List<DynamicTaskParser>) {
+    /*private fun createDynamicTaskViews(entryList: List<DynamicTaskParser>) {
 
         val taskParser: DynamicTaskParser = entryList[0]
 
@@ -223,12 +261,125 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
             }
             dynamicTaskAdapter.clearAndSetItems(completeUiList)
         }
+    }*/
+
+    private fun createDynamicTaskViewsV2(entryList: List<DynamicTaskParserV2>) {
+
+        if (entryList.isNotEmpty()) {
+            val completeUiList = ArrayList<Any>()
+
+            for (controls: DynamicTaskParserV2 in entryList) {
+
+                when (controls.contentType) {
+                    LABEL.name -> {
+                        completeUiList.add(DynamicLabel(label = controls.title,
+                            isMandatory = controls.isMandatory))
+                    }
+
+                    CHECKBOX.name -> {
+                        //Title
+                        completeUiList.add(DynamicLabel(label = controls.title))
+                        controls.dataValue?.forEach {
+                            completeUiList.add(DynamicCheckBoxMO(
+                                controllerId = controls.ControlID,
+                                controllerName = controls.contentType,
+                                isMandatory = controls.isMandatory!!.toBoolean(),
+                                cbLabel = it))
+                        }
+                    }
+
+                    TEXT.name -> {
+//                        val widgetData = controls.data
+                        completeUiList.add(DynamicEditTextMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title,
+                            hint = controls.hint))
+                    }
+
+                    PICTURE.name -> {
+                        completeUiList.add(DynamicPictureMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            takePicCount = controls.count!!))
+                    }
+
+                    SPINNER.name -> {
+                        completeUiList.add(DynamicSpinnerMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title!!))
+                    }
+
+                    STATICSPINNER.name -> {
+                        val spinnerItems = controls.dataValue!!
+                        spinnerItems.add(0, "Select Option")
+                        completeUiList.add(DynamicStaticSpinnerMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title!!,
+                            spinnerList = spinnerItems))
+                    }
+
+                    AUDIO.name -> {
+                        completeUiList.add(DynamicAudioMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title!!))
+                    }
+
+                    /*TaskControllerType.HEADCOUNTTEXT.name -> {
+                        completeUiList.add(DynamicHeadCountMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title,
+                            hint = controls.hint))
+                    }*/
+
+                    QRCODE.name -> {
+                        completeUiList.add(DynamicScanQrMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title!!))
+                    }
+
+                    /*RATING.name -> {
+                        completeUiList.add(DynamicRatingMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title!!))
+                    }*/
+
+                    DATETIMEPICKER.name -> {
+                        completeUiList.add(DynamicDateTimePickerMO(
+                            controllerId = controls.ControlID,
+                            controllerName = controls.contentType,
+                            isMandatory = controls.isMandatory!!.toBoolean(),
+                            label = controls.title!!))
+                    }
+                }
+            }
+            dynamicTaskAdapter.clearAndSetItems(completeUiList)
+        }
     }
 
     fun onTaskValidation(view: View) {
         var isMandatoryViewsDone = true
         for (viewsMO: Any in dynamicTaskAdapter.items) {
-            if (viewsMO is DynamicPictureMO && viewsMO.isMandatory && !viewsMO.isImageCaptured) {
+//            if (viewsMO is DynamicStaticSpinnerMO && viewsMO.selectedSpinnerValue.equals("Select Option")) {
+            if (viewsMO is DynamicStaticSpinnerMO && viewsMO.selectedSpinnerPosition == 0) {
+                isMandatoryViewsDone = false
+                showToast("Please select option for ${viewsMO.label}")
+                break
+            } else if (viewsMO is DynamicPictureMO && viewsMO.isMandatory && !viewsMO.isImageCaptured) {
                 isMandatoryViewsDone = false
                 showToast("Picture is mandatory, please click and upload")
                 break
@@ -243,10 +394,6 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
             } else if (viewsMO is DynamicAudioMO && viewsMO.isMandatory && viewsMO.audioPath.isNullOrEmpty()) {
                 isMandatoryViewsDone = false
                 showToast("Audio is mandatory, please record and save")
-                break
-            } else if (viewsMO is DynamicStaticSpinnerMO && viewsMO.selectedSpinnerValue.equals("Select Option")) {
-                isMandatoryViewsDone = false
-                showToast("Please select option for ${viewsMO.label}")
                 break
             }
         }

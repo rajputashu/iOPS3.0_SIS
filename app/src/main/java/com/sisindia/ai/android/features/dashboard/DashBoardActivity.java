@@ -1,9 +1,11 @@
 package com.sisindia.ai.android.features.dashboard;
 
+import static com.sisindia.ai.android.constants.IntentConstants.DYNAMIC_FORM_ID;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_ADD_TASK;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_DUTY_ON_SELFIE;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_OPEN_BARRACK_INSPECTION;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_OPEN_BILL_SUBMISSION;
+import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_OPEN_DYNAMIC_TASK;
 import static com.sisindia.ai.android.constants.IntentRequestCodes.REQUEST_CODE_OPEN_OTHERS;
 import static com.sisindia.ai.android.constants.NavigationConstants.HIDE_PROGRESS_DIALOG;
 import static com.sisindia.ai.android.constants.NavigationConstants.HIDE_PROGRESS_DIALOG_SHOW_POPUP;
@@ -36,6 +38,7 @@ import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_CAMERA_
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_CLIENT_COORDINATION;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DASH_BOARD_DRAWER;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DASH_BOARD_ROTA;
+import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DYNAMIC_TASKS;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_MYSIS_TASKS;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_NUDGES_DASHBOARD;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_OTHER_TASK;
@@ -93,6 +96,7 @@ import com.sisindia.ai.android.features.civil.CivilDefenceFragment;
 import com.sisindia.ai.android.features.clientcoordination.ClientCoordinationActivity;
 import com.sisindia.ai.android.features.conveyance.ConveyanceActivity;
 import com.sisindia.ai.android.features.disband.DisbandmentFragment;
+import com.sisindia.ai.android.features.dynamictask.DynamicTaskActivity;
 import com.sisindia.ai.android.features.issues.IssueManagementFragment;
 import com.sisindia.ai.android.features.kpi.MyKpiFragment;
 import com.sisindia.ai.android.features.moninput.MonInputCardsActivity;
@@ -341,6 +345,12 @@ public class DashBoardActivity extends IopsBaseActivity {
                 case OPEN_MYSIS_TASKS:
                     RotaTaskItemModel model = (RotaTaskItemModel) message.obj;
                     launchMySiSApp(false, model);
+                    break;
+
+                case OPEN_DYNAMIC_TASKS:
+                    startActivityForResult(new Intent(this, DynamicTaskActivity.class)
+                                    .putExtra(DYNAMIC_FORM_ID, message.arg1),
+                            REQUEST_CODE_OPEN_DYNAMIC_TASK);
                     break;
 
                 case OPEN_PRACTO_APP_LOGIN:
@@ -620,6 +630,7 @@ public class DashBoardActivity extends IopsBaseActivity {
             case REQUEST_CODE_OPEN_BILL_SUBMISSION:
             case REQUEST_CODE_OPEN_BARRACK_INSPECTION:
             case REQUEST_CODE_OPEN_OTHERS:
+            case REQUEST_CODE_OPEN_DYNAMIC_TASK:
                 openRotaScreen();
                 break;
             case REQUEST_CODE_DUTY_ON_SELFIE:
