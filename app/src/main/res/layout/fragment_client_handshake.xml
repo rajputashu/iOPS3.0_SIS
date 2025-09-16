@@ -142,15 +142,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:visibility="@{vm.showEditButton}"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="@dimen/_4sdp"
+                android:visibility="gone"
                 android:onClick="@{vm::onAddEditClient}"
                 app:backgroundTint="@color/colorLightRed"
                 app:srcCompat="@drawable/ic_fab_add"
                 app:tint="@color/colorWhite"
                 app:fabSize="mini"
                 tools:ignore="ContentDescription" />
+
+<!--            android:visibility="@{vm.showEditButton}"-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

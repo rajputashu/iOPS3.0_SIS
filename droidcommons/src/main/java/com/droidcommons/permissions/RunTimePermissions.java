@@ -42,21 +42,22 @@ public class RunTimePermissions {
     }*/
 
     public static boolean hasAppPermissions(Context context) {
-        return ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
+        return
+//                ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                hasFGSLocationPermission(context); // include check for FGS permission on Android 14+
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                        hasFGSLocationPermission(context); // include check for FGS permission on Android 14+
     }
 
     public static String[] getAllAppPermissions() {
         if (Build.VERSION.SDK_INT >= 34) {
             return new String[]{
-                    Manifest.permission.READ_SMS,
-                    Manifest.permission.RECEIVE_SMS,
+//                    Manifest.permission.READ_SMS,
+//                    Manifest.permission.RECEIVE_SMS,
                     Manifest.permission.CAMERA,
                     Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.RECORD_AUDIO,
@@ -66,8 +67,8 @@ public class RunTimePermissions {
             };
         } else {
             return new String[]{
-                    Manifest.permission.READ_SMS,
-                    Manifest.permission.RECEIVE_SMS,
+//                    Manifest.permission.READ_SMS,
+//                    Manifest.permission.RECEIVE_SMS,
                     Manifest.permission.CAMERA,
                     Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.RECORD_AUDIO,

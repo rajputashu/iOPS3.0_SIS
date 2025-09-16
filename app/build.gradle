@@ -126,8 +126,8 @@ android {
 
         uniqProd {
             applicationId "com.sisindia.ai.android.dev"
-            versionName "Ver-P(1.6)"
-            versionCode 16
+            versionName "Ver-P(1.7)"
+            versionCode 17
             buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
@@ -146,8 +146,8 @@ android {
         slvProd {
 //            applicationId "com.sisindia.ai.android.slv" // Update and create app in google serice as well like uniq
             applicationId "com.sisindia.ai.android.dev"
-            versionName "Ver-P(1.6)"
-            versionCode 16
+            versionName "Ver-P(1.7)"
+            versionCode 17
             buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'
