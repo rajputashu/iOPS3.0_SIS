@@ -58,6 +58,7 @@ class AddClientsBottomSheet : IopsBaseBottomSheetDialogFragment() {
 
     override fun onCreated() {
         binding.sheetCloseButton.setOnClickListener { dismissAllowingStateLoss() }
+        viewModel.initClientUI()
     }
 
     override fun initViewModel() {

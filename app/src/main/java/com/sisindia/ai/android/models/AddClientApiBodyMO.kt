@@ -21,5 +21,7 @@ data class AddClientApiBodyMO(
     @SerializedName("CustomerMobileNo")
     var clientMobileNo: String? = null,
     @SerializedName("SiteId")
-    var siteId: Int? = null
+    var siteId: Int? = null,
+    @SerializedName("contactLevel")
+    var contactLevel: Int? = null
 )

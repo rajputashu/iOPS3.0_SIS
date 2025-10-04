@@ -31,7 +31,22 @@
                 style="@style/BlackTitleTextColor13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/string_poa_type" />
+                android:text="@string/string_select_unit_name" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/border_round_greystroke_whitebody"
+                app:listener="@{vm.siteSpinnerListener}"
+                app:rewardFineReasons="@{vm.obsSitesSpinnerList}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/BlackTitleTextColor13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_poa_type"
+                android:layout_marginTop="@dimen/_14sdp" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:layout_width="match_parent"

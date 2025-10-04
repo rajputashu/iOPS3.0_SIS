@@ -18,7 +18,7 @@ class AddImprovementPlanBodyMO(
     @SerializedName("actionPlanId")
     var actionPlanId: Int? = null,
     @SerializedName("siteId")
-    val siteId: Int = Prefs.getInt(PrefConstants.CURRENT_SITE, 0),
+    var siteId: Int = 0,
     @SerializedName("targetCompletionDate")
     var targetCompletionDate: String = "",
     @SerializedName("description")

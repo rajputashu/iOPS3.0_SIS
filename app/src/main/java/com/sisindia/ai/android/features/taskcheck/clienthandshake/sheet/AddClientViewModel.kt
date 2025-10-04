@@ -9,13 +9,16 @@ import com.droidcommons.preference.Prefs
 import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.BaseNetworkResponse
 import com.sisindia.ai.android.base.IopsBaseViewModel
+import com.sisindia.ai.android.commons.SpinnersListener
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.constants.PrefConstants
 import com.sisindia.ai.android.models.AddClientApiBodyMO
 import com.sisindia.ai.android.room.dao.CustomerContactDao
 import com.sisindia.ai.android.room.dao.CustomerSiteContactDao
+import com.sisindia.ai.android.room.dao.LookUpDao
 import com.sisindia.ai.android.room.entities.CustomerContactEntity
 import com.sisindia.ai.android.room.entities.CustomerSiteContactEntity
+import com.sisindia.ai.android.room.entities.LookUpEntity
 import com.sisindia.ai.android.utils.IopsUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -34,11 +37,46 @@ class AddClientViewModel @Inject constructor(val app: Application) : IopsBaseVie
     @Inject
     lateinit var customerSiteContactDao: CustomerSiteContactDao
 
-    var clientName = ObservableField<String>("")
-    var clientDesignation = ObservableField<String>("")
-    var clientNumber = ObservableField<String>("")
-    var clientEmail = ObservableField<String>("")
+    @Inject
+    lateinit var lookUpDao: LookUpDao
+
+    var clientName = ObservableField("")
+    var clientDesignation = ObservableField("")
+    var clientNumber = ObservableField("")
+    var clientEmail = ObservableField("")
     private var customerId: Int = 0
+    private var selectedItemPosFromSpinner: Int = 0
+
+    private var contactLevelList: ArrayList<LookUpEntity> = arrayListOf()
+
+    var obsLevelList = ObservableField(arrayListOf(""))
+
+    var listener: SpinnersListener = object : SpinnersListener {
+        override fun onSpinnerOptionSelected(pos: Int) {
+            selectedItemPosFromSpinner = pos
+        }
+
+        override fun onSpinnerOptionSelected(item: Any) {}
+    }
+
+    fun initClientUI() {
+        addDisposable(lookUpDao.fetchContactLevels()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ list: List<LookUpEntity> ->
+                if (list.isNotEmpty()) {
+                    contactLevelList.addAll(list)
+                    val localList = ArrayList<String>()
+                    localList.add("Select Level")
+                    list.forEach { item ->
+                        localList.add(item.displayName)
+                    }
+                    obsLevelList.set(localList)
+                }
+            }) {
+                showToast("No level found...")
+            })
+    }
 
     fun onAddBtnClick(view: View) {
         if (clientName.get().toString().isEmpty() || clientName.get().toString().trim().isEmpty())
@@ -52,6 +90,8 @@ class AddClientViewModel @Inject constructor(val app: Application) : IopsBaseVie
         else if (clientEmail.get().toString().isNotEmpty() &&
             !Patterns.EMAIL_ADDRESS.matcher(clientEmail.get().toString()).matches()) {
             showToast(app.resources.getString(R.string.valid_msg_email))
+        } else if (selectedItemPosFromSpinner == 0) {
+            showToast("Select valid contact level")
         } else {
             addDisposable(customerContactDao.fetchCustomerId(Prefs.getInt(PrefConstants.CURRENT_SITE))
                 .subscribeOn(Schedulers.io())
@@ -97,6 +137,8 @@ class AddClientViewModel @Inject constructor(val app: Application) : IopsBaseVie
         addClientBody.clientPhoneNo = clientNumber.get().toString()
         addClientBody.clientMobileNo = clientNumber.get().toString()
         addClientBody.clientEmailId = clientEmail.get().toString()
+//        addClientBody.contactLevel = selectedItemPosFromSpinner
+        addClientBody.contactLevel = contactLevelList[selectedItemPosFromSpinner].id
         addClientBody.clientId = customerId
         addClientBody.siteId = Prefs.getInt(PrefConstants.CURRENT_SITE)
         addDisposable(coreApi.addClient(addClientBody)
@@ -129,6 +171,8 @@ class AddClientViewModel @Inject constructor(val app: Application) : IopsBaseVie
         contactEntity.contactEmailId = clientEmail.get().toString()
         contactEntity.contactPhoneNo = clientNumber.get().toString()
         contactEntity.customerMobileNo = clientNumber.get().toString()
+        contactEntity.contactLevelId = contactLevelList[selectedItemPosFromSpinner-1].id
+        contactEntity.contactLevelStr = contactLevelList[selectedItemPosFromSpinner-1].displayName
         val dateTime = LocalDateTime.now().toString()
         contactEntity.createdDateTime = dateTime
         contactEntity.updatedDateTime = dateTime
@@ -187,4 +231,6 @@ class AddClientViewModel @Inject constructor(val app: Application) : IopsBaseVie
         message.what = NavigationConstants.ON_CLIENT_ADDED_SUCCESSFULLY
         liveData.postValue(message)
     }
+
+
 }

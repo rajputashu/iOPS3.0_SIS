@@ -37,6 +37,12 @@ public class CustomerContactEntity {
     @SerializedName("customerMobileNo")
     public String customerMobileNo;
 
+    @SerializedName("contactLevel")
+    public int contactLevelId;
+
+    @SerializedName("contactLevelStr")
+    public String contactLevelStr;
+
     @SerializedName("isActive")
     public boolean isActive;
 

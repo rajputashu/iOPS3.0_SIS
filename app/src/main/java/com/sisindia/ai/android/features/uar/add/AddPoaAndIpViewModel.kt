@@ -18,10 +18,12 @@ import com.sisindia.ai.android.models.poa.SiteRiskReasonsMO
 import com.sisindia.ai.android.models.poa.UarEmployeeDataMO
 import com.sisindia.ai.android.room.dao.ImprovementPoaDao
 import com.sisindia.ai.android.room.dao.SiteAtRiskDao
+import com.sisindia.ai.android.room.dao.SiteDao
 import com.sisindia.ai.android.room.dao.SiteRiskPoaDao
 import com.sisindia.ai.android.room.entities.ImprovementPoaEntity
 import com.sisindia.ai.android.room.entities.LookUpEntity
 import com.sisindia.ai.android.room.entities.SiteAtRiskEntity
+import com.sisindia.ai.android.room.entities.SiteEntity
 import com.sisindia.ai.android.room.entities.SiteRiskPoaEntity
 import com.sisindia.ai.android.room.entities.SiteRiskReasonsEntity
 import com.sisindia.ai.android.utils.IopsUtil
@@ -37,6 +39,9 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     val toolBarLabel = ObservableField("Add Site At Risk")
     val isComingToAddPoa = ObservableBoolean(true)
     val workAssignedToList = ObservableField<List<UarEmployeeDataMO>>()
+
+    @Inject
+    lateinit var siteDao: SiteDao
 
     //------------------SITE AT RISK VARIABLES AND METHODS-----------------------//
     @Inject
@@ -61,6 +66,15 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     var selectedPoaTypePos = -1
     var selectedActionPointPos = -1
     var selectedWorkAssignedTo = -1
+    var selectedSitePos = 0
+    var siteSpinnerListener: SpinnersListener = object : SpinnersListener {
+        override fun onSpinnerOptionSelected(pos: Int) {
+            selectedSitePos = pos
+        }
+
+        override fun onSpinnerOptionSelected(item: Any) {}
+    }
+
     //---------------------------------END---------------------------------------//
 
     //------------------ADD IMPROVEMENT PLAN VARIABLES AND METHODS-----------------------//
@@ -142,6 +156,7 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     }
 
     fun initCreatePoaUI() {
+        getSitesData()
         getEmployeesDataFromAPI()
         addDisposable(siteRiskPoaDao.getLookUpDataViaTypeId(23)
             .subscribeOn(Schedulers.io())
@@ -165,6 +180,7 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     }
 
     fun initCreateImprovementPlanUI() {
+        getSitesData()
         getEmployeesDataFromAPI()
         addDisposable(Single.zip(siteRiskPoaDao.getLookUpDataViaTypeId(25),
             siteRiskPoaDao.getLookUpDataViaTypeId(26)) { ipTypeList, ipCategoryList ->
@@ -218,6 +234,27 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
             })
     }
 
+    val obsSitesSpinnerList = ObservableField(arrayListOf("Select Site"))
+    private lateinit var siteListFromDB: List<SiteEntity>
+
+    private fun getSitesData() {
+        addDisposable(siteDao.fetchAllActiveSites(true)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (!it.isNullOrEmpty()) {
+                    siteListFromDB = it
+                    val siteArray = arrayListOf("Select Site")
+                    for (siteMO: SiteEntity in it) {
+                        siteArray.add(siteMO.siteName!! + " (" + siteMO.siteCode + ")")
+                    }
+                    obsSitesSpinnerList.set(siteArray)
+                }
+            }, { throwable: Throwable? ->
+                throwable!!.printStackTrace()
+            }))
+    }
+
     fun onViewClicks(view: View) {
 
         when (view.id) {
@@ -237,30 +274,34 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     }
 
     private fun validateAddPoa() {
-        isLoading.set(View.VISIBLE)
-        //First Call Add Site At Risk API and get siteRiskAdded id and pass to next API (Add POA)
-        siteAtRiskApiBody = AddSiteAtRiskBodyMO()
-        val siteRiskMO = SiteRiskReasonsMO()
-        siteRiskMO.riskCategoryId = riskCategoryList.get()!![selectedSiteRiskCategoryPos].lookupIdentifier
-        siteRiskMO.riskReasonId = reasonForRiskList.get()!![selectedReasonForRiskPos].lookupIdentifier
-        siteAtRiskApiBody.siteRiskReasons = arrayListOf(siteRiskMO)
+        if (selectedSitePos == 0)
+            showToast("Please select valid site from list")
+        else {
+            isLoading.set(View.VISIBLE)
+            //First Call Add Site At Risk API and get siteRiskAdded id and pass to next API (Add POA)
+            siteAtRiskApiBody = AddSiteAtRiskBodyMO()
+            val siteRiskMO = SiteRiskReasonsMO()
+            siteRiskMO.riskCategoryId =
+                riskCategoryList.get()!![selectedSiteRiskCategoryPos].lookupIdentifier
+            siteRiskMO.riskReasonId = reasonForRiskList.get()!![selectedReasonForRiskPos].lookupIdentifier
+            siteAtRiskApiBody.siteRiskReasons = arrayListOf(siteRiskMO)
+            siteAtRiskApiBody.siteId = siteListFromDB[selectedSitePos - 1].id
 
-        siteAtRiskApiBody.siteId=219 // HardCode make it dynamic
-
-        if (IopsUtil.isInternetAvailable(getApplication())) {
-            addDisposable(coreApi.addSiteAtRisk(siteAtRiskApiBody)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ responseMO ->
-                    responseMO.id?.let {
-                        addPoaToServerViaAPI(it)
-                    }
-                }) {
-                    isLoading.set(View.GONE)
-                })
-        } else {
-            isLoading.set(View.GONE)
-            showToast("Please check your internet connection")
+            if (IopsUtil.isInternetAvailable(getApplication())) {
+                addDisposable(coreApi.addSiteAtRisk(siteAtRiskApiBody)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ responseMO ->
+                        responseMO.id?.let {
+                            addPoaToServerViaAPI(it)
+                        }
+                    }) {
+                        isLoading.set(View.GONE)
+                    })
+            } else {
+                isLoading.set(View.GONE)
+                showToast("Please check your internet connection")
+            }
         }
     }
 
@@ -338,13 +379,21 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     }
 
     private fun validateAddImprovementPlan() {
+
+        if (selectedSitePos == 0) {
+            showToast("Please select valid site from list")
+            return
+        }
+
         isLoading.set(View.VISIBLE)
         val body = AddImprovementPlanBodyMO()
+        val selectedSiteId = siteListFromDB[selectedSitePos - 1].id
         body.planType = ipPlanTypeList.get()!![selectedIpPlanTypePos].lookupIdentifier
         body.categoryId = ipCategoryList.get()!![selectedIpCategoryPos].lookupIdentifier
         body.actionPlanId = ipActionPointList.get()!![selectedIpActionPointPos].actionPlanId
         body.remarks = addIpRiskRemarks.get().toString()
         body.targetCompletionDate = ipTargetDate.get().toString()
+        body.siteId = selectedSiteId
 
         val improvementEntity = ImprovementPoaEntity()
         improvementEntity.planType = body.planType!!
@@ -357,6 +406,7 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
         improvementEntity.assignedTo = body.assignedTo
         improvementEntity.assignedToEmployeeName = body.assignedToEmployeeName
         improvementEntity.assignedToEmployeeNo = body.assignedToEmployeeNo
+        improvementEntity.siteId = selectedSiteId
 
         addDisposable(coreApi.addImprovementPlan(body)
             .subscribeOn(Schedulers.io())
