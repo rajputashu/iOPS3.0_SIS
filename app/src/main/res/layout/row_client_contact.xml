@@ -7,6 +7,8 @@
         <variable
             name="ccEntity"
             type="com.sisindia.ai.android.room.entities.CustomerContactEntity" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -26,6 +28,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clientContactName"
+                style="@style/OnlyFontFamily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{ccEntity.contactFullName}"
@@ -36,9 +39,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clientContactDesignation"
+                style="@style/OnlyFontFamily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:text="@{ccEntity.role}"
                 android:textColor="@color/colorTextGrey"
                 android:textSize="@dimen/_12ssp"
@@ -46,7 +49,31 @@
                 app:layout_constraintTop_toBottomOf="@id/clientContactName" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/clientContactLevel"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/string_level"
+                android:textColor="@color/textColorBlackBold"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clientContactDesignation" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/clientContactLevelValue"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ccEntity.contactLevelStr==null ? `N.A.`: ccEntity.contactLevelStr}"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clientContactLevel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clientContactPhoneLabel"
+                style="@style/OnlyFontFamily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -54,13 +81,13 @@
                 android:textColor="@color/textColorBlackBold"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clientContactDesignation" />
+                app:layout_constraintTop_toBottomOf="@id/clientContactLevelValue" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clientContactPhone"
+                style="@style/OnlyFontFamily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:text="@{ccEntity.contactPhoneNo}"
                 android:textColor="@color/colorTextGrey"
                 android:textSize="@dimen/_12ssp"
@@ -69,6 +96,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clientContactEmailLabel"
+                style="@style/OnlyFontFamily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -76,13 +104,13 @@
                 android:textColor="@color/textColorBlackBold"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clientContactDesignation" />
+                app:layout_constraintTop_toBottomOf="@id/clientContactLevelValue" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clientContactEmail"
+                style="@style/OnlyFontFamily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:text="@{ccEntity.contactEmailId}"
                 android:textColor="@color/colorTextGrey"
                 android:textSize="@dimen/_12ssp"

@@ -206,10 +206,11 @@
                 android:onClick="@{vm::onConfirmByPhotoClick}"
                 android:padding="@dimen/_5sdp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/OnlyFontFamily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:text="@string/string_confirm_by_photo"
                     android:textColor="@color/colorWhite"
                     app:drawableStartCompat="@drawable/ic_camera" />

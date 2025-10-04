@@ -81,7 +81,7 @@ class UnitGeneralViewModel @Inject constructor(app: Application) : IopsBaseViewM
                 if (list.isNotEmpty())
                     generalClientContact.updateContactInfoList(list)
                 else
-                    isInformationAvailable.set(View.VISIBLE)
+                    isInformationAvailable.set(VISIBLE)
             },
                 { throwable: Throwable? ->
                     setIsLoading(false)

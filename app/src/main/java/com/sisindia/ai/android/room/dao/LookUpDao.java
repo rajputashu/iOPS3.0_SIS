@@ -70,4 +70,7 @@ public abstract class LookUpDao implements BaseDao<LookUpEntity> {
 
     @Query("SELECT displayName FROM LookUpEntity WHERE lookupTypeId = 41")
     public abstract Single<List<String>> fetchDisbandmentReason();
+
+    @Query("SELECT * FROM LookUpEntity WHERE lookupTypeId = 202")
+    public abstract Single<List<LookUpEntity>> fetchContactLevels();
 }

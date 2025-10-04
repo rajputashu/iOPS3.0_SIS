@@ -6,16 +6,37 @@
         <variable
             name="adapterItem"
             type="com.sisindia.ai.android.room.entities.CustomerContactEntity" />
+
+        <import type="android.view.View"/>
     </data>
 
-    <androidx.appcompat.widget.AppCompatRadioButton
-        android:id="@+id/rbClient"
-        style="@style/TitleNormal"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:text="@{adapterItem.title+@string/string_space+adapterItem.contactFullName}"
-        android:textColor="@color/textColorBlackBold" />
+        android:paddingBottom="@dimen/_7sdp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbClient"
+            style="@style/TitleNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="-10dp"
+            android:text="@{adapterItem.title+@string/string_space+adapterItem.contactFullName}"
+            android:textColor="@color/textColorBlackBold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/BlackSubTitleTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_38sdp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:visibility="@{adapterItem.contactLevelStr==null ?View.GONE : View.VISIBLE}"
+            android:text="@{@string/string_qr_code(adapterItem.contactLevelStr)}"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

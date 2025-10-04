@@ -885,4 +885,5 @@
     <string name="string_poa_type">POA Type</string>
     <string name="string_add_poa">Add POA</string>
     <string name="string_status_closed">Closed</string>
+    <string name="string_level">Level</string>
 </resources>

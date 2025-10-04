@@ -15,158 +15,180 @@
 
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWindowBackGround">
+        android:fillViewport="true">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_40sdp"
-            android:orientation="vertical"
-            android:padding="@dimen/_12sdp">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/BlackTitleTextColor13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/string_plan_type" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/border_round_greystroke_whitebody"
-                app:spinnerItemList="@{vm.ipPlanTypeList}"
-                app:spinnerListener="@{vm.listener}"
-                app:typeId="@{SpinnerTypes.IP_PLAN_TYPE.typeId}" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/BlackTitleTextColor13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/string_category" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/border_round_greystroke_whitebody"
-                app:spinnerItemList="@{vm.ipCategoryList}"
-                app:spinnerListener="@{vm.listener}"
-                app:typeId="@{SpinnerTypes.IP_CATEGORY.typeId}" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/BlackTitleTextColor13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/string_action_point" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/border_round_greystroke_whitebody"
-                app:spinnerItemList="@{vm.ipActionPointList}"
-                app:spinnerListener="@{vm.listener}"
-                app:typeId="@{SpinnerTypes.IP_ACTION_POINT.typeId}" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/BlackTitleTextColor13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/string_work_assigned_to" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/border_round_greystroke_whitebody"
-                app:empList="@{vm.workAssignedToList}"
-                app:typeId="@{SpinnerTypes.ASSIGNED_TO.typeId}"
-                app:spinnerListener="@{vm.listener}" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/BlackTitleTextColor13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/target_date" />
+            android:background="@color/colorWindowBackGround">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:background="@drawable/border_round_white_body"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_12sdp">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/BlackTitleTextColor12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_select_target_date"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@{TimeUtils.TASK_DATE_FORMAT(vm.ipTargetDate)}" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/targetDatePicker"
+                    style="@style/BlackTitleTextColor13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{vm::onViewClicks}"
-                    android:padding="@dimen/_8sdp"
-                    android:src="@drawable/ic_calendar"
-                    tools:ignore="ContentDescription" />
+                    android:text="@string/string_select_unit_name" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_round_greystroke_whitebody"
+                    app:listener="@{vm.siteSpinnerListener}"
+                    app:rewardFineReasons="@{vm.obsSitesSpinnerList}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="@string/string_plan_type" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_round_greystroke_whitebody"
+                    app:spinnerItemList="@{vm.ipPlanTypeList}"
+                    app:spinnerListener="@{vm.listener}"
+                    app:typeId="@{SpinnerTypes.IP_PLAN_TYPE.typeId}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="@string/string_category" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_round_greystroke_whitebody"
+                    app:spinnerItemList="@{vm.ipCategoryList}"
+                    app:spinnerListener="@{vm.listener}"
+                    app:typeId="@{SpinnerTypes.IP_CATEGORY.typeId}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="@string/string_action_point" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_round_greystroke_whitebody"
+                    app:spinnerItemList="@{vm.ipActionPointList}"
+                    app:spinnerListener="@{vm.listener}"
+                    app:typeId="@{SpinnerTypes.IP_ACTION_POINT.typeId}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="@string/string_work_assigned_to" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_round_greystroke_whitebody"
+                    app:empList="@{vm.workAssignedToList}"
+                    app:typeId="@{SpinnerTypes.ASSIGNED_TO.typeId}"
+                    app:spinnerListener="@{vm.listener}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="@string/target_date" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@drawable/border_round_white_body"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/hint_select_target_date"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@{TimeUtils.TASK_DATE_FORMAT(vm.ipTargetDate)}" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/targetDatePicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{vm::onViewClicks}"
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/ic_calendar"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackTitleTextColor13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:text="@string/string_add_remarks" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_below="@+id/addRemarksLabel"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_round_white_body"
+                    android:gravity="top"
+                    android:hint="@string/please_enter_remarks"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_12sdp"
+                    android:text="@={vm.addIpRiskRemarks}"
+                    android:textColor="@color/textColorBlackBold"
+                    android:textSize="@dimen/_12ssp"
+                    tools:ignore="Autofill,TextFields" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/BlackTitleTextColor13"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addImprovePlanButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorAccent"
+                android:onClick="@{vm::onViewClicks}"
+                android:text="@string/string_add_improvement_plan"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_14ssp" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:text="@string/string_add_remarks" />
+                android:layout_centerInParent="true"
+                android:visibility="@{vm.isLoading}" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
-                android:layout_below="@+id/addRemarksLabel"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/border_round_white_body"
-                android:gravity="top"
-                android:hint="@string/please_enter_remarks"
-                android:inputType="text"
-                android:maxLines="1"
-                android:padding="@dimen/_12sdp"
-                android:text="@={vm.addIpRiskRemarks}"
-                android:textColor="@color/textColorBlackBold"
-                android:textSize="@dimen/_12ssp"
-                tools:ignore="Autofill,TextFields" />
+        </RelativeLayout>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/addImprovePlanButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorAccent"
-            android:onClick="@{vm::onViewClicks}"
-            android:text="@string/string_add_improvement_plan"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_14ssp" />
-
-        <androidx.core.widget.ContentLoadingProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="@{vm.isLoading}" />
-
-    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
