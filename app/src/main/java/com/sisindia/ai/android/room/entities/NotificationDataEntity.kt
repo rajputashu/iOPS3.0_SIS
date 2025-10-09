@@ -1,6 +1,7 @@
 package com.sisindia.ai.android.room.entities
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import org.parceler.Parcel
@@ -14,11 +15,9 @@ data class NotificationDataEntity(
 
     @PrimaryKey(autoGenerate = true) var ids: Int = 0,
 
-//    @Ignore
     @SerializedName("id")
     var notificationId: String? = null,
 
-//    @Ignore
     @SerializedName("notificationMasterId")
     var notificationMasterId: String? = null,
 
@@ -54,5 +53,9 @@ data class NotificationDataEntity(
 
     @SerializedName("createdDateTime")
     var createdDateTime: String = "",
+
+    @Ignore
+    @SerializedName("varDatas")
+    var varDatas: String = "",
 
     var isSynced: Boolean = false)

@@ -11,7 +11,7 @@ class AddPoaBodyMO(
     @SerializedName("siteRiskId")
     var siteRiskId: Int? = null,
     @SerializedName("siteId")
-    val siteId: Int = Prefs.getInt(PrefConstants.CURRENT_SITE, 0),
+    var siteId: Int = 0,
     @SerializedName("poAReason")
     var poAReason: Int = 0,
     @SerializedName("atRiskActionPlan")

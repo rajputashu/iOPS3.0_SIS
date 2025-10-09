@@ -79,6 +79,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
     //    val obsTaskTypeId = ObservableInt(1)
     val obsNotificationId = ObservableField("1")
     val obsNotificationMasterId = ObservableField("1")
+    val obsVarDatas = ObservableField("")
     val obsHeaderUrl = ObservableField("")
     val obsHeaderName = ObservableField("")
     val obsHeaderRank = ObservableField("")
@@ -216,6 +217,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 
     private fun handleNotificationJsonException() {
         showToast("Notification expired for id : ${obsNotificationId.get()}")
+        updateNudgeStatusOfExpiredNotification()
         message.what = NavigationConstants.NO_JSON_DATA_FOUND
         liveData.postValue(message)
     }
@@ -229,12 +231,12 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 
                 when (controls.contentType) {
                     LABEL.name -> {
-                        completeUiList.add(DynamicLabel(label = controls.title,
+                        completeUiList.add(DynamicLabel(label = getDynamicTitleFromVars(controls.title),
                             isMandatory = controls.isMandatory))
                     }
 
                     CHECKBOX.name -> {
-                        completeUiList.add(DynamicLabel(label = controls.title))
+                        completeUiList.add(DynamicLabel(label = getDynamicTitleFromVars(controls.title)))
                         controls.dataValue?.forEach {
                             completeUiList.add(DynamicCheckBoxMO(controllerId = controls.ControlID,
                                 controllerName = controls.contentType,
@@ -305,7 +307,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 
                     TaskControllerType.RadioButton.name -> {
                         setHeaderDetails(controls)
-                        completeUiList.add(DynamicLabel(label = controls.title))
+                        completeUiList.add(DynamicLabel(label = getDynamicTitleFromVars(controls.title)))
                         controls.dataValue?.let {
                             completeUiList.add(DynamicRadioGroupMO(controllerId = controls.ControlID,
                                 controllerName = controls.contentType,
@@ -316,7 +318,7 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
 
                     TaskControllerType.RadioButtonWithChildControl.name -> {
                         setHeaderDetails(controls)
-                        completeUiList.add(DynamicLabel(label = controls.title))
+                        completeUiList.add(DynamicLabel(label = getDynamicTitleFromVars(controls.title)))
                         controls.childControllers?.let {
 
                             for (childControlMO in it) {
@@ -336,6 +338,41 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
             }
             dynamicTaskAdapter.clearAndSetItems(completeUiList)
         }
+    }
+
+    /*private fun getDynamicTitleFromVars(title: String?): String? {
+        var refinedTitle: String? = ""
+        if (obsVarDatas.get().isNullOrEmpty()) {
+            refinedTitle = title
+        } else {
+            val splitVars = obsVarDatas.get()?.split(",")
+            if (splitVars.isNullOrEmpty()) {
+                refinedTitle = title
+            } else {
+                if (splitVars.size == 1)
+                    refinedTitle = title?.replace("{#var}", splitVars[0])
+                else if (splitVars.size == 2)
+                    refinedTitle = title?.replace("{#var}", splitVars[0])
+                        ?.replace("{#var1}", splitVars[1])
+                else if (splitVars.size == 3)
+                    refinedTitle = title?.replace("{#var}", splitVars[0])
+                        ?.replace("{#var1}", splitVars[1])
+                        ?.replace("{#var2}", splitVars[2])
+            }
+        }
+        return refinedTitle
+    }*/
+
+    private fun getDynamicTitleFromVars(title: String?): String? {
+        val vars = obsVarDatas.get()?.takeIf { it.isNotEmpty() }?.split(",") ?: return title
+
+        var result = title
+
+        vars.forEachIndexed { index, value ->
+            result = result?.replace("{#var${if (index == 0) "" else index}}", value)
+        }
+
+        return result
     }
 
     private fun setHeaderDetails(controls: DynamicTaskParserV2) {
@@ -500,6 +537,19 @@ class NudgesDynamicViewModel @Inject constructor(app: Application) : IopsBaseVie
                         message.what = NavigationConstants.ON_DYNAMIC_TASK_COMPLETE
                         liveData.postValue(message)
                         showToast("Response updated successfully")
+                    }
+                }, { throwable: Throwable? ->
+                    throwable!!.printStackTrace()
+                })
+        })
+    }
+
+    private fun updateNudgeStatusOfExpiredNotification() {
+        addDisposable(obsNotificationId.get()?.let {
+            notificationsDao.updateNudge(it).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe({ count ->
+                    if (count > 0) {
+                        Timber.e("Expired Notification status updated")
                     }
                 }, { throwable: Throwable? ->
                     throwable!!.printStackTrace()

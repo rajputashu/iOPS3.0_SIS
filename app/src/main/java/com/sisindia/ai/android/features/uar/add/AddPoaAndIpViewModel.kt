@@ -306,7 +306,6 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
     }
 
     private fun addPoaToServerViaAPI(siteAtRiskId: Int) {
-
         /*
          * CREATING AT RISK ENTITY MODEL TO INSERT INTO 'SITE AT RISK ENTITY' TABLE
          */
@@ -333,6 +332,7 @@ class AddPoaAndIpViewModel @Inject constructor(val app: Application) : IopsBaseV
 
         val body = AddPoaBodyMO()
         body.siteRiskId = siteAtRiskId
+        body.siteId = siteAtRiskApiBody.siteId
         body.targetCompletionDate = poaTargetDate.get().toString()
         body.poAReason = poaTypeList.get()!![selectedPoaTypePos].lookupIdentifier
         body.atRiskActionPlan = actionPointList.get()!![selectedActionPointPos].actionPlanId!!
