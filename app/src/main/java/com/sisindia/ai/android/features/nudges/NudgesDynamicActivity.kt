@@ -44,9 +44,11 @@ class NudgesDynamicActivity : IopsBaseActivity() {
 //        viewModel?.obsTaskTypeId?.set(intent.extras?.getInt(IntentConstants.DYNAMIC_FORM_ID, 1)!!)
         val notificationId = intent.extras?.getString(IntentConstants.DYNAMIC_FORM_ID, "1")!!
         val notificationMasterId = intent.extras?.getString(IntentConstants.NOTIFICATION_MASTER_ID, "1")!!
+        val varDatas = intent.extras?.getString(IntentConstants.NOTIFICATION_VAR_DATAS, "")!!
         viewModel?.let {
             it.obsNotificationId.set(notificationId)
             it.obsNotificationMasterId.set(notificationMasterId)
+            it.obsVarDatas.set(varDatas)
         }
     }
 

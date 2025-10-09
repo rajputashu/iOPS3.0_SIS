@@ -12,6 +12,7 @@ import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.databinding.ActivityImprovePlansListBinding
 import com.sisindia.ai.android.uimodels.uarpoa.IPPoaPendingCompletedMO
 import com.sisindia.ai.android.uimodels.uarpoa.SitesWithImprovePlansMO
+import com.sisindia.ai.android.utils.unloadFragment
 
 /**
  * Created by Ashu Rajput on 12/21/2020.
@@ -39,10 +40,11 @@ class ImprovementPoaListActivity : IopsBaseActivity() {
         binding = DataBindingUtil.setContentView(this, layoutResource)
         binding.vm = viewModel
         binding.executePendingBindings()
+
+        setupToolBarForBackArrow(binding.tbPOAUnitsName)
     }
 
     override fun onCreated() {
-        setupToolBarForBackArrow(binding.tbPOAUnitsName)
         viewModel!!.apply {
             selectedSiteId.set(poaHeaderDetails.siteId)
             //            updatePoaCountsCardAndList(poaHeaderDetails)
@@ -75,9 +77,17 @@ class ImprovementPoaListActivity : IopsBaseActivity() {
 
     override fun onBackPressed() {
         if (isSelectedPOAClosed) {
-            setResult(Activity.RESULT_OK)
+            setResult(RESULT_OK)
             finish()
         } else
             super.onBackPressed()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (!unloadFragment()) {
+            setResult(RESULT_OK)
+            finish()
+        }
+        return super.onSupportNavigateUp()
     }
 }

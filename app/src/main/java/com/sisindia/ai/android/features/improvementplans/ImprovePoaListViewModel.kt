@@ -38,8 +38,8 @@ class ImprovePoaListViewModel @Inject constructor(val app: Application) : IopsBa
     var showNoPendingUI = ObservableInt(View.GONE)
     var isRefreshingPoaList: Boolean = false
 
-    private lateinit var dueDatesListOfPendingPOAs: List<String>
-    private lateinit var dueDatesListOfCompletedPOAs: List<String>
+//    private lateinit var dueDatesListOfPendingPOAs: List<String>
+//    private lateinit var dueDatesListOfCompletedPOAs: List<String>
 
     val pendingPOAAdapter = IPPoaDetailsAdapter()
     val completedPOAAdapter = IPPoaDetailsAdapter(false)
