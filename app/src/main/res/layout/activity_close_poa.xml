@@ -19,7 +19,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWindowBackGround">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tbPOAUnitsName"
@@ -42,10 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tbPOAUnitsName"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_margin="@dimen/_10sdp"
             app:cardBackgroundColor="@color/colorWhite"
             app:cardCornerRadius="@dimen/_6sdp"
-            android:layout_margin="@dimen/_6sdp"
             app:cardElevation="@dimen/_3sdp">
 
             <LinearLayout
@@ -53,15 +53,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/uarUnitName"
+                    style="@style/BlackTitleTextColor12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_12sdp"
                     android:gravity="center_vertical"
                     android:text="@{poaMO.category}"
-                    android:textColor="@color/textColorBlackBold"
-                    android:textSize="@dimen/_12ssp"
                     app:drawableEndCompat="@drawable/ic_pending" />
 
                 <LinearLayout
@@ -72,23 +71,21 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/_12sdp">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor10"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.2"
                         android:drawablePadding="@dimen/_4sdp"
-                        android:textColor="@color/textColorBlackBold"
-                        android:textSize="@dimen/_10ssp"
                         app:drawableStartCompat="@drawable/ic_person_icon"
                         app:htmlText="@{@string/dynamic_string_assigned_to(poaMO.AssignedTo)}" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor10"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="@dimen/_4sdp"
-                        android:textColor="@color/textColorBlackBold"
-                        android:textSize="@dimen/_10ssp"
                         app:drawableStartCompat="@drawable/ic_person_icon"
                         app:htmlText="@{@string/dynamic_string_category(poaMO.category)}" />
 
@@ -126,32 +123,73 @@
                     android:paddingBottom="@dimen/_10sdp">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/BlackTitleTextColor12"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@{TimeUtils.TASK_DATE_FORMAT(vm.closeDate)}"
-                        android:textColor="@color/textColorBlackBold"
-                        android:textSize="@dimen/_12ssp" />
+                        android:text="@{TimeUtils.TASK_DATE_FORMAT(vm.closeDate)}" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/poaDatePicker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{vm::onDatePickerClick}"
+                        android:onClick="@{vm::onViewClicks}"
                         android:src="@drawable/ic_calender"
                         tools:ignore="ContentDescription" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:background="@color/colorWhite"
                     android:paddingStart="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_12sdp"
-                    android:text="@string/string_add_close_date"
-                    android:textColor="@color/colorTextGrey"
-                    android:textSize="@dimen/_14ssp" />
+                    android:text="@string/string_add_close_date" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/border"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sectorOrStatusSpinner"
+                        style="@style/BlackTitleTextColor13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:pointerIcon="arrow"
+                        android:popupBackground="@color/colorWhite"
+                        app:listener="@{vm.spinnerListener}"
+                        app:poaTypeList="@{vm.poaTypeStringList}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:background="@color/colorWhite"
+                    android:paddingStart="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_6sdp"
+                    android:text="@string/string_poa_type" />
 
             </RelativeLayout>
 
@@ -172,6 +210,7 @@
                     android:paddingBottom="@dimen/_12sdp">
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        style="@style/BlackTitleTextColor12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -179,22 +218,19 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:text="@={vm.addRemarks}"
-                        android:textColor="@color/textColorBlackBold"
-                        android:textSize="@dimen/_12ssp"
                         tools:ignore="Autofill,TextFields" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/BlackSubTitleTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:background="@color/colorWhite"
                     android:paddingStart="@dimen/_12sdp"
                     android:paddingEnd="@dimen/_12sdp"
-                    android:text="@string/string_add_remarks"
-                    android:textColor="@color/colorTextGrey"
-                    android:textSize="@dimen/_14ssp" />
+                    android:text="@string/string_add_remarks" />
 
             </RelativeLayout>
 
@@ -207,33 +243,34 @@
                 android:onClick="@{vm::onConfirmByPhotoClick}"
                 android:padding="@dimen/_5sdp">-->
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/OnlyFontFamily"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:paddingEnd="@dimen/_20sdp"
-                    android:paddingStart="@dimen/_20sdp"
-                    android:paddingTop="@dimen/_12sdp"
-                    android:paddingBottom="@dimen/_12sdp"
-                    android:background="@drawable/border_round_red_body"
-                    android:onClick="@{vm::onConfirmByPhotoClick}"
-                    android:text="@string/string_confirm_by_photo"
-                    android:textColor="@color/colorWhite" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/confirmByPhotoBtn"
+                style="@style/OnlyFontFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/border_round_red_body"
+                android:gravity="center"
+                android:onClick="@{vm::onViewClicks}"
+                android:paddingStart="@dimen/_20sdp"
+                android:paddingTop="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_20sdp"
+                android:paddingBottom="@dimen/_12sdp"
+                android:text="@string/string_confirm_by_photo"
+                android:textColor="@color/colorWhite" />
 
-<!--            </LinearLayout>-->
+            <!--            </LinearLayout>-->
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCompleteBillSubmissionTask"
+            android:id="@+id/btnClosePOA"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_44sdp"
             android:layout_alignParentBottom="true"
             android:background="@color/colorLightRed"
-            android:onClick="@{vm::onClosePOABtnClick}"
+            android:onClick="@{vm::onViewClicks}"
             android:text="@string/string_close_poa"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_14ssp" />

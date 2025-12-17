@@ -91,6 +91,8 @@ import com.sisindia.ai.android.features.units.details.posts.PostsListener
 import com.sisindia.ai.android.features.units.details.posts.UnitPostsAdapter
 import com.sisindia.ai.android.features.units.details.strength.UnitStrengthAdapter
 import com.sisindia.ai.android.features.units.registermap.MapRegistersAdapter
+import com.sisindia.ai.android.features.vulnerability.VulnerabilityCardAdapter
+import com.sisindia.ai.android.features.vulnerability.VulnerabilityListener
 import com.sisindia.ai.android.features.webviews.EventClickListener
 import com.sisindia.ai.android.features.webviews.EventsAdapter
 import org.threeten.bp.LocalDate
@@ -175,7 +177,7 @@ fun bindEquipmentsAdapter(recyclerView: RecyclerView, adapter: EquipmentAdapter)
 fun bindEquipmentProvidedBySpinner(spinner: AppCompatSpinner,
                                    providedList: ArrayList<String>,
                                    listener: EquipmentSpinnerListener) {
-    if (!providedList.isNullOrEmpty()) {
+    if (providedList.isNotEmpty()) {
         providedList.apply {
             val adapter: SpinnerAdapter =
                 ArrayAdapter(spinner.context, R.layout.support_simple_spinner_dropdown_item, providedList)
@@ -196,7 +198,7 @@ fun bindEquipmentProvidedBySpinner(spinner: AppCompatSpinner,
 fun bindEquipmentTypeSpinner(spinner: AppCompatSpinner,
                              equipmentTypeList: ArrayList<String>,
                              listener: EquipmentSpinnerListener) {
-    if (!equipmentTypeList.isNullOrEmpty()) {
+    if (equipmentTypeList.isNotEmpty()) {
         equipmentTypeList.apply {
             val adapter: SpinnerAdapter = ArrayAdapter(spinner.context,
                 R.layout.support_simple_spinner_dropdown_item,
@@ -233,17 +235,6 @@ fun AppCompatSpinner.bindFindRewardReasonSpinner(reasonList: ArrayList<String>,
         }
     }
 }
-
-/*@BindingAdapter(value = ["aiLocationMap"])
-fun SupportMapFragment.bindGoogleMap(latLng: LatLng) {
-//fun MapView.bindGoogleMap(latLng: LatLng) {
-    apply {
-        onCreate(Bundle())
-        getMapAsync { map ->
-            map.addMarker(MarkerOptions().position(latLng).title("Marker in India"))
-        }
-    }
-}*/
 
 @BindingAdapter(value = ["billCheckListAdapter"])
 fun bindBillCheckListAdapter(recyclerView: RecyclerView, adapter: BillCheckListAdapter) {
@@ -567,26 +558,10 @@ fun AppCompatTextView.bindSalesStatus(status: Int, isLabel: Boolean) {
     }
 }
 
-/*@BindingAdapter(value = ["performanceResultsAdapter", "performanceListener"])
-fun RecyclerView.bindPerformanceResultsAdapter(resultAdapter: PerformanceResultsAdapter,
-    listener: PerformanceListener) {
-    layoutManager = LinearLayoutManager(context)
-    resultAdapter.initListener(listener)
-    adapter = resultAdapter
-}
-
-@BindingAdapter(value = ["performanceEffortsAdapter"])
-fun RecyclerView.bindPerformanceEffortsAdapter(resultAdapter: PerformanceEffortsAdapter) {
-    layoutManager = LinearLayoutManager(context)
-    adapter = resultAdapter
-}*/
-
-//app:performanceSortItems="@{vm.sortItems}"
-//            app:performanceSortListener="@{vm.sortItemSelectionListener}"
 @BindingAdapter(value = ["performanceSortItems", "performanceSortListener"])
 fun AppCompatSpinner.bindPerfEffortsSpinner(itemList: ArrayList<String>,
                                             listener: SortItemSelectionListener) {
-    if (!itemList.isNullOrEmpty()) {
+    if (itemList.isNotEmpty()) {
         itemList.apply {
             val effortsAdapter: SpinnerAdapter =
                 ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, itemList)
@@ -609,7 +584,7 @@ fun AppCompatSpinner.bindPerfEffortsSpinner(itemList: ArrayList<String>,
 @BindingAdapter(value = ["siteSortItems", "performanceSortListener"])
 fun AppCompatSpinner.bindSiteSummarySpinner(itemList: ArrayList<String>,
                                             listener: SortItemSelectionListener) {
-    if (!itemList.isNullOrEmpty()) {
+    if (itemList.isNotEmpty()) {
         itemList.apply {
             val effortsAdapter: SpinnerAdapter =
                 ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, itemList)
@@ -629,7 +604,7 @@ fun AppCompatSpinner.bindSiteSummarySpinner(itemList: ArrayList<String>,
 
 @BindingAdapter(value = ["filterList", "monthYearListener"])
 fun AppCompatSpinner.bindMonthYearSpinner(itemList: ArrayList<String>, listener: MonthYearListener) {
-    if (!itemList.isNullOrEmpty()) {
+    if (itemList.isNotEmpty()) {
         itemList.apply {
             val effortsAdapter: SpinnerAdapter =
                 ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, itemList)
@@ -679,67 +654,13 @@ fun RecyclerView.bindMonInputAdapter(monInputAdapter: MonInputCardAdapter, liste
     adapter = monInputAdapter
 }
 
-/*@BindingAdapter(value = ["raisingCardsAdapter", "raisingListener"])
-fun RecyclerView.bindRaisingCardsAdapter(raisingCardsAdapter: RaisingCardsAdapter,
-    listener: UnitRaisingListener) {
-    layoutManager = LinearLayoutManager(context)
-    raisingCardsAdapter.initListener(listener)
-    adapter = raisingCardsAdapter
-}*/
-
 @BindingAdapter(value = ["syncAdapter", "syncListener"])
 fun RecyclerView.bindManualSync(syncAdapter: ManualSyncAdapter,
                                 listener: ManualSyncAdapter.ManualSyncListener) {
-//    layoutManager = LinearLayoutManager(context)
     layoutManager = GridLayoutManager(context, 2)
     syncAdapter.initListener(listener)
     adapter = syncAdapter
 }
-
-/*@BindingAdapter(value = ["unitRaisingAdapter", "unitRaisingListener"])
-fun RecyclerView.bindUnitRaisingAdapter(raisingHomeAdapter: RaisingHomeAdapter,
-    listener: UnitRaisingListener) {
-    layoutManager = LinearLayoutManager(context)
-    raisingHomeAdapter.initListener(listener)
-    adapter = raisingHomeAdapter
-}
-
-@BindingAdapter(value = ["takeOverAdapter"])
-fun RecyclerView.bindTakeOverAdapter(takeoverAdapter: RaisingTakeoverAdapter) {
-    layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-    adapter = takeoverAdapter
-}
-
-@BindingAdapter(value = ["raisingRecruitAdapter"])
-fun RecyclerView.bindRecruitmentAdapter(raisingRecruitAdapter: RaisingRecruitmentAdapter) {
-    layoutManager = LinearLayoutManager(context)
-    adapter = raisingRecruitAdapter
-}
-
-@BindingAdapter(value = ["raisingBarrackAdapter"])
-fun RecyclerView.bindRaisingBarrackAdapter(raisingBarrackAdapter: RaisingBarrackAdapter) {
-    layoutManager = LinearLayoutManager(context)
-    adapter = raisingBarrackAdapter
-}
-
-@BindingAdapter(value = ["raisingKittingAdapter"])
-fun RecyclerView.bindRaisingKittingAdapter(raisingBarrackAdapter: KittingAdapter) {
-    layoutManager = LinearLayoutManager(context)
-    adapter = raisingBarrackAdapter
-}
-
-@BindingAdapter(value = ["preInductionAdapter"])
-fun RecyclerView.bindRaisingPreInductionAdapter(preInductionAdapter: RaisingPreInductionAdapter) {
-    val manager = LinearLayoutManager(context)
-    layoutManager = manager
-    val divider = DividerItemDecoration(context, manager.orientation)
-    val item = ContextCompat.getDrawable(context, R.drawable.grey_divider_1sdp)
-    if (item != null) {
-        divider.setDrawable(item)
-        addItemDecoration(divider)
-    }
-    adapter = preInductionAdapter
-}*/
 
 @BindingAdapter(value = ["myKPIAdapter"])
 fun RecyclerView.bindMyKPI(kpiAdapter: MyKPIAdapter) {
@@ -762,63 +683,9 @@ fun LinearLayout.setIncentiveBackground(incentiveStatus: String) {
     }
 }
 
-/*@BindingAdapter(value = ["activityId"])
-fun AppCompatTextView.bindArrowView(activityId: Int) {
-    if (activityId == UnitRaisingOptions.SALES_NOTIFICATION.optionsId || activityId == UnitRaisingOptions.CONTRACT_FINALISATION.optionsId ||
-        activityId == UnitRaisingOptions.UUPT_FINALISATION.optionsId || activityId == UnitRaisingOptions.INVOICE_GENERATION.optionsId ||
-        activityId == UnitRaisingOptions.TIMELY_WAGE_PAYOUT.optionsId || activityId == UnitRaisingOptions.COLLECTION.optionsId) {
-        this.visibility = View.INVISIBLE
-    } else
-        this.visibility = View.VISIBLE
-}
-
-@BindingAdapter(value = ["activityId", "updatedDateTime"])
-fun LinearLayout.bindRowLayout(activityId: Int, @Nullable updatedDateTime: String?) {
-    if (activityId == UnitRaisingOptions.SALES_NOTIFICATION.optionsId || activityId == UnitRaisingOptions.CONTRACT_FINALISATION.optionsId ||
-        activityId == UnitRaisingOptions.UUPT_FINALISATION.optionsId || activityId == UnitRaisingOptions.INVOICE_GENERATION.optionsId ||
-        activityId == UnitRaisingOptions.TIMELY_WAGE_PAYOUT.optionsId || activityId == UnitRaisingOptions.COLLECTION.optionsId) {
-        this.isEnabled = false
-    } else this.isEnabled = updatedDateTime == null
-}*/
-
-/*@BindingAdapter(value = ["activityId", "updatedDateTime"])
-fun View.bindActivityStatus(activityId: Int, @Nullable updatedDateTime: String?) {
-    if (activityId == UnitRaisingOptions.SALES_NOTIFICATION.optionsId || activityId == UnitRaisingOptions.CONTRACT_FINALISATION.optionsId ||
-        activityId == UnitRaisingOptions.UUPT_FINALISATION.optionsId) {
-        this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen))
-    } else if (updatedDateTime != null)
-        this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen))
-    else
-        this.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGreyDark))
-}
-
-@BindingAdapter(value = ["modeItemsList", "trainingListener"])
-fun AppCompatSpinner.bindTrainingModeSpinner(modeList: List<LookUpEntity>, listener: MTrainingModeListener) {
-    if (!modeList.isNullOrEmpty()) {
-        val modeNameList = ArrayList<String>()
-        modeNameList.add("Mode")
-        for (entity: LookUpEntity in modeList)
-            modeNameList.add(entity.displayName)
-
-        modeList.apply {
-            val modeAdapter: ArrayAdapter<String> = ArrayAdapter(context,
-                R.layout.support_simple_spinner_dropdown_item, modeNameList)
-            adapter = modeAdapter
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-
-                override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                    listener.onModeSelection(pos)
-                }
-            }
-        }
-    }
-}*/
-
 @BindingAdapter(value = ["unPaidReasonList", "spinnerListener"])
 fun AppCompatSpinner.bindAkrSpinner(unPaidReasonList: ArrayList<String>, listener: SpinnersListener) {
-    if (!unPaidReasonList.isNullOrEmpty()) {
+    if (unPaidReasonList.isNotEmpty()) {
         val modeAdapter: ArrayAdapter<String> =
             ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, unPaidReasonList)
         adapter = modeAdapter
@@ -854,21 +721,6 @@ fun TextView.bindDoubleOrIntFormat(value: Double) {
     else DecimalFormat("#.##").format(value)
 }
 
-/*@BindingAdapter(value = ["chatAdapter", "chatBotListener"])
-fun RecyclerView.bindChatBotAdapter(chatAdapter: ChatBotAdapter, chatBotListener: ChatBotListener) {
-    layoutManager = LinearLayoutManager(context)
-    chatAdapter.initListener(chatBotListener)
-    adapter = chatAdapter
-}
-
-@BindingAdapter(value = ["childAdapter", "listener"])
-fun RecyclerView.bindChildQuesAdapter(childAdapter: ChildQuestionsAdapter,
-    chatBotListener: ChatBotListener) {
-    layoutManager = LinearLayoutManager(context)
-    childAdapter.initListener(chatBotListener)
-    adapter = childAdapter
-}*/
-
 @BindingAdapter(value = ["questionTypeId", "showWidget"])
 fun AppCompatTextView.showHideChatWidgets(questionTypeId: Int, showWidget: Boolean) {
     visibility = if (showWidget) {
@@ -895,16 +747,32 @@ fun AppCompatTextView.postTagged(postCount: Int, qrTaggedCount: Int) {
     } else visibility = View.GONE
 }
 
-/*@SuppressLint("SetJavaScriptEnabled")
-@BindingAdapter(value = ["webViewUrl"])
-fun WebView.bindWebView(webViewUrl: String) {
-    settings.javaScriptEnabled = true
-    settings.defaultTextEncodingName = "utf-8"
-    webViewClient = object : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-            view?.loadUrl(url)
-            return true
+@BindingAdapter(value = ["poaTypeList", "listener"])
+fun AppCompatSpinner.bindPoaTypeSpinner(
+    typeList: List<String>?,
+    listener: SpinnersListener
+) {
+    typeList?.let { list ->
+        if (list.isNotEmpty()) {
+            val reasonAdapter: SpinnerAdapter =
+                ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, list)
+            adapter = reasonAdapter
+
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                    listener.onSpinnerOptionSelected(pos)
+                }
+            }
         }
     }
-    loadUrl(webViewUrl)
-}*/
+}
+
+@BindingAdapter(value = ["vulnerabilityAdapter", "vulnerabilityListener"])
+fun RecyclerView.bindVulnerabilityAdapter(vulnerabilityAdapter: VulnerabilityCardAdapter,
+                                          listener: VulnerabilityListener) {
+    layoutManager = LinearLayoutManager(context)
+    vulnerabilityAdapter.initListener(listener)
+    adapter = vulnerabilityAdapter
+}

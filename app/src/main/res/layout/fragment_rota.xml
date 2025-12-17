@@ -237,6 +237,25 @@
                             android:text="@{vm.monInputCount}"
                             android:visibility="@{vm.isShownMILayout}" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/vulnerabilityLayout"
+                            style="@style/BlackTitleTextColor12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_20sdp"
+                            android:background="@drawable/border_round_dark_grey_body"
+                            android:drawableEnd="@drawable/ic_white_forward_arrow"
+                            android:gravity="center_vertical"
+                            android:onClick="@{vm::rotaDashboardClicks}"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_8sdp"
+                            android:paddingEnd="@dimen/_8sdp"
+                            android:paddingBottom="@dimen/_8sdp"
+                            android:text="@{vm.vulnerabilityCount}"
+                            android:visibility="@{vm.showVulnerability}" />
+
                     </LinearLayout>
 
                 </androidx.core.widget.NestedScrollView>

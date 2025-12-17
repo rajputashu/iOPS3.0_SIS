@@ -52,6 +52,7 @@ class ClosePOAActivity : IopsBaseActivity() {
         setupToolBarForBackArrow(binding.tbPOAUnitsName)
         viewModel!!.apply {
             poaId.set(poaMO.poaId)
+            getPoaTypeLookUpFromDB()
         }
     }
 

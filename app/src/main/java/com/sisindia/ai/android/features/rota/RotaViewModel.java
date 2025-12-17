@@ -5,6 +5,7 @@ import static android.view.View.VISIBLE;
 import static com.sisindia.ai.android.constants.NavigationConstants.ON_CONVEYANCE_SCREEN;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_ADD_ROTA;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DASH_BOARD_DRAWER;
+import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DYNAMIC_VULNERABILITY_TASKS;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_NUDGES_DASHBOARD;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_ROTA_BILL_SUBMISSION_TASK;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_ROTA_MONINPUT_TASK;
@@ -70,8 +71,10 @@ public class RotaViewModel extends IopsBaseViewModel {
     public ObservableField<LocalDate> selectedDateObs = new ObservableField<>(LocalDate.now());
     public ObservableField<String> billSubmissionCount = new ObservableField<>("");
     public ObservableField<String> monInputCount = new ObservableField<>("");
+    public ObservableField<String> vulnerabilityCount = new ObservableField<>("");
     public ObservableInt isShownBSLayout = new ObservableInt(GONE);
     public ObservableInt isShownMILayout = new ObservableInt(GONE);
+    public ObservableInt showVulnerability = new ObservableInt(VISIBLE);
     public ObservableField<String> todayConveyance = new ObservableField<>("");
     public ObservableField<String> monthsConveyance = new ObservableField<>("");
     public ObservableField<String> selectedPostCode = new ObservableField<>("");
@@ -208,6 +211,9 @@ public class RotaViewModel extends IopsBaseViewModel {
             liveData.postValue(message);
         } else if (view.getId() == R.id.monInputLayout) {
             message.what = OPEN_ROTA_MONINPUT_TASK;
+            liveData.postValue(message);
+        } else if (view.getId() == R.id.vulnerabilityLayout) {
+            message.what = OPEN_DYNAMIC_VULNERABILITY_TASKS;
             liveData.postValue(message);
         } else if (view.getId() == R.id.conveyanceOfMonthView) {
             if (showConveyanceScreen) {
@@ -377,10 +383,14 @@ public class RotaViewModel extends IopsBaseViewModel {
             fetchPendingNotification();
 //            checkDutyOffStatus();
 
+
+//            getVulnerabilityCounts();
+
             int currentDayNo = LocalDate.now().getDayOfMonth();
             if (currentDayNo > 0 && currentDayNo < 11) {
                 isShownBSLayout.set(VISIBLE);
                 getBillSubmissionCounts();
+                getVulnerabilityCounts();
                 if (currentDayNo < 6) {
                     isShownMILayout.set(VISIBLE);
                     getMonInputCounts();
@@ -402,6 +412,14 @@ public class RotaViewModel extends IopsBaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(model -> monInputCount.set(getApplication().getResources().getString(R.string.dynamic_mon_input_count, model.getPendingCount(),
+                        "" + (Integer.parseInt(model.getPendingCount()) + Integer.parseInt(model.getCompletedCount())))), Timber::e));
+    }
+
+    private void getVulnerabilityCounts() {
+        addDisposable(taskDao.fetchVulnerabilityCount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(model -> vulnerabilityCount.set(getApplication().getResources().getString(R.string.dyn_vulnerability_count, model.getPendingCount(),
                         "" + (Integer.parseInt(model.getPendingCount()) + Integer.parseInt(model.getCompletedCount())))), Timber::e));
     }
 

@@ -728,6 +728,7 @@
     <string name="msg_no_register_found">No Register Found!!!</string>
     <string name="dynamic_bill_submission_count">Bill Submission - (%1s pending out of %1s)</string>
     <string name="dynamic_mon_input_count">Mon Input - (%1s pending out of %1s)</string>
+    <string name="dyn_vulnerability_count">Vulnerability - (%1s pending out of %1s)</string>
     <!--<string name="dynamic_dc_target"><![CDATA[<font color=#000000>%1d</font>/<small>%2d</small>]]></string>-->
     <string name="dynamic_dc_target"><![CDATA[%1d/<small>%2d</small>]]></string>
     <string name="dynamic_nc_target"><![CDATA[%1d/<small>%2d</small>]]></string>
@@ -882,8 +883,9 @@
     <string name="string_action_point">Action Point</string>
     <string name="string_work_assigned_to">Work Assigned To</string>
     <string name="hint_select_target_date">Select target date</string>
-    <string name="string_poa_type">POA Type</string>
+    <string name="string_poa_type">POA Status Type</string>
     <string name="string_add_poa">Add POA</string>
     <string name="string_status_closed">Closed</string>
     <string name="string_level">Level</string>
+    <string name="string_vulnerability">Vulnerability</string>
 </resources>

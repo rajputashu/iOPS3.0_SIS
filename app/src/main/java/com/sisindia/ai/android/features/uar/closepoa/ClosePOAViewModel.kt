@@ -11,6 +11,7 @@ import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseViewModel
 import com.sisindia.ai.android.commons.CaptureImageType
 import com.sisindia.ai.android.commons.POAStatus
+import com.sisindia.ai.android.commons.SpinnersListener
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.constants.PrefConstants
 import com.sisindia.ai.android.features.uar.dialog.DialogListener
@@ -18,6 +19,7 @@ import com.sisindia.ai.android.room.dao.AttachmentDao
 import com.sisindia.ai.android.room.dao.AttachmentMetadataDefinitionDao
 import com.sisindia.ai.android.room.dao.SiteRiskPoaDao
 import com.sisindia.ai.android.room.entities.AttachmentEntity
+import com.sisindia.ai.android.room.entities.LookUpEntity
 import com.sisindia.ai.android.uimodels.collection.CollectionAttachmentMO
 import com.sisindia.ai.android.workers.AtRiskPoaWorker
 import com.sisindia.ai.android.workers.AttachmentsUploadWorker
@@ -27,7 +29,7 @@ import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
 import org.threeten.bp.LocalDate
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 /**
@@ -43,14 +45,18 @@ class ClosePOAViewModel @Inject constructor(val app: Application) : IopsBaseView
 
     @Inject
     lateinit var metadataDefinitionDao: AttachmentMetadataDefinitionDao
-
     var poaId = ObservableField<Int>()
-    var closeDate = ObservableField<LocalDate>(LocalDate.now())
-    var addRemarks = ObservableField<String>("")
+    var closeDate = ObservableField(LocalDate.now())
+    var addRemarks = ObservableField("")
     var photoImageUri = ObservableField<Uri>()
-    var closePoaImageMetaData = ObservableField<String>("")
+    var closePoaImageMetaData = ObservableField("")
     private lateinit var generatedUUID: String
     var poaPicAttachmentEntity = ObservableField<AttachmentEntity>()
+    val poaTypeLookUpList = ObservableField<List<LookUpEntity>>()
+    private var selectedItemPosFromSpinner: Int = 0
+
+    //    val poaTypeStringList = ObservableField(arrayListOf<String>())
+    val poaTypeStringList = ObservableField<List<String>>()
 
     val listener = object : DialogListener {
         override fun onCrossButtonClick() {
@@ -68,27 +74,48 @@ class ClosePOAViewModel @Inject constructor(val app: Application) : IopsBaseView
         }
     }
 
-    fun onDatePickerClick(view: View) {
-        message.what = NavigationConstants.OPEN_DATE_PICKER
-        liveData.postValue(message)
+    var spinnerListener: SpinnersListener = object : SpinnersListener {
+        override fun onSpinnerOptionSelected(pos: Int) {
+            selectedItemPosFromSpinner = pos
+        }
+
+        override fun onSpinnerOptionSelected(item: Any) {}
     }
 
-    fun onConfirmByPhotoClick(view: View) {
-        message.what = NavigationConstants.OPEN_POA_CONFIRM_BY_PHOTO
-        liveData.postValue(message)
-        //        generateFileNameAndStoragePath()
+    fun getPoaTypeLookUpFromDB() {
+        addDisposable(riskPoaDao.getLookUpDataViaTypeId(203)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it.isNotEmpty()) {
+                    poaTypeLookUpList.set(it)
+                    val typeList = it.map { item -> item.displayName }.toMutableList()
+                    typeList.add(0, "Please select type")
+                    poaTypeStringList.set(typeList)
+                }
+            }, {
+            }))
     }
 
-    fun onClosePOABtnClick(view: View) {
-        when {
-            addRemarks.get().toString()
-                .isEmpty() -> showToast(app.resources.getString(R.string.string_msg_remarks))
-            //            photoImageUri.get() == null -> showToast(app.resources.getString(R.string.string_msg_capture_photo))
-            else -> {
+    fun onViewClicks(view: View) {
+        if (view.id == R.id.btnClosePOA) {
+            if (selectedItemPosFromSpinner == 0) {
+                showToast("Please select valid POA status type")
+            } else if (addRemarks.get().toString()
+                    .isEmpty()) {
+                showToast(app.resources.getString(R.string.string_msg_remarks))
+            } else {
                 if (photoImageUri.get() != null)
                     insertPoaImageToDB()
                 updatePoaClosureDetails()
             }
+        } else if (view.id == R.id.confirmByPhotoBtn) {
+            message.what = NavigationConstants.OPEN_POA_CONFIRM_BY_PHOTO
+            liveData.postValue(message)
+            //        generateFileNameAndStoragePath()
+        } else if (view.id == R.id.poaDatePicker) {
+            message.what = NavigationConstants.OPEN_DATE_PICKER
+            liveData.postValue(message)
         }
     }
 
@@ -97,13 +124,18 @@ class ClosePOAViewModel @Inject constructor(val app: Application) : IopsBaseView
             AttachmentEntity(photoImageUri.get().toString(), closePoaImageMetaData.get())
         addDisposable(attachmentDao.insert(attachmentMO).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
-            oneTimeWorkerWithNetwork(AttachmentsUploadWorker::class.java)
-        }, { }))
+                oneTimeWorkerWithNetwork(AttachmentsUploadWorker::class.java)
+            }, { }))
     }
 
     private fun updatePoaClosureDetails() {
-        addDisposable(riskPoaDao.updateOnClosingPOA(closeDate.get().toString(),
-            addRemarks.get().toString(), POAStatus.CLOSED.status, poaId.get()!!.toInt())
+        val selectedPoaStatusType = poaTypeLookUpList.get()!![selectedItemPosFromSpinner - 1]
+        addDisposable(riskPoaDao.updateOnClosingPOA(
+            closeDate.get().toString(),
+            addRemarks.get().toString(),
+            POAStatus.CLOSED.status, poaId.get()!!,
+            selectedPoaStatusType.lookupIdentifier,
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -120,7 +152,7 @@ class ClosePOAViewModel @Inject constructor(val app: Application) : IopsBaseView
         WorkManager.getInstance(getApplication()).enqueue(request)
     }
 
-    private fun generateFileNameAndStoragePath() {
+    /*private fun generateFileNameAndStoragePath() {
         generatedUUID = UUID.randomUUID().toString()
         addDisposable(Single.zip(riskPoaDao.getAttachmentDataForPoaClose(CaptureImageType.CLOSE_POA.attachmentSourceTypeId,
             Prefs.getInt(PrefConstants.CURRENT_SITE), 2, 3, poaId.get()!!.toInt(), generatedUUID),
@@ -131,9 +163,9 @@ class ClosePOAViewModel @Inject constructor(val app: Application) : IopsBaseView
             .subscribe({}, {
                 it.printStackTrace()
             }))
-    }
+    }*/
 
-    private fun onResultFetch(fileDetails: CollectionAttachmentMO, metaDataJson: String): Boolean {
+    /*private fun onResultFetch(fileDetails: CollectionAttachmentMO, metaDataJson: String): Boolean {
         val finalStoragePath = fileDetails.storagePath + "/" + fileDetails.fileName
         val jsonObjectMO = JSONObject(metaDataJson)
         jsonObjectMO.put("uuid", generatedUUID)
@@ -154,5 +186,5 @@ class ClosePOAViewModel @Inject constructor(val app: Application) : IopsBaseView
         message.what = NavigationConstants.OPEN_POA_CONFIRM_BY_PHOTO
         liveData.postValue(message)
         return true
-    }
+    }*/
 }

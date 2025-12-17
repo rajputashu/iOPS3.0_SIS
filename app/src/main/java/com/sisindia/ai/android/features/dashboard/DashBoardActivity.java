@@ -39,6 +39,7 @@ import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_CLIENT_
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DASH_BOARD_DRAWER;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DASH_BOARD_ROTA;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DYNAMIC_TASKS;
+import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_DYNAMIC_VULNERABILITY_TASKS;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_MYSIS_TASKS;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_NUDGES_DASHBOARD;
 import static com.sisindia.ai.android.constants.NavigationConstants.OPEN_OTHER_TASK;
@@ -115,6 +116,7 @@ import com.sisindia.ai.android.features.sync.ManualSyncFragment;
 import com.sisindia.ai.android.features.timline.TimeLineFragment;
 import com.sisindia.ai.android.features.uar.dialog.DialogListener;
 import com.sisindia.ai.android.features.units.DashBoardUnitsFragment;
+import com.sisindia.ai.android.features.vulnerability.VulnerabilityDashboardActivity;
 import com.sisindia.ai.android.features.webviews.EventsFragment;
 import com.sisindia.ai.android.receivers.MySISReceiver;
 import com.sisindia.ai.android.uimodels.RotaTaskItemModel;
@@ -332,6 +334,10 @@ public class DashBoardActivity extends IopsBaseActivity {
 
                 case OPEN_ROTA_MONINPUT_TASK:
                     startActivity(new Intent(this, MonInputCardsActivity.class));
+                    break;
+
+                case OPEN_DYNAMIC_VULNERABILITY_TASKS:
+                    startActivity(new Intent(this, VulnerabilityDashboardActivity.class));
                     break;
 
                 case OPEN_CAMERA_FOR_SELFIE:
