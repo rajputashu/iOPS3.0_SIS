@@ -257,4 +257,6 @@ public interface NavigationConstants {
     int OPEN_TO_ADD_IMPROVEMENT_PLAN = 253;
     int ON_ADDING_POA_OR_IP_SUCCESSFULLY = 254;
     int OPEN_DYNAMIC_TASKS = 255;
+    int OPEN_DYNAMIC_VULNERABILITY_TASKS = 256;
+    int UPDATE_UI_AFTER_SYNC = 257;
 }

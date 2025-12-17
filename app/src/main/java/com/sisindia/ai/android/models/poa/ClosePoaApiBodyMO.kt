@@ -15,4 +15,7 @@ class ClosePoaApiBodyMO(
     @SerializedName("closingRemarks")
     var closingRemarks: String? = null,
     @SerializedName("closureProofAttachment")
-    var closureProofAttachment: Int? = null)
+    var closureProofAttachment: Int? = null,
+    @SerializedName("SiteStatusOnCloseTime")
+    var siteStatusOnCloseTime: Int? = null,
+)

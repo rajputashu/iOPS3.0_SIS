@@ -125,6 +125,7 @@ import com.sisindia.ai.android.features.units.details.posts.UnitPostsViewModel;
 import com.sisindia.ai.android.features.units.details.strength.UnitStrengthViewModel;
 import com.sisindia.ai.android.features.units.registermap.MapRegistersViewModel;
 import com.sisindia.ai.android.features.units.sheet.AddEquipmentViewModel;
+import com.sisindia.ai.android.features.vulnerability.VulnerabilityViewModel;
 import com.sisindia.ai.android.features.webviews.EventsViewModel;
 import com.sisindia.ai.android.mlcore.QRScannerViewModel;
 
@@ -401,6 +402,7 @@ public interface ViewModelSubComponent {
     @NotNull CivilDefenceViewModel vmCivilDef();
 
     @NotNull AddPoaAndIpViewModel vmAddPoaIP();
+    @NotNull VulnerabilityViewModel vmVulnerability();
 
     @Subcomponent.Builder
     interface Builder {

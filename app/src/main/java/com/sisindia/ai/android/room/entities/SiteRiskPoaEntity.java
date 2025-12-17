@@ -39,6 +39,9 @@ public class SiteRiskPoaEntity {
     @SerializedName("poAStatus")
     public int poAStatus;
 
+    @SerializedName("siteStatusOnCloseTime")
+    public int siteStatusOnCloseTime;
+
     @SerializedName("assignedTo")
     public int assignedTo;
 

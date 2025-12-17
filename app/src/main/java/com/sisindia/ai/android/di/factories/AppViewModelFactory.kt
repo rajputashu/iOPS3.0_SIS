@@ -130,6 +130,7 @@ import com.sisindia.ai.android.features.units.details.posts.UnitPostsViewModel
 import com.sisindia.ai.android.features.units.details.strength.UnitStrengthViewModel
 import com.sisindia.ai.android.features.units.registermap.MapRegistersViewModel
 import com.sisindia.ai.android.features.units.sheet.AddEquipmentViewModel
+import com.sisindia.ai.android.features.vulnerability.VulnerabilityViewModel
 import com.sisindia.ai.android.features.webviews.EventsViewModel
 import com.sisindia.ai.android.mlcore.QRScannerViewModel
 import java.util.concurrent.Callable
@@ -541,6 +542,9 @@ constructor(viewModelSubComponent: ViewModelSubComponent) : ViewModelProvider.Fa
 
         creators[AddPoaAndIpViewModel::class.java] =
             Callable<ViewModel> { viewModelSubComponent.vmAddPoaIP() }
+
+        creators[VulnerabilityViewModel::class.java] =
+            Callable<ViewModel> { viewModelSubComponent.vmVulnerability() }
     }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

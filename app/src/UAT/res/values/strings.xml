@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">IOPS UAT</string>
     <string name="authorityPackage">com.sisindia.ai.android.uat</string>
 </resources>

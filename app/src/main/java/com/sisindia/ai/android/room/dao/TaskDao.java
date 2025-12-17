@@ -28,6 +28,8 @@ import com.sisindia.ai.android.uimodels.collection.CollectionAttachmentMO;
 import com.sisindia.ai.android.uimodels.moninput.MonInputCardDetailMO;
 import com.sisindia.ai.android.uimodels.moninput.MonInputCountMO;
 import com.sisindia.ai.android.uimodels.tasks.TimeElapsedMO;
+import com.sisindia.ai.android.uimodels.vulnerability.VulnerabilityCardDetailMO;
+import com.sisindia.ai.android.uimodels.vulnerability.VulnerabilityCountMO;
 
 import java.util.List;
 
@@ -292,4 +294,13 @@ public abstract class TaskDao implements BaseDao<TaskEntity> {
     //    @Query("Select Id from TaskEntity where TasktypeId=:taskTypeId and taskStatus = 2")
     @Query("Select Id from TaskEntity where TasktypeId=:taskTypeId and taskStatus = 2 and Date(estimatedTaskExecutionStartDateTime) = :date")
     public abstract Single<Integer> isAnyTaskAlreadyStarted(int taskTypeId, String date);
+
+    @Query("select (select count(t.id) from TaskEntity t join SiteEntity s on s.id=t.siteId where TaskTypeId=32 and taskStatus!=4 and strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and estimatedTaskExecutionEndDateTime<date()) as overdueCount, (select count(distinct(t.id)) from TaskEntity t join SiteEntity s on s.id=t.siteId where TaskTypeId=32 and strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus!=4) as pendingCount, (select count(t.id) from TaskEntity t join SiteEntity s on s.id=t.siteId where TaskTypeId=32 and strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus=4) as completedCount")
+    public abstract Single<VulnerabilityCountMO> fetchVulnerabilityCount();
+
+    @Query("select s.siteName,s.siteAddress,s.siteCode,s.id as siteId,t.id as taskId,1 as isPending,Cast(round(julianday('now')-julianday(estimatedTaskExecutionEndDateTime)) as INTEGER) overDueBy from TaskEntity t join SiteEntity s on s.id=t.siteId where TaskTypeId=32 and strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus!=4")
+    public abstract Single<List<VulnerabilityCardDetailMO>> fetchPendingVulnerability();
+
+    @Query("select s.siteName,s.siteAddress,s.siteCode,s.id as siteId,substr(t.actualtaskexecutionenddatetime,1,10) as submittedOnDate,0 as isPending,t.id as taskId from TaskEntity t join SiteEntity s on t.siteId=s.id where TaskTypeId=32 and t.taskStatus=4 and strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day')")
+    public abstract Single<List<VulnerabilityCardDetailMO>> fetchCompletedVulnerability();
 }
