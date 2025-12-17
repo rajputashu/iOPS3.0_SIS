@@ -384,7 +384,7 @@ public class RotaViewModel extends IopsBaseViewModel {
 //            checkDutyOffStatus();
 
 
-            getVulnerabilityCounts();
+//            getVulnerabilityCounts();
 
             int currentDayNo = LocalDate.now().getDayOfMonth();
             if (currentDayNo > 0 && currentDayNo < 11) {
