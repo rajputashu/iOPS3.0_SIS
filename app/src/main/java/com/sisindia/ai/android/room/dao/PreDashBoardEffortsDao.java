@@ -22,6 +22,9 @@ public abstract class PreDashBoardEffortsDao {
     @Query("SELECT (SELECT COUNT(id) FROM TaskEntity WHERE strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus not in (3,4) and otherTaskTypeLookUpIdentifier=8) AS monInputPending, (SELECT COUNT(id) FROM TaskEntity WHERE strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus=4 and otherTaskTypeLookUpIdentifier=8) AS monInputCompleted")
     public abstract Single<EffortsModel.EffortMonInput> fetchMonInput();
 
+    @Query("SELECT (SELECT COUNT(id) FROM TaskEntity WHERE strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus not in (3,4) and otherTaskTypeLookUpIdentifier=32) AS pending, (SELECT COUNT(id) FROM TaskEntity WHERE strftime('%Y-%m-%d', estimatedTaskExecutionStartDateTime) BETWEEN date('now','start of month','0 month','0 day') and date('now','start of month','+1 month','-1 day') and taskStatus=4 and otherTaskTypeLookUpIdentifier=32) AS completed")
+    public abstract Single<EffortsModel.EffortVulnerability> fetchVulnerabilityStatus();
+
     //BILL COLLECTION
     @Query("select (select count(DISTINCT(billOutputCenterCode)) from BillCollectionsEntity) bills," +
             "(select count(billOutputCenterCode) from BillCollectionsEntity where collectionStatus=1 and " +

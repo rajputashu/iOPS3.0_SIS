@@ -7,6 +7,7 @@ public class EffortsModel {
 
     public EffortBillSubmission effortBillSubmission;
     public EffortMonInput effortMonInput;
+    public EffortVulnerability effortVulnerability;
     public EffortBillCollection effortBillCollection;
     public EffortsSiteAtRisk effortUnitAtRisk;
     public EffortUnits effortUnits;
@@ -35,6 +36,15 @@ public class EffortsModel {
         public int monInputCompleted;
 
         public EffortMonInput() {
+        }
+    }
+
+    @Parcel
+    public static class EffortVulnerability {
+        public int pending;
+        public int completed;
+
+        public EffortVulnerability() {
         }
     }
 

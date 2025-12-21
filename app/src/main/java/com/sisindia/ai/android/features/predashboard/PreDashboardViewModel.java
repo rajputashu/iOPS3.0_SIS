@@ -38,6 +38,7 @@ public class PreDashboardViewModel extends IopsBaseViewModel {
 
     public ObservableField<EffortsModel.EffortBillSubmission> effortBillSubmission = new ObservableField<>(new EffortsModel.EffortBillSubmission());
     public ObservableField<EffortsModel.EffortMonInput> effortMonInput = new ObservableField<>(new EffortsModel.EffortMonInput());
+    public ObservableField<EffortsModel.EffortVulnerability> effortVulnerability = new ObservableField<>(new EffortsModel.EffortVulnerability());
     public ObservableField<EffortsModel.EffortBillCollection> effortBillCollection = new ObservableField<>(new EffortsModel.EffortBillCollection());
     public ObservableField<EffortsModel.EffortsSiteAtRisk> effortUnitAtRisk = new ObservableField<>(new EffortsModel.EffortsSiteAtRisk());
     public ObservableField<EffortsModel.EffortsDayCheck> effortDayCheck = new ObservableField<>(new EffortsModel.EffortsDayCheck());
@@ -59,26 +60,38 @@ public class PreDashboardViewModel extends IopsBaseViewModel {
 
     public void initEfforts() {
         addDisposable(Single.zip(
-                effortsDao.fetchBillSubmission(),
-                effortsDao.fetchMonInput(),
-                effortsDao.fetchBillCollection(),
-                effortsDao.fetchUnitAtRisk(),
-                effortsDao.fetchDayCheck(),
-                effortsDao.fetchNightCheck(),
-                effortsDao.fetchUnits(),
-                effortsDao.fetchOthers(), (billSubmission, monInput, billCollection, unitAtRisk, dayCheck, nightCheck, units, others) -> {
-                    effortBillSubmission.set(billSubmission);
-                    effortMonInput.set(monInput);
-                    effortBillCollection.set(billCollection);
-                    effortUnitAtRisk.set(unitAtRisk);
-                    effortDayCheck.set(dayCheck);
-                    effortNightCheck.set(nightCheck);
-                    effortUnits.set(units);
-                    effortOthers.set(others);
-                    return new EffortsModel();
-                }).subscribeOn(Schedulers.computation())
+                        effortsDao.fetchBillSubmission(),
+                        effortsDao.fetchMonInput(),
+                        effortsDao.fetchVulnerabilityStatus(),
+                        effortsDao.fetchBillCollection(),
+                        effortsDao.fetchUnitAtRisk(),
+                        effortsDao.fetchDayCheck(),
+                        effortsDao.fetchNightCheck(),
+                        effortsDao.fetchUnits(),
+                        effortsDao.fetchOthers(), (billSubmission,
+                                                   monInput,
+                                                   vulnerability,
+                                                   billCollection,
+                                                   unitAtRisk,
+                                                   dayCheck,
+                                                   nightCheck,
+                                                   units,
+                                                   others) -> {
+                            effortBillSubmission.set(billSubmission);
+                            effortMonInput.set(monInput);
+                            effortVulnerability.set(vulnerability);
+                            effortBillCollection.set(billCollection);
+                            effortUnitAtRisk.set(unitAtRisk);
+                            effortDayCheck.set(dayCheck);
+                            effortNightCheck.set(nightCheck);
+                            effortUnits.set(units);
+                            effortOthers.set(others);
+                            return new EffortsModel();
+                        }).subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(effortsModel -> Timber.d("Efforts Done"), Timber::e));
+                .subscribe(effortsModel ->
+                        Timber.d("Efforts Done"), Timber::e));
+
     }
 
     public void onCardItemsClicked(View view) {
@@ -92,25 +105,8 @@ public class PreDashboardViewModel extends IopsBaseViewModel {
             message.what = NavigationConstants.ON_PLAN_OF_ACTIONS_CLICK;
         else if (view.getId() == R.id.cvUnits)
             message.what = NavigationConstants.ON_UNITS_CLICK;
+        else if (view.getId() == R.id.cvVulnerability)
+            message.what = NavigationConstants.OPEN_VULNERABILITY_DASHBOARD;
         liveData.setValue(message);
-
-        /*switch (view.getId()) {
-            case R.id.cvBillSubmissionLayout:
-                message.what = NavigationConstants.OPEN_PRE_DASHBOARD_BILL_SUBMISSION_TASK;
-                break;
-            case R.id.cvMonInputLayout:
-                message.what = NavigationConstants.OPEN_MONINPUT_TASK;
-                break;
-            case R.id.cvBillCollection:
-                message.what = NavigationConstants.OPEN_PRE_DASH_BOARD_BILL_COLLECTION;
-                break;
-            case R.id.cvUnitsAtRisk:
-                message.what = NavigationConstants.ON_UNITS_RISK_POA_CLICK;
-                break;
-            case R.id.cvUnits:
-                message.what = NavigationConstants.ON_UNITS_CLICK;
-                break;
-        }
-        liveData.setValue(message);*/
     }
 }

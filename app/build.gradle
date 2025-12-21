@@ -72,8 +72,8 @@ android {
 
         UAT {
             applicationId "com.sisindia.ai.android.uat"
-            versionName "Ver-U(3.2)"
-            versionCode 32
+            versionName "Ver-U(3.3)"
+            versionCode 33
             buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
 //            buildConfigField 'String', 'CORE_API', '"https://eventmanagment-api.azurewebsites.net/"'
@@ -91,8 +91,8 @@ android {
 
         sisProd {
             applicationId "com.sisindia.ai.android.dev"
-            versionName "Ver-P(5.2)"
-            versionCode 52
+            versionName "Ver-P(5.3)"
+            versionCode 53
             buildConfigField 'String', 'IOPS_HOST', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'CORE_API', '"https://iops2core-uat.azurewebsites.net/"'
             buildConfigField 'String', 'GPS_API', '"https://iops2gps-uat.azurewebsites.net/"'

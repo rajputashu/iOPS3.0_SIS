@@ -74,7 +74,7 @@ public class RotaViewModel extends IopsBaseViewModel {
     public ObservableField<String> vulnerabilityCount = new ObservableField<>("");
     public ObservableInt isShownBSLayout = new ObservableInt(GONE);
     public ObservableInt isShownMILayout = new ObservableInt(GONE);
-    public ObservableInt showVulnerability = new ObservableInt(VISIBLE);
+    public ObservableInt showVulnerability = new ObservableInt(GONE);
     public ObservableField<String> todayConveyance = new ObservableField<>("");
     public ObservableField<String> monthsConveyance = new ObservableField<>("");
     public ObservableField<String> selectedPostCode = new ObservableField<>("");
@@ -383,9 +383,6 @@ public class RotaViewModel extends IopsBaseViewModel {
             fetchPendingNotification();
 //            checkDutyOffStatus();
 
-
-//            getVulnerabilityCounts();
-
             int currentDayNo = LocalDate.now().getDayOfMonth();
             if (currentDayNo > 0 && currentDayNo < 11) {
                 isShownBSLayout.set(VISIBLE);
@@ -419,8 +416,11 @@ public class RotaViewModel extends IopsBaseViewModel {
         addDisposable(taskDao.fetchVulnerabilityCount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(model -> vulnerabilityCount.set(getApplication().getResources().getString(R.string.dyn_vulnerability_count, model.getPendingCount(),
-                        "" + (Integer.parseInt(model.getPendingCount()) + Integer.parseInt(model.getCompletedCount())))), Timber::e));
+                .subscribe(model -> {
+                    showVulnerability.set(VISIBLE);
+                    vulnerabilityCount.set(getApplication().getResources().getString(R.string.dyn_vulnerability_count, model.getPendingCount(),
+                            "" + (Integer.parseInt(model.getPendingCount()) + Integer.parseInt(model.getCompletedCount()))));
+                }, Timber::e));
     }
 
     public void fetchRotaFromServer() {

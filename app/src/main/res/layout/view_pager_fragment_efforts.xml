@@ -386,6 +386,92 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <!--VULNERABILITY CARD VIEW LAYOUT-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvVulnerability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:onClick="@{vm::onCardItemsClicked}"
+                    app:cardBackgroundColor="@color/textColorWhite_100"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_13sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/BlackTitleTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_vulnerability" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortVulnerability.pending==0?@string/string_zero:vm.effortVulnerability.pending+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pending_text" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableEnd="@drawable/ic_small_circle_orange"
+                                    android:drawablePadding="@dimen/_4sdp"
+                                    android:text="@{vm.effortVulnerability.completed==0?@string/string_zero:vm.effortVulnerability.completed+@string/string_space}" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/BlackSubTitleTextColor12"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_4sdp"
+                                    android:text="@string/pre_dashboard_mon_input_completed" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
                 <!--BILL COLLECTION CARD VIEW LAYOUT-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvBillCollection"

@@ -259,4 +259,5 @@ public interface NavigationConstants {
     int OPEN_DYNAMIC_TASKS = 255;
     int OPEN_DYNAMIC_VULNERABILITY_TASKS = 256;
     int UPDATE_UI_AFTER_SYNC = 257;
+    int OPEN_VULNERABILITY_DASHBOARD = 258;
 }
