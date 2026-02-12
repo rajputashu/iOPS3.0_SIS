@@ -3,6 +3,7 @@ package com.sisindia.ai.android.features.akr.details
 import android.app.Application
 import android.view.View
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.droidcommons.preference.Prefs
 import com.sisindia.ai.android.base.IopsBaseViewModel
 import com.sisindia.ai.android.constants.NavigationConstants
@@ -36,9 +37,11 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
     var isDistributedDataAvailableForRV = ObservableField(View.VISIBLE)
     var isAssignedDataAvailable = ObservableField(View.GONE)
     var isDistributedDataAvailable = ObservableField(View.GONE)
-
     val assignedAdapter = KitAssignedDistributedAdapter()
     val distributedAdapter = KitAssignedDistributedAdapter()
+    val searchedKey = MutableLiveData("")
+    private var pendingOriginalList = mutableListOf<KitAssignedDistributedMO>()
+    val pendingFilteredList = MutableLiveData<List<KitAssignedDistributedMO>>()
 
     val listener = object : AKRListener {
         override fun onAkrSelected() {
@@ -51,10 +54,6 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
     }
 
     fun initAndUpdateKitAssignedUI() {
-
-        /*fetchCardViewDetailsFromDB()
-        fetchAssignedKitDetailsFromDB()
-        fetchDistributedKitDetailsFromDB()*/
 
         isLoading.set(View.VISIBLE)
 
@@ -71,7 +70,6 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
 
                 isLoading.set(View.GONE)
 
-
                 kitUnitName.set(it.cardMO.siteName)
                 kitPending.set(it.cardMO.kitPending)
                 kitItems.set(it.cardMO.kitItems)
@@ -79,7 +77,11 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
                 unPaidKits.set(it.cardMO.unPaidKits)
 
                 if (it.pendingList.isNotEmpty()) {
-                    assignedAdapter.clearAndSetItems(it.pendingList)
+                    pendingOriginalList.clear()
+                    pendingOriginalList.addAll(it.pendingList)
+                    pendingFilteredList.value = it.pendingList
+//                    assignedAdapter.clearAndSetItems(it.pendingList)
+                    assignedAdapter.submitList(it.pendingList)
                     isAssignedDataAvailable.set(View.GONE)
                 } else {
                     isAssignedDataAvailableForRV.set(View.GONE)
@@ -87,7 +89,8 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
                 }
 
                 if (it.completedList.isNotEmpty()) {
-                    distributedAdapter.clearAndSetItems(it.completedList)
+//                    distributedAdapter.clearAndSetItems(it.completedList)
+                    distributedAdapter.submitList(it.completedList)
                     isDistributedDataAvailableForRV.set(View.VISIBLE)
                     isDistributedDataAvailable.set(View.GONE)
                 } else {
@@ -109,7 +112,24 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
         return AkrUIResult(cardMO, pendingList, completedList)
     }
 
-    private fun fetchCardViewDetailsFromDB() {
+    fun filterPendingList(query: String?) {
+        if (query.isNullOrBlank()) {
+            pendingFilteredList.value = pendingOriginalList
+            return
+        }
+
+        val key = query.trim()
+
+        val filtered = pendingOriginalList.filter { item ->
+            item.guardRegNo?.contains(key, ignoreCase = true) == true ||
+                    item.guardName?.contains(key, ignoreCase = true) == true
+        }
+
+        pendingFilteredList.value = filtered
+    }
+
+
+    /*private fun fetchCardViewDetailsFromDB() {
         addDisposable(guardKitRequestDao.fetchKitDetailsViaSiteId(Prefs.getInt(PrefConstants.AKR_SITE_ID))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -163,10 +183,10 @@ class KitAssignedDistributedViewModel @Inject constructor(val app: Application) 
             }, { throwable: Throwable? ->
                 this.onError(throwable!!)
             }))
-    }
+    }*/
 
-    private fun onError(throwable: Throwable) {
+    /*private fun onError(throwable: Throwable) {
         Timber.e(throwable)
         showToast("Error while fetching details")
-    }
+    }*/
 }
