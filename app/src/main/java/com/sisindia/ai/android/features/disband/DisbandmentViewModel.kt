@@ -27,7 +27,8 @@ import javax.inject.Inject
 /**
  * Created by Ashu Rajput on 30-03-2023
  */
-class DisbandmentViewModel @Inject constructor(val app: Application) : IopsBaseViewModel(app) {
+class DisbandmentViewModel @Inject constructor(val app: Application) :
+    IopsBaseViewModel(app) {
 
     var obsAttachment =
         ObservableField(AttachmentEntity(AttachmentEntity.AttachmentSourceType.DISBANDMENT_IMAGE))
@@ -187,7 +188,8 @@ class DisbandmentViewModel @Inject constructor(val app: Application) : IopsBaseV
                     val body = AddDisbandmentBodyMO()
                     body.siteId = it.siteId
                     body.disbandmentDate = obsDateForAPI.get()
-                    body.disbandmentReason = obsReasonList.get()!![selectedItemPosFromSpinner]
+                    body.disbandmentReason =
+                        obsReasonList.get()!![selectedItemPosFromSpinner]
                     body.disbandmentRemarks = obsRemarks.get()
                     bodyList.add(body)
                 }

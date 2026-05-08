@@ -43,7 +43,8 @@ import javax.inject.Inject
 /**
  * Created by Ashu_Rajput on 6/10/2021.
  */
-class GenericDashboardViewModel @Inject constructor(val app: Application) : IopsBaseViewModel(app),
+class GenericDashboardViewModel @Inject constructor(val app: Application) :
+    IopsBaseViewModel(app),
     NavigationView.OnNavigationItemSelectedListener {
 
     val isOnDuty = ObservableBoolean(Prefs.getBoolean(PrefConstants.IS_ON_DUTY))
@@ -71,15 +72,18 @@ class GenericDashboardViewModel @Inject constructor(val app: Application) : Iops
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.actionDashboardRota -> message.what = NavigationConstants.OPEN_PRE_DASH_BOARD
+            R.id.actionDashboardRota -> message.what =
+                NavigationConstants.OPEN_PRE_DASH_BOARD
 
             R.id.actionUnits -> message.what = NavigationConstants.ON_UNITS_CLICK
 
-            R.id.actionPerformance -> message.what = NavigationConstants.ON_PERFORMANCE_CLICK
+            R.id.actionPerformance -> message.what =
+                NavigationConstants.ON_PERFORMANCE_CLICK
 
             R.id.action_timeline -> message.what = NavigationConstants.ON_TIMELINE_CLICK
 
-            R.id.actionConveyance -> message.what = NavigationConstants.ON_CONVEYANCE_CLICK
+            R.id.actionConveyance -> message.what =
+                NavigationConstants.ON_CONVEYANCE_CLICK
 
             R.id.actionIssueManagement ->
                 message.what = NavigationConstants.ON_ISSUE_MANAGEMENT_CLICK
@@ -89,11 +93,14 @@ class GenericDashboardViewModel @Inject constructor(val app: Application) : Iops
             R.id.actionSalesReference ->
                 message.what = NavigationConstants.ON_SALES_REFERENCE_CLICK
 
-            R.id.actionDisbandment -> message.what = NavigationConstants.ON_DISBANDMENT_MENU_CLICK
+            R.id.actionDisbandment -> message.what =
+                NavigationConstants.ON_DISBANDMENT_MENU_CLICK
 
-            R.id.actionPlanOfActions -> message.what = NavigationConstants.ON_PLAN_OF_ACTIONS_CLICK
+            R.id.actionPlanOfActions -> message.what =
+                NavigationConstants.ON_PLAN_OF_ACTIONS_CLICK
 
-            R.id.actionSelfService -> message.what = NavigationConstants.ON_SELF_SERVICE_CLICK
+            R.id.actionSelfService -> message.what =
+                NavigationConstants.ON_SELF_SERVICE_CLICK
 
             R.id.actionMyKPIs -> message.what = NavigationConstants.ON_MY_KPIS_CLICK
 
@@ -145,7 +152,8 @@ class GenericDashboardViewModel @Inject constructor(val app: Application) : Iops
             oneTimeWorkerWithNetwork(DutyStatusWorker::class.java)
             triggerRotaTaskWorkerBeforeDutyOff()
             //CANCELING PERIODIC WORKER IF DUTY IS OFF
-            WorkManager.getInstance(app).cancelAllWorkByTag(IntentConstants.LOCATION_WORKER_TAG)
+            WorkManager.getInstance(app)
+                .cancelAllWorkByTag(IntentConstants.LOCATION_WORKER_TAG)
 
         } else {
             val pwr = PeriodicWorkRequest.Builder(LocationWatcherWorker::class.java, 15,
@@ -173,16 +181,18 @@ class GenericDashboardViewModel @Inject constructor(val app: Application) : Iops
     private fun insertOrUpdateDutyOnOffToDB(isDutyOn: Boolean) {
         if (isDutyOn) {
             val item = DutyStatusEntity(true)
-            item.dutyOnLocation = Prefs.getDouble(PrefConstants.LATITUDE, 0.0).toString() + "," +
-                    Prefs.getDouble(PrefConstants.LONGITUDE, 0.0)
+            item.dutyOnLocation =
+                Prefs.getDouble(PrefConstants.LATITUDE, 0.0).toString() + "," +
+                        Prefs.getDouble(PrefConstants.LONGITUDE, 0.0)
             addDisposable(dutyStatusDao.insertDutyOnRecord(item)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { _: Long?, _: Throwable? -> })
         } else {
             val dutyOffDateTime = LocalDateTime.now().toString()
-            val offLocation = Prefs.getDouble(PrefConstants.LATITUDE, 0.0).toString() + "," +
-                    Prefs.getDouble(PrefConstants.LONGITUDE, 0.0)
+            val offLocation =
+                Prefs.getDouble(PrefConstants.LATITUDE, 0.0).toString() + "," +
+                        Prefs.getDouble(PrefConstants.LONGITUDE, 0.0)
             addDisposable(dutyStatusDao.updateDutyOffToLastRecord(dutyOffDateTime,
                 offLocation, false)
                 .subscribeOn(Schedulers.io())
@@ -233,7 +243,9 @@ class GenericDashboardViewModel @Inject constructor(val app: Application) : Iops
 
     private fun onTableSynced(data: TableSyncData?, item: DutyStatusEntity) {
         if (data != null && data.serverId != 0) {
-            addDisposable(dutyStatusDao.updateOnSyncToServer(item.localId, data.serverId, true)
+            addDisposable(dutyStatusDao.updateOnSyncToServer(item.localId,
+                data.serverId,
+                true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ rowId: Int? ->

@@ -409,13 +409,17 @@ public class DashBoardActivity extends IopsBaseActivity {
         startActivity(new Intent(this, RotaComplianceGraphActivity.class));
     }*/
 
-    private void openOtherTaskScreen() {
-        startActivityForResult(new Intent(this, OtherTaskActivity.class), REQUEST_CODE_OPEN_OTHERS);
-    }
-
     private void openPreDashBoardScreen() {
         binding.dlDashBoard.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         loadFragment(R.id.flDashBoard, EffortsFragment.newInstance(), FRAGMENT_REPLACE, false);
+    }
+
+    /*private void openOtherTaskScreen() {
+        startActivityForResult(new Intent(this, OtherTaskActivity.class), REQUEST_CODE_OPEN_OTHERS);
+    }*/
+
+    private void openOtherTaskScreen() {
+        startActivityForResult(new Intent(this, OtherTaskActivity.class), REQUEST_CODE_OPEN_OTHERS);
     }
 
     private void openAddNewTaskScreen() {

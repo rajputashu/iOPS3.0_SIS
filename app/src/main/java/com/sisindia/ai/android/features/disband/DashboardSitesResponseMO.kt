@@ -31,7 +31,8 @@ data class DashboardDisbandmentSitesData(
     val disbandmentReason: String? = null,
     @SerializedName("disbandmentRemarks")
     val disbandmentRemarks: String? = null,
+    @SerializedName("approvedDateTime")
+    val approvedDateTime: String? = null,
     @SerializedName("requestedDateTime")
     val requestedDateTime: String? = null,
-    @SerializedName("approvedDateTime")
-    val approvedDateTime: String? = null)
+)

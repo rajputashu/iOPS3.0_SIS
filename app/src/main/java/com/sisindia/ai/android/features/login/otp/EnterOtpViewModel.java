@@ -19,6 +19,7 @@ import androidx.work.Data;
 
 import com.droidcommons.preference.Prefs;
 import com.droidcommons.views.otpview.OnOtpCompletionListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.sisindia.ai.android.BuildConfig;
 import com.sisindia.ai.android.base.BaseNetworkResponse;
@@ -40,6 +41,9 @@ import com.sisindia.ai.android.workers.SyncPoaWorker;
 import com.sisindia.ai.android.workers.UserMasterDataWorkerV2;
 import com.sisindia.ai.android.workers.WeekRotaTaskWorker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -53,8 +57,6 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
     public ObservableBoolean isDataSyncing = new ObservableBoolean(false);
 
     public OnOtpCompletionListener otpCompletionListener = otp -> {
-//        Toast.makeText(getApplication(), "Submitting OTP.....", Toast.LENGTH_SHORT).show();
-//        onValidateBtnClick(null);
     };
 
     @Inject
@@ -85,7 +87,7 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
                     .subscribe(this::onOtpSubmitSuccess, this::onApiError));
 
         } else {
-            Toast.makeText(getApplication(), "Invalid Otp", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), "Invalid Otp Entered", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -134,8 +136,22 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
                                         .subscribeOn(Schedulers.newThread())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(row -> Timber.i("Ai Profile inserted"), Timber::e));
+
+                                try {
+                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put(PrefConstants.FCM_TOKEN, fcmToken);
+                                    db.collection(PrefConstants.IOPS_USER)
+                                            .document(response.getAiProfileData().employeeNo)
+                                            .set(data)
+                                            .addOnSuccessListener(unused -> {
+                                            })
+                                            .addOnFailureListener(e -> {
+                                            });
+                                } catch (Exception e) {
+                                }
                             } else {
-                                showToast("Unable to get Profile");
+                                showToast("iOPS Unable to get Profile");
                             }
                         }, this::onApiError));
             });
@@ -154,12 +170,8 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
             Data complaintData = new Data.Builder().putInt(ComplaintWorker.class.getSimpleName(),
                     ComplaintWorker.ComplaintWorkerType.SYNC_FROM_SERVER.getWorkerType()).build();
             oneTimeWorkerWithInputData(ComplaintWorker.class, complaintData);
-
             oneTimeWorkerWithNetwork(WeekRotaTaskWorker.class);
-
-            /*SYNCING EMPLOYEES AND FINE-REWARD DATA*/
             oneTimeWorkerWithNetwork(EmployeesRewardFineWorker.class);
-            //Syncing State and District Data
             oneTimeWorkerWithNetwork(StateDistrictWorker.class);
 
             handler.postDelayed(this::syncAtRiskAndIpPoaFromServer, delayTime);
@@ -210,27 +222,7 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
     private CountDownTimer cTimer = null;
     public ObservableInt percentageTime = new ObservableInt(0);
 
-    /*private void calculateLoadingPercentage(long loaderTime) {
-        long finalTime = loaderTime + 4000;
-        cTimer = new CountDownTimer(finalTime, 2000) {
-            public void onTick(long tickTime) {
-                int percentage = (int) ((tickTime * 100) / finalTime);
-                int updatedPercentage = 100 - percentage;
-                percentageTime.set(updatedPercentage);
-                message.what = ON_UPDATING_LOADING_TIME;
-                message.arg1 = updatedPercentage;
-                liveData.postValue(message);
-            }
-
-            public void onFinish() {
-            }
-        };
-        cTimer.start();
-    }*/
-
     private void calculateLoadingPercentage(long finalTime) {
-//        long finalTime = 60000;
-
         cTimer = new CountDownTimer(finalTime, 2000) {
             public void onTick(long tickTime) {
                 int percentage = (int) ((tickTime * 100) / finalTime);
@@ -251,7 +243,6 @@ public class EnterOtpViewModel extends IopsBaseViewModel {
         };
         cTimer.start();
     }
-
 
     public void cancelTimer() {
         if (cTimer != null)

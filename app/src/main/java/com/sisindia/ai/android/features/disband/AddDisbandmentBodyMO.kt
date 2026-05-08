@@ -13,14 +13,15 @@ data class AddDisbandmentBodyMO(
     @SerializedName("disbandmentReason")
     var disbandmentReason: String? = null,
 
-    @SerializedName("disbandmentRemarks")
-    var disbandmentRemarks: String? = null,
-
     @SerializedName("attachmentUrl")
     var attachmentUrl: String = "",
 
     @SerializedName("disbandmentDate")
     var disbandmentDate: String? = null,
 
+    @SerializedName("disbandmentRemarks")
+    var disbandmentRemarks: String? = null,
+
     @SerializedName("status")
-    var status: Int = 0)
+    var status: Int = 0,
+)

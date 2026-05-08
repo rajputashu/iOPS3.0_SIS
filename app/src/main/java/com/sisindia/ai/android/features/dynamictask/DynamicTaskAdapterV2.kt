@@ -76,7 +76,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
         this.taskListener = taskListener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup,
+                                    viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
 
@@ -93,67 +94,100 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
 
             EDIT_TEXT_VIEW -> {
                 val view: RowDynamicEditTextBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_edit_text, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_edit_text,
+                        parent,
+                        false)
                 EditTextVH(view)
             }
 
             CHECKBOX_VIEW -> {
                 val view: RowDynamicCheckboxBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_checkbox, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_checkbox,
+                        parent,
+                        false)
                 CheckBoxVH(view)
             }
 
             PICTURE_VIEW -> {
                 val view: RowDynamicPictureBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_picture, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_picture,
+                        parent,
+                        false)
                 UploadPictureVH(view)
             }
 
             AUDIO_VIEW -> {
                 val view: RowDynamicAudioBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_audio, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_audio,
+                        parent,
+                        false)
                 AddAudioClipVH(view)
             }
 
             SCAN_VIEW -> {
                 val view: RowDynamicScanBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_scan, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_scan,
+                        parent,
+                        false)
                 ScanQRVH(view)
             }
 
             SEPARATOR_VIEW -> {
                 val view: RowDynamicSeparatorBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_separator, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_separator,
+                        parent,
+                        false)
                 SeparatorVH(view)
             }
 
             SPINNER_VIEW -> {
                 val view: RowDynamicSpinnerBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_spinner, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_spinner,
+                        parent,
+                        false)
                 SpinnerVH(view)
             }
 
             STATIC_SPINNER_VIEW -> {
                 val view: RowDynamicSpinnerBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_spinner, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_spinner,
+                        parent,
+                        false)
                 StaticSpinnerVH(view)
             }
 
             RATING_VIEW -> {
                 val view: RowDynamicRatingBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_rating, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_rating,
+                        parent,
+                        false)
                 RatingVH(view)
             }
 
             DATE_TIME_VIEW -> {
                 val view: RowDateTimePickerBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_date_time_picker, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_date_time_picker,
+                        parent,
+                        false)
                 DateTimeVH(view)
             }
 
             RADIO_BUTTON -> {
                 val view: RowDynamicRadioBinding =
-                    DataBindingUtil.inflate(layoutInflater, R.layout.row_dynamic_radio, parent, false)
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_radio,
+                        parent,
+                        false)
                 RadioGroupVH(view)
             }
 
@@ -247,8 +281,12 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                taskListener.onSpinnerSelected(layoutPosition, parent?.getItemAtPosition(pos).toString())
+            override fun onItemSelected(parent: AdapterView<*>?,
+                                        v: View?,
+                                        pos: Int,
+                                        id: Long) {
+                taskListener.onSpinnerSelected(layoutPosition,
+                    parent?.getItemAtPosition(pos).toString())
             }
         }
     }
@@ -271,21 +309,49 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?,
+                                        v: View?,
+                                        pos: Int,
+                                        id: Long) {
                 if (pos > 0) {
                     taskListener.onSpinnerSelected(layoutPosition,
                         parent?.getItemAtPosition(pos).toString())
-                    (items[layoutPosition] as DynamicStaticSpinnerMO).selectedSpinnerPosition = pos
+                    (items[layoutPosition] as DynamicStaticSpinnerMO).selectedSpinnerPosition =
+                        pos
                 }
             }
         }
     }
 
-    inner class CheckBoxVH(private val cbView: RowDynamicCheckboxBinding) : BaseViewHolder<Any>(cbView) {
+    /*inner class CheckBoxVH(private val cbView: RowDynamicCheckboxBinding) : BaseViewHolder<Any>(cbView) {
         override fun onBind(item: Any?) {
             cbView.model = item as DynamicCheckBoxMO
             cbView.dynamicCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
                 taskListener.onCheckBoxClicked(layoutPosition, isChecked)
+            }
+        }
+    }*/
+
+    inner class CheckBoxVH(private val cbView: RowDynamicCheckboxBinding) :
+        BaseViewHolder<Any>(cbView) {
+        override fun onBind(item: Any?) {
+
+            val model = item as DynamicCheckBoxMO
+            cbView.model = model
+
+            // 1. Remove old listener
+            cbView.dynamicCheckBox.setOnCheckedChangeListener(null)
+
+            // 2. Set correct state from model
+            cbView.dynamicCheckBox.isChecked = model.cbIsChecked
+
+            // 3. Set listener again
+            cbView.dynamicCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                val pos = bindingAdapterPosition
+                if (pos != RecyclerView.NO_POSITION) {
+                    model.cbIsChecked = isChecked
+                    taskListener.onCheckBoxClicked(pos, isChecked)
+                }
             }
         }
     }
@@ -324,7 +390,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
             ratingView.model = item as DynamicRatingMO
             ratingView.ratingStars.onRatingBarChangeListener =
                 RatingBar.OnRatingBarChangeListener { _, rating, _ ->
-                    if (rating > 0.4) (items[layoutPosition] as DynamicRatingMO).rating = rating.toInt()
+                    if (rating > 0.4) (items[layoutPosition] as DynamicRatingMO).rating =
+                        rating.toInt()
                 }
         }
     }
@@ -339,7 +406,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
         }
     }
 
-    inner class RadioGroupVH(private val rgView: RowDynamicRadioBinding) : BaseViewHolder<Any>(rgView) {
+    inner class RadioGroupVH(private val rgView: RowDynamicRadioBinding) :
+        BaseViewHolder<Any>(rgView) {
         override fun onBind(item: Any?) {
             val radioMO = item as DynamicRadioGroupMO
 
@@ -352,7 +420,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
                     radioButton.text = it
                     radioButton.id = View.generateViewId()
 
-                    val padding = rgView.root.resources.getDimensionPixelSize(R.dimen._10ssp)
+                    val padding =
+                        rgView.root.resources.getDimensionPixelSize(R.dimen._10ssp)
 //                    radioButton.setPadding(padding, padding, padding, padding)
                     radioButton.setPadding(10, 28, 10, 28)
 
@@ -375,7 +444,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
                 val selectedText = selectedRadioButton.text.toString()
                 Timber.e("Selected RadioButton with ID: $checkedId and $selectedText")
                 taskListener.onRadioButtonSelected(layoutPosition, selectedText)
-                (items[layoutPosition] as DynamicRadioGroupMO).selectedRadioValue = selectedText
+                (items[layoutPosition] as DynamicRadioGroupMO).selectedRadioValue =
+                    selectedText
             }
         }
     }
@@ -412,7 +482,8 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
                 val clickedItem = items[layoutPosition] as DynamicRadioWithChildMO
                 clickedItem.isRadioSelected = true
 
-                taskListener.onRadioButtonSelected(layoutPosition, radioChildMO.radioButtonLabel)
+                taskListener.onRadioButtonSelected(layoutPosition,
+                    radioChildMO.radioButtonLabel)
                 clickedItem.selectedRadioValue = radioChildMO.radioButtonLabel
 
                 if (clickedItem.dependantController?.isNotEmpty()!!) {
@@ -433,11 +504,15 @@ class DynamicTaskAdapterV2 : BaseRecyclerAdapter<Any>() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?,
+                                        v: View?,
+                                        pos: Int,
+                                        id: Long) {
                 if (pos > 0) {
                     taskListener.onSpinnerSelected(layoutPosition,
                         parent?.getItemAtPosition(pos).toString())
-                    (items[layoutPosition] as DynamicRadioWithChildMO).selectedSpinnerPosition = pos
+                    (items[layoutPosition] as DynamicRadioWithChildMO).selectedSpinnerPosition =
+                        pos
                 }
             }
         }

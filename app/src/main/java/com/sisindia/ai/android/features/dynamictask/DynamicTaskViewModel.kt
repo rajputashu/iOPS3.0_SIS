@@ -54,7 +54,8 @@ import javax.inject.Inject
 /**
  * Created by Ashu_Rajput on 6/2/2021.
  */
-class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewModel(app) {
+class DynamicTaskViewModel @Inject constructor(app: Application) :
+    IopsBaseViewModel(app) {
 
     @Inject
     lateinit var dynamicTaskDao: DynamicTaskDao
@@ -102,7 +103,8 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
         }
 
         override fun onCheckBoxClicked(position: Int, checkedValue: Boolean) {
-            (dynamicTaskAdapter.getItem(position) as DynamicCheckBoxMO).cbIsChecked = checkedValue
+            (dynamicTaskAdapter.getItem(position) as DynamicCheckBoxMO).cbIsChecked =
+                checkedValue
         }
 
         override fun onSpinnerSelected(position: Int, selectedValue: String) {
@@ -139,7 +141,8 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
 
     fun updateScannedQR(qrCode: String) {
         if (qrCode.isNotEmpty() && selectedQRCodePos != -1) {
-            (dynamicTaskAdapter.items[selectedQRCodePos] as DynamicScanQrMO).scannedQrCode = qrCode
+            (dynamicTaskAdapter.items[selectedQRCodePos] as DynamicScanQrMO).scannedQrCode =
+                qrCode
             showToast("QR Scanned successfully")
         }
     }
@@ -171,7 +174,8 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
                 dynamicTaskForm?.apply {
                     obsDynamicTaskName.set(this.taskName)
                     if (!this.form.isNullOrEmpty()) {
-                        val listIntroType = object : TypeToken<List<DynamicTaskParserV2>>() {}.type
+                        val listIntroType =
+                            object : TypeToken<List<DynamicTaskParserV2>>() {}.type
                         val taskParser: List<DynamicTaskParserV2> =
                             Gson().fromJson(this.form, listIntroType)
                         createDynamicTaskViewsV2(taskParser)
@@ -408,26 +412,39 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
             for (viewsMO: Any in dynamicTaskAdapter.items) {
                 when (viewsMO) {
                     is DynamicEditTextMO -> questionList.add(QuestionsMO(
-                        controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
-                        question = viewsMO.label, response = viewsMO.enteredValue))
+                        controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = viewsMO.label,
+                        response = viewsMO.enteredValue))
                     is DynamicPictureMO -> questionList.add(QuestionsMO(
-                        controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
-                        question = "TakeImage", response = imageAttachment.get()?.attachmentGuid))
+                        controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = "TakeImage",
+                        response = imageAttachment.get()?.attachmentGuid))
                     is DynamicSpinnerMO -> questionList.add(QuestionsMO(
-                        controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
-                        question = viewsMO.label, response = viewsMO.selectedSpinnerValue))
+                        controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = viewsMO.label,
+                        response = viewsMO.selectedSpinnerValue))
                     is DynamicStaticSpinnerMO -> questionList.add(QuestionsMO(
-                        controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
-                        question = viewsMO.label, response = viewsMO.selectedSpinnerValue))
+                        controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = viewsMO.label,
+                        response = viewsMO.selectedSpinnerValue))
                     is DynamicAudioMO -> questionList.add(QuestionsMO(
-                        controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
-                        question = viewsMO.label, response = audioAttachment.attachmentGuid))
+                        controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = viewsMO.label,
+                        response = audioAttachment.attachmentGuid))
                     is DynamicScanQrMO -> questionList.add(QuestionsMO(
-                        controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
-                        question = viewsMO.label, response = viewsMO.scannedQrCode))
+                        controlId = viewsMO.controllerId,
+                        controlName = viewsMO.controllerName,
+                        question = viewsMO.label,
+                        response = viewsMO.scannedQrCode))
                     is DynamicCheckBoxMO -> {
                         questionList.add(QuestionsMO(question = viewsMO.cbLabel,
-                            controlId = viewsMO.controllerId, controlName = viewsMO.controllerName,
+                            controlId = viewsMO.controllerId,
+                            controlName = viewsMO.controllerName,
                             response = if (viewsMO.cbIsChecked) "1" else "0"))
                     }
                 }
@@ -555,14 +572,17 @@ class DynamicTaskViewModel @Inject constructor(app: Application) : IopsBaseViewM
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ model: TimeElapsedMO ->
-                tik = TaskTimer(model.timeElapsed - findTimeDifference(model.lastElapsedTime))
+                tik =
+                    TaskTimer(model.timeElapsed - findTimeDifference(model.lastElapsedTime))
                 tik.start()
             }, { t: Throwable? -> Timber.e(t) }))
     }
 
     fun stopTimer() {
         val taskId: Int = Prefs.getInt(PrefConstants.CURRENT_TASK)
-        addDisposable(taskDao.updateTimeSpentByTaskId(taskId, tik.lastTik, currentMilliOfTheDay)
+        addDisposable(taskDao.updateTimeSpentByTaskId(taskId,
+            tik.lastTik,
+            currentMilliOfTheDay)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tik.cancel() }, { t: Throwable? -> Timber.e(t) }))
