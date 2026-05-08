@@ -4,14 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Message
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseActivity
 import com.sisindia.ai.android.commons.audiorecord.AudioRecordingBottomSheetFragment
 import com.sisindia.ai.android.constants.IntentConstants
 import com.sisindia.ai.android.constants.IntentRequestCodes
-import com.sisindia.ai.android.constants.NavigationConstants.*
+import com.sisindia.ai.android.constants.NavigationConstants.ON_ADD_AUDIO_CLIP_CLICK
+import com.sisindia.ai.android.constants.NavigationConstants.ON_AUDIO_RECORDED_FOR_GRIEVANCE
+import com.sisindia.ai.android.constants.NavigationConstants.ON_DYNAMIC_TASK_COMPLETE
+import com.sisindia.ai.android.constants.NavigationConstants.ON_TAKE_PICTURE
+import com.sisindia.ai.android.constants.NavigationConstants.OPEN_LIVE_QR_SCANNER_SCREEN
+import com.sisindia.ai.android.constants.NavigationConstants.TASK_TIMER_TIK
 import com.sisindia.ai.android.databinding.ActivityDynamicTaskBinding
 import com.sisindia.ai.android.features.imagecapture.CaptureImageActivityV2
 import com.sisindia.ai.android.mlcore.ScanQRActivity
@@ -47,7 +51,8 @@ class DynamicTaskActivity : IopsBaseActivity() {
     }
 
     override fun extractBundle() {
-        viewModel?.obsTaskTypeId?.set(intent.extras?.getInt(IntentConstants.DYNAMIC_FORM_ID, 1)!!)
+        viewModel?.obsTaskTypeId?.set(intent.extras?.getInt(IntentConstants.DYNAMIC_FORM_ID,
+            1)!!)
     }
 
     override fun initViewState() {
@@ -86,11 +91,13 @@ class DynamicTaskActivity : IopsBaseActivity() {
     }
 
     override fun initViewModel() {
-        viewModel = getAndroidViewModel(DynamicTaskViewModel::class.java) as DynamicTaskViewModel
+        viewModel =
+            getAndroidViewModel(DynamicTaskViewModel::class.java) as DynamicTaskViewModel
     }
 
     private fun bindReviewInformationTime(seconds: Int) {
-        binding.includeTimeSpent.tvTimeSpent.text = TimeUtils.convertIntSecondsToHHMMSS(seconds)
+        binding.includeTimeSpent.tvTimeSpent.text =
+            TimeUtils.convertIntSecondsToHHMMSS(seconds)
     }
 
     private fun openAddAudioClipBottomSheet() {

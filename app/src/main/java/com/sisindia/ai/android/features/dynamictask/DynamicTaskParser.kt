@@ -7,13 +7,16 @@ import com.google.gson.annotations.SerializedName
  */
 data class DynamicTaskParser(
     @SerializedName("Controls")
-    var controllerList: List<MainControlMO>? = null)
+    var controllerList: List<MainControlMO>? = null,
+)
 
 data class MainControlMO(
     @SerializedName("contentType")
     var contentType: String? = null,
+
     @SerializedName("ControlID")
     var ControlID: String? = null,
+
     @SerializedName("data")
     var data: ControllerData? = null)
 
@@ -41,4 +44,5 @@ data class ControllerData(
     @SerializedName("datavalue")
     var dataValue: ArrayList<String>? = null,
     @SerializedName("GPS")
-    var gps: Boolean? = null)
+    var gps: Boolean? = null,
+)

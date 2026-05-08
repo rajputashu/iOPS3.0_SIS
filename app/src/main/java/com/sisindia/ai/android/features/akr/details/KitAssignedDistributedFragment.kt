@@ -51,5 +51,21 @@ class KitAssignedDistributedFragment : IopsBaseFragment() {
 
     override fun onCreated() {
         viewModel.initAndUpdateKitAssignedUI()
+
+        viewModel.pendingFilteredList.observe(viewLifecycleOwner) { list ->
+//            viewModel.assignedAdapter.clearAndSetItems(list)
+            viewModel.assignedAdapter.submitList(list)
+            if (list.isEmpty()) {
+                viewModel.isAssignedDataAvailable.set(View.VISIBLE)
+                viewModel.isAssignedDataAvailableForRV.set(View.GONE)
+            } else {
+                viewModel.isAssignedDataAvailable.set(View.GONE)
+                viewModel.isAssignedDataAvailableForRV.set(View.VISIBLE)
+            }
+        }
+
+        viewModel.searchedKey.observe(viewLifecycleOwner) { query ->
+            viewModel.filterPendingList(query)
+        }
     }
 }

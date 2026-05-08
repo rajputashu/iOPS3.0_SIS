@@ -27,6 +27,7 @@ import com.droidcommons.base.timer.SingleLiveTimerEvent;
 import com.droidcommons.preference.Prefs;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -46,6 +47,8 @@ import com.sisindia.ai.android.workers.WorkerUtils;
 import org.threeten.bp.LocalTime;
 
 import java.net.ConnectException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -106,6 +109,20 @@ public class IopsBaseViewModel extends BaseViewModel {
             addDisposable(coreApi.updateDeviceInfo((deviceInfo))
                     .compose(transformSingle())
                     .subscribe(this::onDeviceInfoResponse, this::onApiError));
+            try {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                Map<String, Object> data = new HashMap<>();
+                data.put(PrefConstants.FCM_TOKEN, fcmToken);
+                db.collection(PrefConstants.IOPS_USER)
+                        .document(Prefs.getString(PrefConstants.AREA_INSPECTOR_CODE, "NA"))
+                        .set(data)
+                        .addOnSuccessListener(unused -> {
+                        })
+                        .addOnFailureListener(e -> {
+                        });
+            } catch (Exception e) {
+            }
+
         });
         FirebaseCrashlytics.getInstance().setUserId(Prefs.getString(PrefConstants.USER_MOBILE_NUMBER));
     }

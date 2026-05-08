@@ -9,6 +9,7 @@ public interface PrefConstants {
     String REFRESH_TOKEN_KEY = "refresh_token_tag";
     String PRE_AUTH_TOKEN_KEY = "pre_auth_token_tag";
     String FCM_TOKEN = "fcm_token_tag";
+    String IOPS_USER = "iops_user";
     //    String PRE_DASH_BOARD_LAST_LAUNCH_DATE = "pre_dash_board_last_launch_date_tag";
     String USER_MOBILE_NUMBER = "user_mobile_number_tag";
     String Bearer = "Bearer ";

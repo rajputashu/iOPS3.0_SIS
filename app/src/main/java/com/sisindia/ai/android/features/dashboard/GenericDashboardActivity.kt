@@ -138,7 +138,8 @@ class GenericDashboardActivity : IopsBaseActivity() {
                 }
                 OPEN_NUDGES_DASHBOARD -> replaceFragment(NudgesDashboardFragment.newInstance())
                 OPEN_ADD_ROTA -> {
-                    startActivityForResult(AddTaskActivity.newIntent(this), REQUEST_CODE_ADD_TASK)
+                    startActivityForResult(AddTaskActivity.newIntent(this),
+                        REQUEST_CODE_ADD_TASK)
                 }
                 OPEN_DASH_BOARD_ROTA -> openRotaScreen()
                 OPEN_PRE_DASH_BOARD -> replaceFragment(EffortsFragment.newInstance())
@@ -160,18 +161,21 @@ class GenericDashboardActivity : IopsBaseActivity() {
                     ClientCoordinationActivity::class.java))*/
 
                 OPEN_BILL_SUBMISSION_TASK -> startActivityForResult(Intent(this,
-                    BillSubmissionActivity::class.java), REQUEST_CODE_OPEN_BILL_SUBMISSION)
+                    BillSubmissionActivity::class.java),
+                    REQUEST_CODE_OPEN_BILL_SUBMISSION)
 
                 OPEN_BILL_COLLECTION_TASK -> startActivity(Intent(this,
                     BillCollectionDetailsOnSites::class.java))
 
-                OPEN_OTHER_TASK -> startActivityForResult(Intent(this, OtherTaskActivity::class.java),
+                OPEN_OTHER_TASK -> startActivityForResult(Intent(this,
+                    OtherTaskActivity::class.java),
                     REQUEST_CODE_OPEN_OTHERS)
 
                 OPEN_ROTA_BILL_SUBMISSION_TASK -> startActivity(Intent(this,
                     BillSubmissionCardsActivity::class.java))
 
-                OPEN_ROTA_MONINPUT_TASK -> startActivity(Intent(this, MonInputCardsActivity::class.java))
+                OPEN_ROTA_MONINPUT_TASK -> startActivity(Intent(this,
+                    MonInputCardsActivity::class.java))
 
                 OPEN_CAMERA_FOR_SELFIE -> {
                     startActivityForResult(Intent(this, DutyOnOffSelfie::class.java),
@@ -201,7 +205,8 @@ class GenericDashboardActivity : IopsBaseActivity() {
         if (binding.dlDashBoard.isDrawerOpen(GravityCompat.START)) binding.dlDashBoard.closeDrawer(
             GravityCompat.START)
         else {
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.flDashBoard)
+            val currentFragment =
+                supportFragmentManager.findFragmentById(R.id.flDashBoard)
             if (currentFragment is RotaFragment) showAppCloseSnackBar()
             else openRotaScreen()
         }
@@ -227,7 +232,8 @@ class GenericDashboardActivity : IopsBaseActivity() {
                     fragment.dismissAllowingStateLoss()
                 }
             })
-            fragment.show(supportFragmentManager, YesNoDialogFragment::class.java.simpleName)
+            fragment.show(supportFragmentManager,
+                YesNoDialogFragment::class.java.simpleName)
         }
     }
 
@@ -239,7 +245,8 @@ class GenericDashboardActivity : IopsBaseActivity() {
             REQUEST_CODE_OPEN_OTHERS -> openRotaScreen()
             REQUEST_CODE_DUTY_ON_SELFIE -> {
                 binding.dlDashBoard.closeDrawer(GravityCompat.START)
-                if (resultCode == Activity.RESULT_OK) viewModel.triggerDutyOnOffFunctions(true)
+                if (resultCode == Activity.RESULT_OK) viewModel.triggerDutyOnOffFunctions(
+                    true)
                 else drawerHeaderBinding.scDuty.isChecked = false
             }
         }
@@ -261,7 +268,8 @@ class GenericDashboardActivity : IopsBaseActivity() {
         val fragment = newSingleButtonInstance(errorMsg)
         fragment.isCancelable = false
 //        fragment.initDialogListener()
-        fragment.show(this.supportFragmentManager, YesNoDialogFragment::class.java.simpleName)
+        fragment.show(this.supportFragmentManager,
+            YesNoDialogFragment::class.java.simpleName)
     }
 
     private fun showAppCloseSnackBar() {
@@ -270,8 +278,10 @@ class GenericDashboardActivity : IopsBaseActivity() {
             return
         }
         doubleBackToExitPressedOnce = true
-        val snackBar = Snackbar.make(binding.root, "Press again to exit", Snackbar.LENGTH_LONG)
-        snackBar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorLightRed))
+        val snackBar =
+            Snackbar.make(binding.root, "Press again to exit", Snackbar.LENGTH_LONG)
+        snackBar.view.setBackgroundColor(ContextCompat.getColor(this,
+            R.color.colorLightRed))
         snackBar.show()
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }

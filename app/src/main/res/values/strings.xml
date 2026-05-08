@@ -888,4 +888,5 @@
     <string name="string_status_closed">Closed</string>
     <string name="string_level">Level</string>
     <string name="string_vulnerability">Vulnerability</string>
+    <string name="string_search_kit_by">Search by name or emp no.</string>
 </resources>

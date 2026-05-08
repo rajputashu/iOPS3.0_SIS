@@ -11,8 +11,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.droidcommons.base.recycler.BaseRecyclerAdapter
 import com.droidcommons.base.recycler.BaseViewHolder
 import com.sisindia.ai.android.R
-import com.sisindia.ai.android.databinding.*
-import com.sisindia.ai.android.features.dynamictask.models.*
+import com.sisindia.ai.android.databinding.RowDynamicAudioBinding
+import com.sisindia.ai.android.databinding.RowDynamicCheckboxBinding
+import com.sisindia.ai.android.databinding.RowDynamicEditTextBinding
+import com.sisindia.ai.android.databinding.RowDynamicLabelBinding
+import com.sisindia.ai.android.databinding.RowDynamicPictureBinding
+import com.sisindia.ai.android.databinding.RowDynamicScanBinding
+import com.sisindia.ai.android.databinding.RowDynamicSeparatorBinding
+import com.sisindia.ai.android.databinding.RowDynamicSpinnerBinding
+import com.sisindia.ai.android.features.dynamictask.models.DynamicAudioMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicCheckBoxMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicEditTextMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicLabel
+import com.sisindia.ai.android.features.dynamictask.models.DynamicPictureMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicScanQrMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicSeparatorMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicSpinnerMO
+import com.sisindia.ai.android.features.dynamictask.models.DynamicStaticSpinnerMO
 
 /**
  * Created by Ashu_Rajput on 6/5/2021.
@@ -40,7 +55,8 @@ class DynamicTaskAdapter : BaseRecyclerAdapter<Any>() {
         this.taskListener = taskListener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup,
+                                    viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
 
@@ -51,18 +67,21 @@ class DynamicTaskAdapter : BaseRecyclerAdapter<Any>() {
                 LabelViewHolder(view)
             }
             EDIT_TEXT_VIEW -> {
-                val view: RowDynamicEditTextBinding = DataBindingUtil.inflate(layoutInflater,
-                    R.layout.row_dynamic_edit_text, parent, false)
+                val view: RowDynamicEditTextBinding =
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_edit_text, parent, false)
                 EditTextVH(view)
             }
             CHECKBOX_VIEW -> {
-                val view: RowDynamicCheckboxBinding = DataBindingUtil.inflate(layoutInflater,
-                    R.layout.row_dynamic_checkbox, parent, false)
+                val view: RowDynamicCheckboxBinding =
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_checkbox, parent, false)
                 CheckBoxVH(view)
             }
             PICTURE_VIEW -> {
-                val view: RowDynamicPictureBinding = DataBindingUtil.inflate(layoutInflater,
-                    R.layout.row_dynamic_picture, parent, false)
+                val view: RowDynamicPictureBinding =
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_picture, parent, false)
                 UploadPictureVH(view)
             }
             AUDIO_VIEW -> {
@@ -76,18 +95,21 @@ class DynamicTaskAdapter : BaseRecyclerAdapter<Any>() {
                 ScanQRVH(view)
             }
             SEPARATOR_VIEW -> {
-                val view: RowDynamicSeparatorBinding = DataBindingUtil.inflate(layoutInflater,
-                    R.layout.row_dynamic_separator, parent, false)
+                val view: RowDynamicSeparatorBinding =
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_separator, parent, false)
                 SeparatorVH(view)
             }
             SPINNER_VIEW -> {
-                val view: RowDynamicSpinnerBinding = DataBindingUtil.inflate(layoutInflater,
-                    R.layout.row_dynamic_spinner, parent, false)
+                val view: RowDynamicSpinnerBinding =
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_spinner, parent, false)
                 SpinnerVH(view)
             }
             STATIC_SPINNER_VIEW -> {
-                val view: RowDynamicSpinnerBinding = DataBindingUtil.inflate(layoutInflater,
-                    R.layout.row_dynamic_spinner, parent, false)
+                val view: RowDynamicSpinnerBinding =
+                    DataBindingUtil.inflate(layoutInflater,
+                        R.layout.row_dynamic_spinner, parent, false)
                 StaticSpinnerVH(view)
             }
             else -> throw IllegalArgumentException("Invalid view type")
@@ -160,7 +182,10 @@ class DynamicTaskAdapter : BaseRecyclerAdapter<Any>() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?,
+                                        v: View?,
+                                        pos: Int,
+                                        id: Long) {
                 taskListener.onSpinnerSelected(layoutPosition,
                     parent?.getItemAtPosition(pos).toString())
             }
@@ -184,11 +209,15 @@ class DynamicTaskAdapter : BaseRecyclerAdapter<Any>() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?,
+                                        v: View?,
+                                        pos: Int,
+                                        id: Long) {
                 if (pos > 0) {
                     taskListener.onSpinnerSelected(layoutPosition,
                         parent?.getItemAtPosition(pos).toString())
-                    (items[layoutPosition] as DynamicStaticSpinnerMO).selectedSpinnerPosition = pos
+                    (items[layoutPosition] as DynamicStaticSpinnerMO).selectedSpinnerPosition =
+                        pos
                 }
             }
         }

@@ -122,10 +122,25 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/BlackSubTitleTextColor14"
+            android:id="@+id/kitFilterET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_6sdp"
+            android:hint="@string/string_search_kit_by"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:layout_below="@id/kitCardViewLayout"
+            android:background="@drawable/border_round_greystroke_whitebody"
+            android:text="@={vm.searchedKey}" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/kitCardViewLayout"
+            android:layout_below="@id/kitFilterET"
             android:fillViewport="true">
 
             <LinearLayout

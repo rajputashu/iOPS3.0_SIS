@@ -9,7 +9,11 @@ import com.sisindia.ai.android.R
 import com.sisindia.ai.android.base.IopsBaseFragment
 import com.sisindia.ai.android.constants.NavigationConstants
 import com.sisindia.ai.android.databinding.FragmentDisbandmentBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 /**
@@ -29,7 +33,8 @@ class DisbandmentFragment : IopsBaseFragment() {
     }
 
     override fun initViewModel() {
-        viewModel = getAndroidViewModel(DisbandmentViewModel::class.java) as DisbandmentViewModel
+        viewModel =
+            getAndroidViewModel(DisbandmentViewModel::class.java) as DisbandmentViewModel
     }
 
     override fun extractBundle() {
@@ -68,9 +73,11 @@ class DisbandmentFragment : IopsBaseFragment() {
     }
 
     private fun openAddDisbandmentBottomSheet() {
-        if (requireActivity().supportFragmentManager.findFragmentByTag(AddDisbandmentBottomSheet::class.java.simpleName) == null) {
-            AddDisbandmentBottomSheet.newInstance().show(requireActivity().supportFragmentManager,
-                AddDisbandmentBottomSheet::class.java.simpleName)
+        if (requireActivity().supportFragmentManager.findFragmentByTag(
+                AddDisbandmentBottomSheet::class.java.simpleName) == null) {
+            AddDisbandmentBottomSheet.newInstance()
+                .show(requireActivity().supportFragmentManager,
+                    AddDisbandmentBottomSheet::class.java.simpleName)
         }
     }
 }

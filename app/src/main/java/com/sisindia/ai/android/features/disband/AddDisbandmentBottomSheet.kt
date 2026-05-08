@@ -71,7 +71,8 @@ class AddDisbandmentBottomSheet : IopsBaseBottomSheetDialogFragment() {
     }
 
     override fun initViewModel() {
-        viewModel = getAndroidViewModel(DisbandmentViewModel::class.java) as DisbandmentViewModel
+        viewModel =
+            getAndroidViewModel(DisbandmentViewModel::class.java) as DisbandmentViewModel
     }
 
     override fun applyStyle() {
@@ -87,8 +88,10 @@ class AddDisbandmentBottomSheet : IopsBaseBottomSheetDialogFragment() {
                 viewModel.obsDateForAPI.set(TimeUtils.DOB_DATE_FORMAT(selectedDate))
             }, date.year, date.monthValue - 1, date.dayOfMonth)
         datePickerDialog.show()
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.RED)
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)
+            .setTextColor(Color.BLACK)
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)
+            .setTextColor(Color.RED)
     }
 
     var resultLauncher =
@@ -97,7 +100,9 @@ class AddDisbandmentBottomSheet : IopsBaseBottomSheetDialogFragment() {
                 result.data?.apply {
                     viewModel.obsAttachment.set(Parcels.unwrap(this.extras!!.getParcelable(
                         AttachmentEntity::class.java.simpleName)))
-                    Toast.makeText(requireActivity(), "Captured successfully", Toast.LENGTH_LONG)
+                    Toast.makeText(requireActivity(),
+                        "Captured successfully",
+                        Toast.LENGTH_LONG)
                         .show()
                 }
             }
