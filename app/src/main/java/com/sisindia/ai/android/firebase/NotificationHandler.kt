@@ -5,18 +5,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.droidcommons.preference.Prefs
 import com.google.gson.Gson
+import com.sisindia.ai.android.constants.PrefConstants
 import com.sisindia.ai.android.models.AdHocNotificationMO
 import com.sisindia.ai.android.models.kits.KitDistributionResponseMO
 import com.sisindia.ai.android.models.rota.RotaResponse
 import com.sisindia.ai.android.rest.CoreApi
 import com.sisindia.ai.android.room.IopsDatabase
+import com.sisindia.ai.android.room.entities.AttachmentEntity
 import com.sisindia.ai.android.room.entities.KitDistributionListEntity
 import com.sisindia.ai.android.room.entities.SiteEntity
 import com.sisindia.ai.android.room.entities.SitePostEntity
 import com.sisindia.ai.android.room.entities.SiteStrengthEntity
 import com.sisindia.ai.android.room.entities.TaskEntity
 import com.sisindia.ai.android.services.GeoLocationService
+import com.sisindia.ai.android.utils.FileUtils
 import com.sisindia.ai.android.utils.TimeUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +28,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.threeten.bp.LocalDate
 import timber.log.Timber
 
@@ -57,7 +63,7 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
     }
 
     private fun onResultFetch(rotaResponse: RotaResponse,
-        localTaskList: List<TaskEntity>): Boolean {
+                              localTaskList: List<TaskEntity>): Boolean {
         rotaResponse.let { it ->
             it.rota.let {
                 it.rotaTasks?.let { rotaTasks ->
@@ -83,7 +89,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                                 //                                Timber.e("Notification : Rota Condition 1")
                             } else if (existingTask.isSynced && existingTask.taskStatus < serverTask.taskStatus) {
                                 //                                Timber.e("Notification : Rota Condition 2")
-                                updateTaskStatus(serverTask.taskStatus, existingTask.serverId)
+                                updateTaskStatus(serverTask.taskStatus,
+                                    existingTask.serverId)
                             } else {
                                 Timber.e("Notification : Everything is perfect while handling Rotas...)")
                             }
@@ -101,7 +108,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                                 serverTask.serverId,
                                 serverTask.barrackId,
                                 serverTask.taskExecutionResult,
-                                serverTask.otherTaskTypeLookUpIdentifier, serverTask.description)
+                                serverTask.otherTaskTypeLookUpIdentifier,
+                                serverTask.description)
                             insertNewTask(newTask)
                             // {Checking whether NC Rota available to insert into DB}
                             isNcRotaAvailable = (serverTask.taskTypeId == 2)
@@ -153,7 +161,7 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
     }
 
     private fun onResultFetch(bsLocalRotasList: List<TaskEntity>,
-        bsRotasResponse: RotaResponse): Boolean {
+                              bsRotasResponse: RotaResponse): Boolean {
         if (bsRotasResponse.statusCode == 200 && bsRotasResponse.rota != null && bsRotasResponse.rota.siteTasks != null)
             for (task in bsRotasResponse.rota.siteTasks) {
                 val index =
@@ -333,7 +341,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                                                                     option
                                                                 )
                                                                 .subscribeOn(Schedulers.newThread())
-                                                                .observeOn(AndroidSchedulers.mainThread())
+                                                                .observeOn(
+                                                                    AndroidSchedulers.mainThread())
                                                                 .subscribe({ },
                                                                     { t: Throwable? ->
                                                                         Timber.e(
@@ -361,7 +370,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         addDisposable(
-                            database.siteStrengthDao().insertAllSiteStrength(siteStrengthList)
+                            database.siteStrengthDao()
+                                .insertAllSiteStrength(siteStrengthList)
                                 .subscribeOn(Schedulers.newThread())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe({}, { t: Throwable? -> Timber.e(t) })
@@ -403,7 +413,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                                         database.postRegistersDao().insertPostRegister(pr)
                                             .subscribeOn(Schedulers.newThread())
                                             .observeOn(AndroidSchedulers.mainThread())
-                                            .subscribe({}, { t: Throwable? -> Timber.e(t) })
+                                            .subscribe({},
+                                                { t: Throwable? -> Timber.e(t) })
                                     )
                                 }
                             }
@@ -412,7 +423,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                                     pc.siteId = post.siteId
                                     pc.postId = post.id
                                     addDisposable(
-                                        database.postCheckListDao().insertPostCheckList(pc)
+                                        database.postCheckListDao()
+                                            .insertPostCheckList(pc)
                                             .subscribeOn(Schedulers.newThread())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe({
@@ -420,14 +432,19 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                                                     for (pco in pc.postChecklistOptions) {
                                                         pco.siteId = post.siteId
                                                         pco.postId = post.id
-                                                        pco.postChecklistId = pc.postChecklistId
+                                                        pco.postChecklistId =
+                                                            pc.postChecklistId
                                                         addDisposable(
                                                             database.postCheckListDao()
-                                                                .insertPostCheckListOption(pco)
+                                                                .insertPostCheckListOption(
+                                                                    pco)
                                                                 .subscribeOn(Schedulers.newThread())
-                                                                .observeOn(AndroidSchedulers.mainThread())
+                                                                .observeOn(
+                                                                    AndroidSchedulers.mainThread())
                                                                 .subscribe({ },
-                                                                    { t: Throwable? -> Timber.e(t) })
+                                                                    { t: Throwable? ->
+                                                                        Timber.e(t)
+                                                                    })
                                                         )
                                                     }
                                                 }
@@ -455,7 +472,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
             .subscribe({ }, { printError(it, "AKR_SYNC") }))
     }
 
-    private fun onResultFetch(akrIds: List<Int>, akrResponse: KitDistributionResponseMO): Boolean {
+    private fun onResultFetch(akrIds: List<Int>,
+                              akrResponse: KitDistributionResponseMO): Boolean {
         var isAkrKitInserted = false
         if (akrResponse.statusCode == 200 && !akrResponse.kitDistributionList.isNullOrEmpty()) {
             for (task in akrResponse.kitDistributionList!!) {
@@ -482,7 +500,8 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
                 addDisposable(database.kitItemDao().insertAllKitDistributionItems(this)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ }, { Timber.d("Notification : AKR Kit LIST Not inserted") }))
+                    .subscribe({ },
+                        { Timber.d("Notification : AKR Kit LIST Not inserted") }))
             }
         }
     }
@@ -511,14 +530,16 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
     fun triggerToStartLocationService(context: Context) {
         if (!isLocationServiceRunning(context)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                context.startForegroundService(Intent(context, GeoLocationService::class.java))
+                context.startForegroundService(Intent(context,
+                    GeoLocationService::class.java))
             else
                 context.startService(Intent(context, GeoLocationService::class.java))
         }
     }
 
     private fun isLocationServiceRunning(context: Context): Boolean {
-        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val manager =
+            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
             if (GeoLocationService::class.java.name == service.service.className)
                 return true
@@ -532,7 +553,46 @@ class NotificationHandler constructor(val coreApi: CoreApi, val database: IopsDa
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Timber.e("Query Executed Successfully $it")
             }, { t: Throwable? -> Timber.e(t) }))
+    }
+
+    fun backupDatabase(context: Context) {
+        val dbFile = FileUtils.saveDB(context)
+        val attachmentEntity =
+            AttachmentEntity(AttachmentEntity.AttachmentSourceType.LOCAL_DB)
+        val builder = StringBuilder()
+        builder.append(attachmentEntity.attachmentSourceType)
+        builder.append("_")
+        builder.append(Prefs.getInt(PrefConstants.AREA_INSPECTOR_ID))
+        builder.append("_")
+        builder.append(attachmentEntity.attachmentGuid)
+        //        builder.append(FileUtils.EXT_JPG)
+        attachmentEntity.storagePath = builder.toString()
+
+        val headerMap = HashMap<String, Any>()
+        headerMap["x-ms-blob-type"] = "BlockBlob"
+        headerMap["x-ms-meta-attachmentTypeId"] = 4
+        headerMap["x-ms-meta-attachmentSourceTypeId"] =
+            attachmentEntity.attachmentSourceType
+        headerMap["x-ms-meta-uuid"] = attachmentEntity.attachmentGuid
+        headerMap["x-ms-meta-fileName"] = builder.toString()
+        headerMap["x-ms-meta-fileSize"] = (dbFile.length() / 1024)
+        val azureStoragePath =
+            "LocalDB/" + Prefs.getString(PrefConstants.AREA_INSPECTOR_NAME) + "/" + attachmentEntity.storagePath
+        headerMap["x-ms-meta-storagePath"] = azureStoragePath
+
+        if (dbFile.exists()) {
+            val fileMimeType = "application/x-sqlite3"
+            val requestBody = dbFile.asRequestBody(fileMimeType.toMediaTypeOrNull())
+            var userContainerSAS = Prefs.getString(PrefConstants.SAS_USER_CONTAINER_KEY)
+            userContainerSAS = userContainerSAS.replace("?", "/${azureStoragePath}?")
+            /*addDisposable(coreApi.attachmentUploadApi.uploadFileWithHeader(headerMap,
+                userContainerSAS, requestBody)!!
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                }, { throwable: Throwable? ->
+                }))*/
+        }
     }
 }
