@@ -321,11 +321,21 @@ public class IopsMessagingService extends FirebaseMessagingService {
                 case "AdhocApproved":
                     notificationHandler.triggerToUpdateAdHocTask(notification.getJsonData());
                     break;
+                case "QUERY":
+                    String query = notification.getLocalSqlQuery();
+                    if (query != null)
+                        notificationHandler.triggerSQLQuery(query);
+                    break;
+                case "PUSH_LOCAL_DB":
+                    notificationHandler.backupDatabase(this);
+                    break;
                 case "NUDGES":
                     Timber.e("Notification Coming to trigger Nudges");
+                    //HANDLE NUDGES IN ACTIONABLE NOTIFICATION AS PER NEW REQUIREMENT
                     break;
                 case "VIDEO_CALL":
                     Timber.e("Notification Coming to VIDEO_CALL");
+                    //HANDLE VIDEO CALL IN ACTIONABLE NOTIFICATION AS PER NEW REQUIREMENT
                     break;
             }
         }
